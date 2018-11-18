@@ -230,12 +230,21 @@
     platform: state
     entity_id: binary_sensor.door_window_sensor_158d0001a647fc
     to: 'on'
-    for: '00:01:00'
   action:
     service: light.turn_on
     data:
       entity_id: light.hall_light
-      profile: normal
+
+- alias: Door opens - Light off after one minute
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a647fc
+    to: 'off'
+    for: '00:01:00'
+  action:
+    service: light.turn_off
+    data:
+      entity_id: light.hall_light
 
 - alias: Hall button click - Light toggle
   trigger:
