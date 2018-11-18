@@ -85,8 +85,8 @@ sun_stuff:
   name: Sun
   entities:
     - sun.sun
-    - sun.next_rising
-    - sun.next_setting
+    - sensor.sunrise_time
+    - sensor.sunset_time
 
 living_room_lights:
   name: Living room lights
