@@ -20,7 +20,7 @@ weather:
     - group.heating_automations
     - group.sun_stuff
 
-Lights:
+lights:
   name: Lights
   view: yes
   icon: mdi:lightbulb
