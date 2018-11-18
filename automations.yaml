@@ -31,7 +31,7 @@
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001656352
     to: 'off'
-    for: '00:30:00'
+    for: '00:00:30'
   action:
     service: light.turn_off
     entity_id: light.cupboard_light
@@ -230,8 +230,7 @@
     platform: state
     entity_id: binary_sensor.door_window_sensor_158d0001a647fc
     to: 'on'
-    for:
-      minutes: 1
+    for: '00:01:00'
   action:
     service: light.turn_on
     data:

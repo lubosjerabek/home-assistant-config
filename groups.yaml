@@ -25,7 +25,9 @@ Lights:
   view: yes
   icon: mdi:lightbulb
   entities:
-    - group.
+    - group.living_room_lights
+    - group.kitchen_lights
+    - group.other_lights
 
 devices:
   name: devices
@@ -35,6 +37,7 @@ devices:
     - vacuum.xiaomi_vacuum_cleaner
     - group.broadband_speed
     - history_graph.broadband_speed_graph
+
 media:
   name: Media
   view: yes
@@ -57,7 +60,6 @@ broadband_speed:
     - sensor.speedtest_upload
     - sensor.speedtest_ping
 
-
 temperature:
   name: Temperature
   entities:
@@ -78,3 +80,26 @@ sun_stuff:
     - sun.sun
     - sun.next_rising
     - sun.next_setting
+
+living_room_lights:
+  name: Living room lights
+  entities:
+    - light.argos_lamp
+    - light.living_room_light
+    - light.ikea_lamp
+    - light.desk_lamp
+
+kitchen_lights:
+  name: Kitchen lights
+  entities:
+    - light.kitchen_light
+    - light.kitchen_lightstrip
+
+other_lights:
+  name: Other lights
+  entities:
+    - light.bedroom_light
+    - light.cupboard_light
+    - light.bathroom_light
+    - light.gateway_light_34ce00889d79
+    - light.hall_light
