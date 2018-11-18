@@ -29,6 +29,13 @@ lights:
     - group.kitchen_lights
     - group.other_lights
 
+automations:
+  view: yes
+  name: Automations
+  icon: mdi:flash
+  entities:
+    - group.light_automations
+
 devices:
   name: devices
   view: yes
@@ -103,3 +110,20 @@ other_lights:
     - light.bathroom_light
     - light.gateway_light_34ce00889d79
     - light.hall_light
+
+light_automations:
+  name: Light automations
+  entities:
+    - automation.door_opens__light_on
+    - automation.hall_button_click__light_toggle
+    - automation.kitchen_button_click__lights_on
+    - automation.kitchen_button_longpress__lights_off
+    - automation.motion_detection__bathroom_light_off
+    - automation.motion_detection__bathroom_light_on
+    - automation.motion_detection__cupboard_light_off
+    - automation.motion_detection__cupboard_light_on
+    - automation.sunrise_detection__gateway_light_off
+    - automation.sunset_detection__gateway_light_on
+    - automation.tap_cube_twice__lounge_lights_on
+    - automation.cube_turn_90__tv_mode_on
+    - automation.shake_cube__lounge_lights_off
