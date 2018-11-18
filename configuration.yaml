@@ -114,13 +114,6 @@ media_player:
     host: 127.0.0.1
     port: 8189
 
-zone:
-  - name: Office
-    latitude: 51.808293
-    longitude: -0.344765
-    radius: 250
-    icon: mdi:briefcase
-
 xiaomi_aqara:
   discovery_retry: 5
   gateways:
