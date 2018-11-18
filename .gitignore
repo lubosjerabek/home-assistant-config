@@ -1,0 +1,10 @@
+.HA_VERSION
+.uuid
+.google_maps_location_sharing.cookies
+home-assistant.log
+*.db
+secrets.yaml
+.cloud/*
+.storage/*
+*.mp3
+certbot/*
