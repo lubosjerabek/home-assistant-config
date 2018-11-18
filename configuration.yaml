@@ -2,8 +2,8 @@ homeassistant:
   # Name of the location where Home Assistant is running
   # name: jerabin.myqnapcloud.com:8123
   # Location required to calculate the time the sun rises and sets
-  latitude: 51.877143
-  longitude: -0.411447
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 0
   # metric for Metric, imperial for Imperial
