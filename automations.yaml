@@ -1,0 +1,273 @@
+- alias: Motion Detection - Bathroom Light on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d000121c8ca
+    to: 'on'
+  action:
+    service: light.turn_on
+    entity_id: light.bathroom_light
+
+- alias: Motion Detection - Bathroom Light off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d000121c8ca
+    to: 'off'
+    for: '00:03:00'
+  action:
+    service: light.turn_off
+    entity_id: light.bathroom_light
+
+- alias: Motion Detection - Cupboard Light on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d0001656352
+    to: 'on'
+  action:
+    service: light.turn_on
+    entity_id: light.cupboard_light
+
+- alias: Motion Detection - Cupboard Light off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d0001656352
+    to: 'off'
+    for: '00:30:00'
+  action:
+    service: light.turn_off
+    entity_id: light.cupboard_light
+
+- alias: Sunset Detection - Gateway Light on
+  trigger:
+    platform: sun
+    event: sunset
+    offset: "-00:30:00"
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.gateway_light_34ce00889d79
+        color_name: azure
+
+- alias: Sunrise Detection - Gateway Light off
+  trigger:
+    platform: sun
+    event: sunrise
+    offset: "+00:30:00"
+  action:
+    service: light.turn_off
+    entity_id: light.gateway_light_34ce00889d79
+
+- alias: Kitchen button click - Lights on
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d0001a21126
+      click_type: single
+  action:
+    - service: light.yeelight_set_mode
+      data:
+        entity_id: light.kitchen_lightstrip
+        mode: normal
+    - service: light.yeelight_set_mode
+      data:
+        entity_id: light.kitchen_light
+        mode: normal
+
+- alias: Kitchen button longpress - Lights off
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d0001a21126
+      click_type: long_click_press
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.kitchen_light
+    - service: light.turn_off
+      data:
+        entity_id: light.kitchen_lightstrip
+
+- alias: Kitchen button doubleclick - Vacuum the kitchen
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d0001a21126
+      click_type: double
+  action:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params: [[25700,26100,28100,27800,1]]
+
+- alias: Cube turn 90 - TV mode on
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d000101f94e
+      action_type: flip90
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.argos_lamp
+        profile: relax
+    - service: light.turn_off
+      data:
+        entity_id: light.ikea_lamp
+    - service: light.turn_off
+      data:
+        entity_id: light.living_room_light
+    - service: light.turn_off
+      data:
+        entity_id: light.kitchen_light
+    - service: light.turn_off
+      data:
+        entity_id: light.kitchen_lightstrip
+    - service: light.turn_off
+      data:
+        entity_id: light.desk_lamp
+
+- alias: Cube turn 180 - Sleep
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d000101f94e
+      action_type: flip180
+  action:
+    - service: light.turn_on
+      data:
+        entities:
+          - light.living_room_light
+          - light.kitchen_light
+          - light.hall_light
+        profile: relax
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom_light
+        profile: normal
+    - service: light.turn_off
+      data:
+        entity_id: light.argos_lamp
+    - service: light.turn_off
+      data:
+        entity_id: light.ikea_lamp
+    - service: light.turn_off
+      data:
+        entity_id: light.kitchen_lightstrip
+
+- alias: Shake cube - lounge lights off
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d000101f94e
+      action_type: shake_air
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.argos_lamp
+    - service: light.turn_off
+      data:
+        entity_id: light.ikea_lamp
+    - service: light.turn_off
+      data:
+        entity_id: light.living_room_light
+    - service: light.turn_off
+      data:
+        entity_id: light.kitchen_light
+    - service: light.turn_off
+      data:
+        entity_id: light.kitchen_lightstrip
+    - service: light.turn_off
+      data:
+        entity_id: light.desk_lamp
+
+- alias: Tap cube twice - lounge lights on
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d000101f94e
+      action_type: tap_twice
+  action:
+    - service: light.yeelight_set_mode
+      data:
+        entity_id: light.living_room_light
+        mode: normal
+    - service: light.yeelight_set_mode
+      data:
+        entity_id: light.ikea_lamp
+        mode: normal
+    - service: light.yeelight_set_mode
+      data:
+        entity_id: light.argos_lamp
+        mode: normal
+
+- alias: Temperature below 21 degrees - Turn on heating
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.temperature_158d0001217046
+    below: '22'
+  action:
+    service: switch.turn_on
+    entity_id: switch.heating
+
+- alias: Temperature over 22 degrees - Turn off heating
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.temperature_158d0001217046
+    above: '22'
+  action:
+    service: switch.turn_off
+    entity_id: switch.heating
+
+- alias: Door opens - Light on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a647fc
+    to: 'on'
+    for:
+      minutes: 1
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.hall_light
+      profile: normal
+
+- alias: Hall button click - Light toggle
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d00015639f9
+      click_type: single
+  action:
+    - service: light.toggle
+      data:
+        entity_id: light.hall_light
+
+- alias: Turn on speaker when Kodi is playing
+  trigger:
+    platform: state
+    entity_id: media_player.kodi
+    to: 'playing'
+    from: 'idle'
+  action:
+    service: media_player.turn_on
+    data:
+      entity_id: "media_player.tv_speaker"
+
+- alias: Turn on speaker when Chromecast is playing
+  trigger:
+    platform: state
+    entity_id: media_player.living_room_tv
+    to: 'playing'
+    from: 'idle'
+  action:
+    service: media_player.turn_on
+    data:
+      entity_id: "media_player.tv_speaker"

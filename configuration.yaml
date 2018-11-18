@@ -1,0 +1,186 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  # name: jerabin.myqnapcloud.com:8123
+  # Location required to calculate the time the sun rises and sets
+  latitude: 51.877143
+  longitude: -0.411447
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/London
+  # Customization file
+  customize: !include customize.yaml
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  base_url: !secret base_url
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  include_used_components: true
+
+# Discover some devices automatically
+# discovery:
+#   ignore:
+#     - samsung_printer
+#     - yeelight
+#     - frontier_silicon
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+# conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Weather prediction
+sensor:
+  - platform: yr
+    name: Weather
+    monitored_conditions:
+      - temperature
+      - precipitation
+      - humidity
+  - platform: speedtest
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+  - platform: template
+    sensors:
+      bedroom_temperature:
+        friendly_name: "Bedroom Purifier"
+        value_template: '{{ states.fan.bedroom_purifier.attributes.temperature }}'
+        unit_of_measurement: '°C'
+      lounge_temperature:
+        friendly_name: "Lounge Purifier"
+        value_template: '{{ states.fan.lounge_purifier.attributes.temperature }}'
+        unit_of_measurement: '°C'
+      lounge_temperature:
+        friendly_name: "Lounge Purifier"
+        value_template: '{{ states.fan.lounge_purifier.attributes.temperature }}'
+        unit_of_measurement: '°C'
+
+weather:
+  - platform: yweather
+    name: Luton Forecast
+
+camera:
+  platform: generic
+  still_image_url: https://api.sat24.com/animated/GB/visual/3/GMT%20Standard%20Time/
+  name: Satellite
+
+# Text to speech
+tts:
+  - platform: google
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+cast:
+  media_player:
+  - host: 192.168.1.28
+  - host: 192.168.1.29
+  - host: 192.168.1.30
+  - host: 192.168.1.31
+  - host: 192.168.1.32
+
+media_player:
+  - platform: frontier_silicon
+    host: 192.168.1.33
+  - platform: kodi
+    host: 127.0.0.1
+    port: 8189
+
+zone:
+  - name: Office
+    latitude: 51.808293
+    longitude: -0.344765
+    radius: 250
+    icon: mdi:briefcase
+
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+    - key: !secret xiaomi_aqara_token
+
+light:
+  - platform: xiaomi_miio
+    host: 192.168.1.6
+    name: Hall light
+    token: !secret hall_light_token
+    model: philips.light.bulb
+  - platform: xiaomi_miio
+    host: 192.168.1.8
+    name: Bathroom light
+    token: !secret bathroom_light_token
+    model: philips.light.bulb
+  - platform: xiaomi_miio
+    host: 192.168.1.12
+    name: Cupboard light
+    token: !secret cupboard_light_token
+    model: philips.light.bulb
+  - platform: yeelight
+    devices:
+      192.168.1.201:
+        name: Bedroom light
+      192.168.1.144:
+        name: Kitchen light
+      192.168.1.121:
+        name: Kitchen lightstrip
+      192.168.1.197:
+        name: Living room light
+      192.168.1.16:
+        name: Argos lamp
+      192.168.1.123:
+        name: IKEA lamp
+      192.168.1.96:
+        name: Desk lamp
+
+switch:
+  - platform: tplink
+    host: 192.168.1.219
+
+fan:
+  - platform: xiaomi_miio
+    host: 192.168.1.13
+    token: !secret lounge_purifier_token
+    name: "Lounge Purifier"
+  - platform: xiaomi_miio
+    host: 192.168.1.14
+    token: !secret bedroom_purifier_token
+    name: "Bedroom Purifier"
+
+vacuum:
+  - platform: xiaomi_miio
+    host: 192.168.1.15
+    token: !secret vacuum_robot_token
+
+history_graph:
+  speedtest_history:
+    name: Broadband Speed Graph
+    entities:
+      - sensor.speedtest_download
+      - sensor.speedtest_upload

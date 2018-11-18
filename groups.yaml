@@ -1,0 +1,80 @@
+default_view:
+  name: house
+  view: true
+  icon: mdi:home-assistant
+  entities:
+    - group.temperature
+    - vacuum.xiaomi_vacuum_cleaner
+    - media_player.tv_speaker
+    - media_player.living_room_tv
+    - media_player.kodi
+
+weather:
+  name: Weather
+  view: yes
+  icon: mdi:thermometer
+  entities:
+    - weather.luton_forecast
+    - camera.satellite
+    - group.temperature
+    - group.heating_automations
+    - group.sun_stuff
+
+Lights:
+  name: Lights
+  view: yes
+  icon: mdi:lightbulb
+  entities:
+    - group.
+
+devices:
+  name: devices
+  view: yes
+  icon: mdi:server-network
+  entities:
+    - vacuum.xiaomi_vacuum_cleaner
+    - group.broadband_speed
+    - history_graph.broadband_speed_graph
+media:
+  name: Media
+  view: yes
+  icon: mdi:play-circle
+  entities:
+    - media_player.tv_speaker
+    - media_player.living_room_tv
+    - media_player.kodi
+    - switch.plug_158d00015d1e94
+    - media_player.living_room_tv
+    - media_player.living_room_speaker
+    - media_player.kitchen_speaker
+    - media_player.bedroom_speaker
+
+# Following are only cards
+broadband_speed:
+  name: Broadband Speed
+  entities:
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+    - sensor.speedtest_ping
+
+
+temperature:
+  name: Temperature
+  entities:
+    - switch.heating
+    - sensor.temperature_158d0001217046
+    - sensor.lounge_temperature
+    - sensor.bedroom_temperature
+
+heating_automations:
+  name: Heating automations
+  entities:
+    - automation.temperature_below_21_degrees__turn_on_heating
+    - automation.temperature_over_22_degrees__turn_off_heating
+
+sun_stuff:
+  name: Sun
+  entities:
+    - sun.sun
+    - sun.next_rising
+    - sun.next_setting
