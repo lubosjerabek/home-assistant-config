@@ -74,6 +74,7 @@ temperature:
     - sensor.temperature_158d0001217046
     - sensor.lounge_temperature
     - sensor.bedroom_temperature
+    - sensor.avg_lounge_temperature
 
 heating_automations:
   name: Heating automations

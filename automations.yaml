@@ -210,7 +210,7 @@
 - alias: Temperature below 21 degrees - Turn on heating
   trigger:
     platform: numeric_state
-    entity_id: sensor.temperature_158d0001217046
+    entity_id: sensor.avg_lounge_temperature
     below: '22'
   action:
     service: switch.turn_on
@@ -219,7 +219,7 @@
 - alias: Temperature over 22 degrees - Turn off heating
   trigger:
     platform: numeric_state
-    entity_id: sensor.temperature_158d0001217046
+    entity_id: sensor.avg_lounge_temperature
     above: '22'
   action:
     service: switch.turn_off
