@@ -79,8 +79,8 @@ temperature:
 heating_automations:
   name: Heating automations
   entities:
-    - automation.temperature_below_21_degrees__turn_on_heating
-    - automation.temperature_over_22_degrees__turn_off_heating
+    - automation.automatic_heating_on
+    - automation.automatic_heating_off
 
 sun_stuff:
   name: Sun

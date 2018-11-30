@@ -207,16 +207,16 @@
         entity_id: light.argos_lamp
         mode: normal
 
-- alias: Temperature below 21 degrees - Turn on heating
+- alias: Automatic heating on
   trigger:
     platform: numeric_state
     entity_id: sensor.avg_lounge_temperature
-    below: '22'
+    below: '21.5'
   action:
     service: switch.turn_on
     entity_id: switch.heating
 
-- alias: Temperature over 22 degrees - Turn off heating
+- alias: Automatic heating off
   trigger:
     platform: numeric_state
     entity_id: sensor.avg_lounge_temperature
