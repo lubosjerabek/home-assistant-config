@@ -43,6 +43,7 @@ devices:
   icon: mdi:server-network
   entities:
     - vacuum.xiaomi_vacuum_cleaner
+    - group.purifiers
     - group.broadband_speed
     - history_graph.broadband_speed_graph
 
