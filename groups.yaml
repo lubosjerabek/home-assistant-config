@@ -4,6 +4,7 @@ default_view:
   icon: mdi:home-assistant
   entities:
     - group.temperature
+    - group.purifiers
     - vacuum.xiaomi_vacuum_cleaner
     - media_player.tv_speaker
     - media_player.living_room_tv
@@ -75,6 +76,12 @@ temperature:
     - sensor.lounge_temperature
     - sensor.bedroom_temperature
     - sensor.avg_lounge_temperature
+
+purifiers:
+  name: Air Purifiers
+  entities:
+    - fan.lounge_purifier
+    - fan.bedroom_purifier
 
 heating_automations:
   name: Heating automations
