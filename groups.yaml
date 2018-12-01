@@ -36,6 +36,7 @@ automations:
   icon: mdi:flash
   entities:
     - group.light_automations
+    - group.home_scripts
 
 devices:
   name: devices
@@ -44,6 +45,7 @@ devices:
   entities:
     - vacuum.xiaomi_vacuum_cleaner
     - group.purifiers
+    - switch.plug_158d00015d1e94
     - group.broadband_speed
     - history_graph.broadband_speed_graph
 
@@ -55,7 +57,6 @@ media:
     - media_player.tv_speaker
     - media_player.living_room_tv
     - media_player.kodi
-    - switch.plug_158d00015d1e94
     - media_player.living_room_tv
     - media_player.living_room_speaker
     - media_player.kitchen_speaker
@@ -136,3 +137,9 @@ light_automations:
     - automation.tap_cube_twice__lounge_lights_on
     - automation.cube_turn_90__tv_mode_on
     - automation.shake_cube__lounge_lights_off
+
+home_scripts:
+  name: Script actions
+  entities:
+    - script.leave_home
+    - script.back_home

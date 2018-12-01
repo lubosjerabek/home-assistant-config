@@ -279,3 +279,13 @@
     service: media_player.turn_on
     data:
       entity_id: "media_player.tv_speaker"
+
+- alias: Purifiers off when cleanup done
+  trigger:
+    platform: state
+    entity_id: vacuum.xiaomi_vacuum_cleaner
+    from: cleaning
+  action:
+    service: fan.turn_off
+    data:
+      entity_id: group.all_fans

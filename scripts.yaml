@@ -1,0 +1,69 @@
+leave_home:
+  sequence:
+    - alias: Automations off
+      service: automation.turn_off
+      data:
+        entity_id: group.all_automations
+    - alias: Necessary automations on
+      service: automation.turn_on
+      entity_id:
+        - automation.door_opens__light_on
+        - automation.door_opens__light_off_after_one_minute
+        - automation.purifiers_off_when_cleanup_done
+    - alias: All lights off
+      service: light.turn_off
+      data:
+        entity_id: group.all_lights
+    - alias: Switches off
+      service: switch.turn_off
+      data:
+        entity_id: group.all_switches
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.kodi
+        - media_player.living_room_tv
+        - media_player.tv_speaker
+        - media_player.bedroom_speaker
+        - media_player.bedroom_speaker_2
+        - media_player.kitchen_speaker
+        - media_player.living_room_speaker
+    - alias: Turn on fans
+      service: fan.turn_on
+      data:
+        entity_id: group.all_fans
+    - alias: Fans to turbo
+      service: fan.set_speed
+      data:
+        entity_id: group.all_fans
+        speed: favorite
+    - alias: Set vacuum to turbo
+      service: vacuum.set_fan_speed
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        fan_speed: turbo
+    - alias: Start vacuum
+      service: vacuum.start
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+
+back_home:
+  sequence:
+    - service: automation.turn_on
+      entity_id:
+        - group.all_automations
+    - service: automation.turn_off
+      entity_id:
+        - automation.purifiers_off_when_cleanup_done
+    - service: vacuum.return_to_base
+      entity_id:
+        - vacuum.xiaomi_vacuum_cleaner
+    - service: switch.turn_on
+      entity_id:
+        - switch.plug_158d00015d1e94
+    - service: fan.set_speed
+      data:
+        entity_id: group.all_fans
+        speed: auto
+    - service: fan.turn_off
+      entity_id:
+        - fan.bedroom_purifier
