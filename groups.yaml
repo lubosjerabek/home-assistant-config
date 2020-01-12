@@ -73,7 +73,7 @@ broadband_speed:
 temperature:
   name: Temperature
   entities:
-    - switch.heating
+    - switch.heating_2
     - sensor.temperature_158d0001217046
     - sensor.lounge_temperature
     - sensor.bedroom_temperature

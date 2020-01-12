@@ -56,6 +56,28 @@
     service: light.turn_off
     entity_id: light.gateway_light_34ce00889d79
 
+- alias: Fans and heating automation off every night
+  trigger:
+    platform: time
+    at: '22:30:00'
+  action:
+    - service: fan.turn_off
+      data:
+        entity_id: group.all_fans
+    - service: automation.turn_off
+      data:
+        entity_id: automation.automatic_heating_on
+
+- alias: Update Kodi library every night
+  trigger:
+    platform: time
+    at: '02:00:00'
+  action:
+    service: media_player.kodi_call_method
+    data:
+      entity_id: media_player.kodi
+      method: VideoLibrary.Scan
+
 - alias: Kitchen button click - Lights on
   trigger:
     platform: event
@@ -102,128 +124,37 @@
         command: app_zoned_clean
         params: [[25700,26100,28100,27800,1]]
 
-- alias: Cube turn 90 - TV mode on
+- alias: Hall button doubleclick - Vacuum the bathroom
   trigger:
     platform: event
-    event_type: cube_action
+    event_type: click
     event_data:
-      entity_id: binary_sensor.cube_158d000101f94e
-      action_type: flip90
+      entity_id: binary_sensor.switch_158d00015639f9
+      click_type: double
   action:
-    - service: light.turn_on
+    - service: vacuum.send_command
       data:
-        entity_id: light.argos_lamp
-        profile: relax
-    - service: light.turn_off
-      data:
-        entity_id: light.ikea_lamp
-    - service: light.turn_off
-      data:
-        entity_id: light.living_room_light
-    - service: light.turn_off
-      data:
-        entity_id: light.kitchen_light
-    - service: light.turn_off
-      data:
-        entity_id: light.kitchen_lightstrip
-    - service: light.turn_off
-      data:
-        entity_id: light.desk_lamp
-
-- alias: Cube turn 180 - Sleep
-  trigger:
-    platform: event
-    event_type: cube_action
-    event_data:
-      entity_id: binary_sensor.cube_158d000101f94e
-      action_type: flip180
-  action:
-    - service: light.turn_on
-      data:
-        entities:
-          - light.living_room_light
-          - light.kitchen_light
-          - light.hall_light
-        profile: relax
-    - service: light.turn_on
-      data:
-        entity_id: light.bedroom_light
-        profile: normal
-    - service: light.turn_off
-      data:
-        entity_id: light.argos_lamp
-    - service: light.turn_off
-      data:
-        entity_id: light.ikea_lamp
-    - service: light.turn_off
-      data:
-        entity_id: light.kitchen_lightstrip
-
-- alias: Shake cube - lounge lights off
-  trigger:
-    platform: event
-    event_type: cube_action
-    event_data:
-      entity_id: binary_sensor.cube_158d000101f94e
-      action_type: shake_air
-  action:
-    - service: light.turn_off
-      data:
-        entity_id: light.argos_lamp
-    - service: light.turn_off
-      data:
-        entity_id: light.ikea_lamp
-    - service: light.turn_off
-      data:
-        entity_id: light.living_room_light
-    - service: light.turn_off
-      data:
-        entity_id: light.kitchen_light
-    - service: light.turn_off
-      data:
-        entity_id: light.kitchen_lightstrip
-    - service: light.turn_off
-      data:
-        entity_id: light.desk_lamp
-
-- alias: Tap cube twice - lounge lights on
-  trigger:
-    platform: event
-    event_type: cube_action
-    event_data:
-      entity_id: binary_sensor.cube_158d000101f94e
-      action_type: tap_twice
-  action:
-    - service: light.yeelight_set_mode
-      data:
-        entity_id: light.living_room_light
-        mode: normal
-    - service: light.yeelight_set_mode
-      data:
-        entity_id: light.ikea_lamp
-        mode: normal
-    - service: light.yeelight_set_mode
-      data:
-        entity_id: light.argos_lamp
-        mode: normal
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params: [[21420,27680,22370,29880,1]]
 
 - alias: Automatic heating on
   trigger:
     platform: numeric_state
     entity_id: sensor.avg_lounge_temperature
-    below: '21.5'
+    below: '20.5'
   action:
     service: switch.turn_on
-    entity_id: switch.heating
+    entity_id: switch.heating_2
 
 - alias: Automatic heating off
   trigger:
     platform: numeric_state
     entity_id: sensor.avg_lounge_temperature
-    above: '22'
+    above: '21'
   action:
     service: switch.turn_off
-    entity_id: switch.heating
+    entity_id: switch.heating_2
 
 - alias: Door opens - Light on
   trigger:
@@ -263,7 +194,6 @@
     platform: state
     entity_id: media_player.kodi
     to: 'playing'
-    from: 'idle'
   action:
     service: media_player.turn_on
     data:
@@ -274,7 +204,6 @@
     platform: state
     entity_id: media_player.living_room_tv
     to: 'playing'
-    from: 'idle'
   action:
     service: media_player.turn_on
     data:

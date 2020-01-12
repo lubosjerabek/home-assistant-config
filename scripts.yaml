@@ -31,11 +31,6 @@ leave_home:
       service: fan.turn_on
       data:
         entity_id: group.all_fans
-    - alias: Fans to turbo
-      service: fan.set_speed
-      data:
-        entity_id: group.all_fans
-        speed: favorite
     - alias: Set vacuum to turbo
       service: vacuum.set_fan_speed
       data:
@@ -57,6 +52,9 @@ back_home:
     - service: vacuum.return_to_base
       entity_id:
         - vacuum.xiaomi_vacuum_cleaner
+    - service: script.turn_on
+      entity_id:
+        - script.light_on_in_dark
     - service: switch.turn_on
       entity_id:
         - switch.plug_158d00015d1e94
@@ -64,6 +62,11 @@ back_home:
       data:
         entity_id: group.all_fans
         speed: auto
-    - service: fan.turn_off
-      entity_id:
-        - fan.bedroom_purifier
+
+light_on_in_dark:
+  sequence:
+    - service: light.turn_on
+      entity_id: light.gateway_light_34ce00889d79
+    - condition:
+      condition: sun
+      before: sunset
