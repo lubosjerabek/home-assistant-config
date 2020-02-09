@@ -1,79 +1,6 @@
-default_view:
-  name: house
-  view: true
-  icon: mdi:home-assistant
-  entities:
-    - group.temperature
-    - group.purifiers
-    - vacuum.xiaomi_vacuum_cleaner
-    - media_player.tv_speaker
-    - media_player.living_room_tv
-    - media_player.kodi
-
-weather:
-  name: Weather
-  view: yes
-  icon: mdi:thermometer
-  entities:
-    - weather.luton_forecast
-    - camera.satellite
-    - group.temperature
-    - group.heating_automations
-    - group.sun_stuff
-
-lights:
-  name: Lights
-  view: yes
-  icon: mdi:lightbulb
-  entities:
-    - group.living_room_lights
-    - group.kitchen_lights
-    - group.other_lights
-
-automations:
-  view: yes
-  name: Automations
-  icon: mdi:flash
-  entities:
-    - group.light_automations
-    - group.home_scripts
-
-devices:
-  name: devices
-  view: yes
-  icon: mdi:server-network
-  entities:
-    - vacuum.xiaomi_vacuum_cleaner
-    - group.purifiers
-    - switch.plug_158d00015d1e94
-    - group.broadband_speed
-    - history_graph.broadband_speed_graph
-
-media:
-  name: Media
-  view: yes
-  icon: mdi:play-circle
-  entities:
-    - media_player.tv_speaker
-    - media_player.living_room_tv
-    - media_player.kodi
-    - media_player.living_room_tv
-    - media_player.living_room_speaker
-    - media_player.kitchen_speaker
-    - media_player.bedroom_speaker
-
-# Following are only cards
-broadband_speed:
-  name: Broadband Speed
-  entities:
-    - sensor.speedtest_download
-    - sensor.speedtest_upload
-    - sensor.speedtest_ping
-
 temperature:
   name: Temperature
   entities:
-    - switch.heating_2
     - sensor.temperature_158d0001217046
     - sensor.lounge_temperature
     - sensor.bedroom_temperature
@@ -84,19 +11,6 @@ purifiers:
   entities:
     - fan.lounge_purifier
     - fan.bedroom_purifier
-
-heating_automations:
-  name: Heating automations
-  entities:
-    - automation.automatic_heating_on
-    - automation.automatic_heating_off
-
-sun_stuff:
-  name: Sun
-  entities:
-    - sun.sun
-    - sensor.sunrise_time
-    - sensor.sunset_time
 
 living_room_lights:
   name: Living room lights
@@ -121,25 +35,8 @@ other_lights:
     - light.gateway_light_34ce00889d79
     - light.hall_light
 
-light_automations:
-  name: Light automations
+everyone:
+  name: Everyone
   entities:
-    - automation.door_opens__light_on
-    - automation.hall_button_click__light_toggle
-    - automation.kitchen_button_click__lights_on
-    - automation.kitchen_button_longpress__lights_off
-    - automation.motion_detection__bathroom_light_off
-    - automation.motion_detection__bathroom_light_on
-    - automation.motion_detection__cupboard_light_off
-    - automation.motion_detection__cupboard_light_on
-    - automation.sunrise_detection__gateway_light_off
-    - automation.sunset_detection__gateway_light_on
-    - automation.tap_cube_twice__lounge_lights_on
-    - automation.cube_turn_90__tv_mode_on
-    - automation.shake_cube__lounge_lights_off
-
-home_scripts:
-  name: Script actions
-  entities:
-    - script.leave_home
-    - script.back_home
+    - person.lubos
+    - person.janca

@@ -1,4 +1,4 @@
-- alias: Motion Detection - Bathroom Light on
+- alias: Bathroom light on
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d000121c8ca
@@ -7,7 +7,7 @@
     service: light.turn_on
     entity_id: light.bathroom_light
 
-- alias: Motion Detection - Bathroom Light off
+- alias: Bathroom light off
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d000121c8ca
@@ -17,7 +17,7 @@
     service: light.turn_off
     entity_id: light.bathroom_light
 
-- alias: Motion Detection - Cupboard Light on
+- alias: Cupboard light on
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001656352
@@ -26,7 +26,7 @@
     service: light.turn_on
     entity_id: light.cupboard_light
 
-- alias: Motion Detection - Cupboard Light off
+- alias: Cupboard light off
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001656352
@@ -36,7 +36,7 @@
     service: light.turn_off
     entity_id: light.cupboard_light
 
-- alias: Sunset Detection - Gateway Light on
+- alias: Gateway light on
   trigger:
     platform: sun
     event: sunset
@@ -47,7 +47,7 @@
         entity_id: light.gateway_light_34ce00889d79
         color_name: azure
 
-- alias: Sunrise Detection - Gateway Light off
+- alias: Gateway light off
   trigger:
     platform: sun
     event: sunrise
@@ -56,19 +56,34 @@
     service: light.turn_off
     entity_id: light.gateway_light_34ce00889d79
 
-- alias: Fans and heating automation off every night
+- alias: Heating and purifiers off every night
   trigger:
     platform: time
     at: '22:30:00'
   action:
     - service: fan.turn_off
       data:
-        entity_id: group.all_fans
-    - service: automation.turn_off
+        entity_id: group.purifiers
+    - service: climate.set_preset_mode
       data:
-        entity_id: automation.automatic_heating_on
+        entity_id: climate.lounge_temperature
+        preset_mode: away
 
-- alias: Update Kodi library every night
+- alias: Heating on every morning
+  trigger:
+    platform: time
+    at: '5:30:00'
+  action:
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lounge_temperature
+        temperature: 21
+    - service: climate.set_preset_mode
+      data:
+        entity_id: climate.lounge_temperature
+        preset_mode: none
+
+- alias: Kodi Library Updates
   trigger:
     platform: time
     at: '02:00:00'
@@ -78,30 +93,29 @@
       entity_id: media_player.kodi
       method: VideoLibrary.Scan
 
-- alias: Kitchen button click - Lights on
+- alias: Kitchen lights on
   trigger:
     platform: event
-    event_type: click
+    event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.switch_158d0001a21126
       click_type: single
   action:
-    - service: light.yeelight_set_mode
-      data:
-        entity_id: light.kitchen_lightstrip
-        mode: normal
-    - service: light.yeelight_set_mode
+    - service: light.turn_on
       data:
         entity_id: light.kitchen_light
-        mode: normal
+    - service: light.turn_on
+      data:
+        entity_id: light.kitchen_lightstrip
 
-- alias: Kitchen button longpress - Lights off
+
+- alias: Kitchen lights off
   trigger:
     platform: event
-    event_type: click
+    event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.switch_158d0001a21126
-      click_type: long_click_press
+      click_type: hold
   action:
     - service: light.turn_off
       data:
@@ -110,10 +124,10 @@
       data:
         entity_id: light.kitchen_lightstrip
 
-- alias: Kitchen button doubleclick - Vacuum the kitchen
+- alias: Vacuum kitchen
   trigger:
     platform: event
-    event_type: click
+    event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.switch_158d0001a21126
       click_type: double
@@ -124,10 +138,10 @@
         command: app_zoned_clean
         params: [[25700,26100,28100,27800,1]]
 
-- alias: Hall button doubleclick - Vacuum the bathroom
+- alias: Vacuum the bathroom
   trigger:
     platform: event
-    event_type: click
+    event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.switch_158d00015639f9
       click_type: double
@@ -138,25 +152,7 @@
         command: app_zoned_clean
         params: [[21420,27680,22370,29880,1]]
 
-- alias: Automatic heating on
-  trigger:
-    platform: numeric_state
-    entity_id: sensor.avg_lounge_temperature
-    below: '20.5'
-  action:
-    service: switch.turn_on
-    entity_id: switch.heating_2
-
-- alias: Automatic heating off
-  trigger:
-    platform: numeric_state
-    entity_id: sensor.avg_lounge_temperature
-    above: '21'
-  action:
-    service: switch.turn_off
-    entity_id: switch.heating_2
-
-- alias: Door opens - Light on
+- alias: Hall light on when door opens
   trigger:
     platform: state
     entity_id: binary_sensor.door_window_sensor_158d0001a647fc
@@ -166,7 +162,7 @@
     data:
       entity_id: light.hall_light
 
-- alias: Door opens - Light off after one minute
+- alias: Hall light off after door closes
   trigger:
     platform: state
     entity_id: binary_sensor.door_window_sensor_158d0001a647fc
@@ -177,10 +173,10 @@
     data:
       entity_id: light.hall_light
 
-- alias: Hall button click - Light toggle
+- alias: Hall light toggle
   trigger:
     platform: event
-    event_type: click
+    event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.switch_158d00015639f9
       click_type: single
@@ -218,3 +214,65 @@
     service: fan.turn_off
     data:
       entity_id: group.all_fans
+
+- alias: Notify when door opens
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a647fc
+    to: 'on'
+  action:
+    service: notify.notify
+    data:
+      title: Home Assistant
+      message: Door just opened
+
+- alias: Back home
+  trigger:
+    - platform: state
+      entity_id: person.lubos
+      from: 'not_home'
+      to: 'home'
+    - platform: state
+      entity_id: person.janca
+      from: 'not_home'
+      to: 'home'
+  action:
+    service: script.turn_on
+    data:
+      entity_id: script.back_home
+
+- alias: Leave home
+  trigger:
+    - platform: state
+      entity_id: group.everyone
+      to: 'not_home'
+  action:
+    service: script.turn_on
+    data:
+      entity_id: script.leave_home
+
+- alias: Notify zone changes
+  trigger:
+    platform: state
+    entity_id: person.janca, person.lubos
+  condition:
+    - condition: template
+      value_template: >
+        {{ trigger.to_state.state is not none and
+          trigger.from_state.state is not none and
+          trigger.to_state.state != trigger.from_state.state }}
+    - condition: template
+      value_template: >
+        {% set zones = states.zone | map(attribute='name')|list %}
+        {{trigger.to_state.state in ['home','not_home'] or
+          trigger.from_state.state in ['home','not_home'] or
+          trigger.to_state.state in zones or 
+          trigger.from_state.state in zones}}
+  action:     
+    - service_template: >
+        script.notify_presence
+      data_template:
+        trigger: Presence tracking
+        entityid: '{{trigger.entity_id}}'
+        tostate: '{{trigger.to_state.state}}'
+        fromstate: '{{trigger.from_state.state}}'

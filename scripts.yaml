@@ -1,72 +1,88 @@
 leave_home:
   sequence:
-    - alias: Automations off
-      service: automation.turn_off
-      data:
-        entity_id: group.all_automations
-    - alias: Necessary automations on
-      service: automation.turn_on
+    - service: automation.turn_off
       entity_id:
-        - automation.door_opens__light_on
-        - automation.door_opens__light_off_after_one_minute
+        - automation.bathroom_light_on
+        - automation.cupboard_light_on
+        - automation.gateway_light_on
+        - automation.kitchen_lights_on
+        - automation.turn_on_speaker_when_chromecast_is_playing
+        - automation.turn_on_speaker_when_kodi_is_playing
+        - automation.heating_on_every_morning
+    - service: automation.turn_on
+      entity_id:
+        - automation.hall_light_on_when_door_opens
+        - automation.hall_light_off_after_door_closes
         - automation.purifiers_off_when_cleanup_done
-    - alias: All lights off
-      service: light.turn_off
+        - automation.notify_when_door_opens
+    - service: climate.set_preset_mode
       data:
-        entity_id: group.all_lights
-    - alias: Switches off
-      service: switch.turn_off
+        entity_id: climate.lounge_temperature
+        preset_mode: away
+    - service: light.turn_off
       data:
-        entity_id: group.all_switches
+        entity_id:
+          - group.kitchen_lights
+          - group.living_room_lights
+          - group.other_lights
     - service: media_player.turn_off
       entity_id:
         - media_player.kodi
         - media_player.living_room_tv
         - media_player.tv_speaker
         - media_player.bedroom_speaker
-        - media_player.bedroom_speaker_2
         - media_player.kitchen_speaker
-        - media_player.living_room_speaker
-    - alias: Turn on fans
-      service: fan.turn_on
+        - media_player.printer_speaker
+        - media_player.desk_speaker
+    - service: fan.turn_on
       data:
-        entity_id: group.all_fans
-    - alias: Set vacuum to turbo
-      service: vacuum.set_fan_speed
+        entity_id: group.purifiers
+    - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
         fan_speed: turbo
-    - alias: Start vacuum
-      service: vacuum.start
+    - service: vacuum.start
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
 
 back_home:
   sequence:
+    - service: climate.set_preset_mode
+      data:
+        entity_id: climate.lounge_temperature
+        preset_mode: none
     - service: automation.turn_on
       entity_id:
-        - group.all_automations
+        - automation.bathroom_light_on
+        - automation.cupboard_light_on
+        - automation.gateway_light_on
+        - automation.kitchen_lights_on
+        - automation.turn_on_speaker_when_chromecast_is_playing
+        - automation.turn_on_speaker_when_kodi_is_playing
+        - automation.heating_on_every_morning
     - service: automation.turn_off
       entity_id:
         - automation.purifiers_off_when_cleanup_done
+        - automation.notify_when_door_opens
     - service: vacuum.return_to_base
       entity_id:
         - vacuum.xiaomi_vacuum_cleaner
-    - service: script.turn_on
-      entity_id:
-        - script.light_on_in_dark
-    - service: switch.turn_on
-      entity_id:
-        - switch.plug_158d00015d1e94
     - service: fan.set_speed
       data:
-        entity_id: group.all_fans
+        entity_id: group.purifiers
         speed: auto
 
-light_on_in_dark:
+notify_presence:
   sequence:
-    - service: light.turn_on
-      entity_id: light.gateway_light_34ce00889d79
-    - condition:
-      condition: sun
-      before: sunset
+    service: notify.notify
+    data_template:
+      title: Home Assistant
+      message: >
+        {% set name = states[entityid.split('.')[0]][entityid.split('.')[1]].name %}
+        {% if tostate == 'not_home' %}
+          {{-name }} left {{fromstate}}
+        {% elif fromstate == 'not_home' %}
+          {{-name }} arrived at {{tostate}}
+        {% else %}
+          {{-name }} left {{fromstate}} and arrived at {{tostate}}
+        {% endif %}
