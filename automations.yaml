@@ -229,11 +229,7 @@
 - alias: Back home
   trigger:
     - platform: state
-      entity_id: person.lubos
-      from: 'not_home'
-      to: 'home'
-    - platform: state
-      entity_id: person.janca
+      entity_id: group.everyone
       from: 'not_home'
       to: 'home'
   action:

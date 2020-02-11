@@ -2,6 +2,20 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
+zone:
+  - name: Home
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    icon: mdi:home
+    radius: 70
+
+homeassistant:
+  customize:
+    person.lubos:
+      entity_picture: "https://jerab.in/media/lubos.png"
+    person.janca:
+      entity_picture: "https://jerab.in/media/janca.png"
+
 http:
   base_url: !secret base_url
 

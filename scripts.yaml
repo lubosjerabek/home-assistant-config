@@ -64,6 +64,10 @@ back_home:
       entity_id:
         - automation.purifiers_off_when_cleanup_done
         - automation.notify_when_door_opens
+    - service: vacuum.set_fan_speed
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        fan_speed: medium
     - service: vacuum.return_to_base
       entity_id:
         - vacuum.xiaomi_vacuum_cleaner
