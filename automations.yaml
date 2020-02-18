@@ -69,19 +69,19 @@
         entity_id: climate.lounge_temperature
         preset_mode: away
 
-- alias: Heating on every morning
+- alias: Heating on every workday morning
   trigger:
     platform: time
     at: '5:30:00'
+  condition:
+    - condition: state
+      entity_id: sensor.workday_sensor
+      state: 'on'
   action:
-    - service: climate.set_temperature
-      data:
-        entity_id: climate.lounge_temperature
-        temperature: 21
-    - service: climate.set_preset_mode
-      data:
-        entity_id: climate.lounge_temperature
-        preset_mode: none
+    - service_template: >
+        script.init_heating
+      data_template:
+        temperature: 20
 
 - alias: Kodi Library Updates
   trigger:
@@ -107,7 +107,6 @@
     - service: light.turn_on
       data:
         entity_id: light.kitchen_lightstrip
-
 
 - alias: Kitchen lights off
   trigger:

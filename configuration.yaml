@@ -78,7 +78,17 @@ sensor:
       sunrise_time:
         value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_rising) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
         friendly_name: "Next rising"
+  - platform: history_stats
+    name: Lubos time at work today
+    entity_id: person.lubos
+    state: 'Work'
+    type: time
+    start: '00:00:00'
+    end: '{{ now() }}'
 
+binary_sensor:
+  - platform: workday
+    country: GB
 
 light:
   - platform: xiaomi_miio

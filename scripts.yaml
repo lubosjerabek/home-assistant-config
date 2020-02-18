@@ -47,6 +47,10 @@ leave_home:
 
 back_home:
   sequence:
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lounge_temperature
+        temperature: 21
     - service: climate.set_preset_mode
       data:
         entity_id: climate.lounge_temperature
@@ -90,3 +94,15 @@ notify_presence:
         {% else %}
           {{-name }} left {{fromstate}} and arrived at {{tostate}}
         {% endif %}
+
+init_heating:
+  sequence:
+    - service: climate.set_preset_mode
+      data:
+        entity_id: climate.lounge_temperature
+        preset_mode: none
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lounge_temperature
+        temperature: >
+          {{temperature}}
