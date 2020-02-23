@@ -15,10 +15,10 @@ leave_home:
         - automation.hall_light_off_after_door_closes
         - automation.purifiers_off_when_cleanup_done
         - automation.notify_when_door_opens
-    - service: climate.set_preset_mode
+    - service: script.set_heating
       data:
-        entity_id: climate.lounge_temperature
-        preset_mode: away
+        mode: away
+        temperature: 18
     - service: light.turn_off
       data:
         entity_id:
@@ -47,14 +47,10 @@ leave_home:
 
 back_home:
   sequence:
-    - service: climate.set_temperature
+    - service: script.set_heating
       data:
-        entity_id: climate.lounge_temperature
+        mode: none
         temperature: 21
-    - service: climate.set_preset_mode
-      data:
-        entity_id: climate.lounge_temperature
-        preset_mode: none
     - service: automation.turn_on
       entity_id:
         - automation.bathroom_light_on
@@ -75,6 +71,10 @@ back_home:
     - service: vacuum.return_to_base
       entity_id:
         - vacuum.xiaomi_vacuum_cleaner
+    - service: media_player.kodi_call_method
+      data:
+        entity_id: media_player.kodi
+        method: VideoLibrary.Scan
     - service: fan.set_speed
       data:
         entity_id: group.purifiers
@@ -95,14 +95,13 @@ notify_presence:
           {{-name }} left {{fromstate}} and arrived at {{tostate}}
         {% endif %}
 
-init_heating:
+set_heating:
   sequence:
     - service: climate.set_preset_mode
       data:
         entity_id: climate.lounge_temperature
-        preset_mode: none
+        preset_mode: "{{ mode }}"
     - service: climate.set_temperature
-      data:
+      data_template:
         entity_id: climate.lounge_temperature
-        temperature: >
-          {{temperature}}
+        temperature: "{{ temperature }}"

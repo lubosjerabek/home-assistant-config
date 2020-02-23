@@ -51,7 +51,7 @@ vacuum:
 
 speedtestdotnet:
   scan_interval:
-    minutes: 30
+    hours: 3
   monitored_conditions:
     - ping
     - download
@@ -79,11 +79,55 @@ sensor:
         value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_rising) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
         friendly_name: "Next rising"
   - platform: history_stats
-    name: Lubos time at work today
+    name: Heating on today
+    entity_id: switch.heating
+    state: 'on'
+    type: time
+    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    end: '{{ now() }}'
+  - platform: history_stats
+    name: Heating on yesterday
+    entity_id: switch.heating
+    state: 'on'
+    type: time
+    end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    duration:
+      hours: 24
+  - platform: history_stats
+    name: Heating on past month
+    entity_id: switch.heating
+    state: 'on'
+    type: time
+    end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    duration:
+      days: 30
+  - platform: history_stats
+    name: Luboš at work today
     entity_id: person.lubos
     state: 'Work'
     type: time
-    start: '00:00:00'
+    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    end: '{{ now() }}'
+  - platform: history_stats
+    name: Luboš at work this week
+    entity_id: person.lubos
+    state: 'Work'
+    type: time
+    start: '{{ as_timestamp( now().replace(hour=0).replace(minute=0).replace(second=0) ) - now().weekday() * 86400 }}'
+    end: '{{ now() }}'
+  - platform: history_stats
+    name: Janča at work today
+    entity_id: person.janca
+    state: 'Work'
+    type: time
+    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    end: '{{ now() }}'
+  - platform: history_stats
+    name: Janča at work this week
+    entity_id: person.janca
+    state: 'Work'
+    type: time
+    start: '{{ as_timestamp( now().replace(hour=0).replace(minute=0).replace(second=0) ) - now().weekday() * 86400 }}'
     end: '{{ now() }}'
 
 binary_sensor:

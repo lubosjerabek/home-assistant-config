@@ -38,9 +38,9 @@
 
 - alias: Gateway light on
   trigger:
-    platform: sun
-    event: sunset
-    offset: "-00:30:00"
+    platform: numeric_state
+    entity_id: sensor.illumination_34ce00889d79
+    below: 250
   action:
     - service: light.turn_on
       data:
@@ -49,9 +49,9 @@
 
 - alias: Gateway light off
   trigger:
-    platform: sun
-    event: sunrise
-    offset: "+00:30:00"
+    platform: numeric_state
+    entity_id: sensor.illumination_34ce00889d79
+    above: 270
   action:
     service: light.turn_off
     entity_id: light.gateway_light_34ce00889d79
@@ -64,23 +64,20 @@
     - service: fan.turn_off
       data:
         entity_id: group.purifiers
-    - service: climate.set_preset_mode
+    - service: script.set_heating
       data:
-        entity_id: climate.lounge_temperature
-        preset_mode: away
+        mode: none
+        temperature: 18
 
 - alias: Heating on every workday morning
   trigger:
     platform: time
     at: '5:30:00'
-  condition:
-    - condition: state
-      entity_id: sensor.workday_sensor
-      state: 'on'
   action:
-    - service_template: >
-        script.init_heating
-      data_template:
+    - delay: "{{ '00:00:00' if is_state('binary_sensor.workday_sensor', 'on') else '02:00:00' }}"
+    - service: script.set_heating
+      data:
+        mode: none
         temperature: 20
 
 - alias: Kodi Library Updates
@@ -190,19 +187,27 @@
     entity_id: media_player.kodi
     to: 'playing'
   action:
-    service: media_player.turn_on
-    data:
-      entity_id: "media_player.tv_speaker"
-
+    - service: media_player.turn_on
+      data:
+        entity_id: "media_player.tv_speaker"
+    - service: media_player.turn_off
+      data:
+        entity_id:
+          - media_player.lounge
+  
 - alias: Turn on speaker when Chromecast is playing
   trigger:
     platform: state
     entity_id: media_player.living_room_tv
     to: 'playing'
   action:
-    service: media_player.turn_on
-    data:
-      entity_id: "media_player.tv_speaker"
+    - service: media_player.turn_on
+      data:
+        entity_id: "media_player.tv_speaker"
+    - service: media_player.turn_off
+      data:
+        entity_id:
+          - media_player.lounge
 
 - alias: Purifiers off when cleanup done
   trigger:
@@ -212,7 +217,7 @@
   action:
     service: fan.turn_off
     data:
-      entity_id: group.all_fans
+      entity_id: group.purifiers
 
 - alias: Notify when door opens
   trigger:
@@ -240,6 +245,7 @@
   trigger:
     - platform: state
       entity_id: group.everyone
+      from: 'home'
       to: 'not_home'
   action:
     service: script.turn_on
