@@ -40,7 +40,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.illumination_34ce00889d79
-    below: 250
+    below: 200
   action:
     - service: light.turn_on
       data:
@@ -51,7 +51,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.illumination_34ce00889d79
-    above: 270
+    above: 500
   action:
     service: light.turn_off
     entity_id: light.gateway_light_34ce00889d79
@@ -85,7 +85,7 @@
     platform: time
     at: '02:00:00'
   action:
-    service: media_player.kodi_call_method
+    service: kodi.call_method
     data:
       entity_id: media_player.kodi
       method: VideoLibrary.Scan
@@ -128,11 +128,9 @@
       entity_id: binary_sensor.switch_158d0001a21126
       click_type: double
   action:
-    - service: vacuum.send_command
-      data:
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[25700,26100,28100,27800,1]]
+    service: script.turn_on
+    data:
+      entity_id: script.vacuum_kitchen
 
 - alias: Vacuum the bathroom
   trigger:
@@ -142,11 +140,36 @@
       entity_id: binary_sensor.switch_158d00015639f9
       click_type: double
   action:
-    - service: vacuum.send_command
+    service: script.turn_on
+    data:
+      entity_id: script.vacuum_bathroom
+
+- alias: Room cleanup
+  trigger:
+    - platform: state
+      entity_id: input_select.vacuum_room
+      from: 'Select room'
+  action:
+    - service: script.turn_on
+      data_template:
+        entity_id: >
+          {% if is_state("input_select.vacuum_room", "Bedroom") %}
+            script.vacuum_bedroom
+          {% elif is_state("input_select.vacuum_room", "Living Room") %}
+            script.vacuum_living_room
+          {% elif is_state("input_select.vacuum_room", "Kitchen") %}
+            script.vacuum_kitchen
+          {% elif is_state("input_select.vacuum_room", "Bathroom") %}
+            script.vacuum_bathroom
+          {% elif is_state("input_select.vacuum_room", "Hall") %}
+            script.vacuum_hall
+          {% else %}
+            none
+          {% endif %}
+    - service: input_select.select_option
       data:
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[21420,27680,22370,29880,1]]
+        entity_id: input_select.vacuum_room
+        option: Select room        
 
 - alias: Hall light on when door opens
   trigger:

@@ -71,7 +71,7 @@ back_home:
     - service: vacuum.return_to_base
       entity_id:
         - vacuum.xiaomi_vacuum_cleaner
-    - service: media_player.kodi_call_method
+    - service: kodi.call_method
       data:
         entity_id: media_player.kodi
         method: VideoLibrary.Scan
@@ -79,6 +79,11 @@ back_home:
       data:
         entity_id: group.purifiers
         speed: auto
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_speaker
+        media_content_id: 'https://jerab.in/media/play_music.mp3'
+        media_content_type: music
 
 notify_presence:
   sequence:
@@ -105,3 +110,43 @@ set_heating:
       data_template:
         entity_id: climate.lounge_temperature
         temperature: "{{ temperature }}"
+
+vacuum_bedroom:
+  sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params: [[20650,23230,24100,26480,1]]
+
+vacuum_living_room:
+  sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params: [[24230,23380,28630,25980,1]]
+
+vacuum_kitchen:
+  sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params: [[25700,26100,28100,27800,1]]
+
+vacuum_bathroom:
+  sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params: [[21420,27680,22370,29880,1]]
+
+vacuum_hall:
+  sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params: [[22610,26580,24960,28430,1]]

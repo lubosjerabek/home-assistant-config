@@ -183,6 +183,17 @@ climate:
     target_temp: 21
     away_temp: 18
 
+input_select:
+  vacuum_room:
+    name: Choose a room to clean
+    options:
+      - Select room
+      - Bedroom
+      - Living Room
+      - Kitchen
+      - Bathroom
+      - Hall
+
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
