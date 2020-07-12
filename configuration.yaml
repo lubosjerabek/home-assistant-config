@@ -17,7 +17,11 @@ homeassistant:
       entity_picture: "https://jerab.in/media/janca.png"
 
 http:
-  base_url: !secret base_url
+  ssl_certificate: /config/backup.cert
+  ssl_key: /config/backup.key
+
+lovelace:
+  mode: yaml
 
 tts:
   - platform: google_translate
@@ -37,12 +41,22 @@ fan:
     token: !secret bedroom_purifier_token
     name: "Bedroom Purifier"
 
+# camera:
+#   - platform: generic
+#     name: Bedroom camera
+#     still_image_url: https://jerab.in/media/xiaomi-mijia-home-camera.jpg
+#     stream_source: rtsp://192.168.1.22/live/ch00_0
+#   - platform: generic
+#     name: Kitchen camera
+#     still_image_url: https://jerab.in/media/xiaomi-mijia-home-camera.jpg
+#     stream_source: rtsp://192.168.1.253/live/ch00_0
+
 media_player:
   - platform: frontier_silicon
     host: 192.168.1.33
   - platform: kodi
-    host: 127.0.0.1
-    port: 8189
+    host: 192.168.1.23
+    port: 8080
 
 vacuum:
   - platform: xiaomi_miio

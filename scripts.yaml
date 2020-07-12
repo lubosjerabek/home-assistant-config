@@ -40,7 +40,7 @@ leave_home:
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        fan_speed: turbo
+        fan_speed: standard
     - service: vacuum.start
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
@@ -67,7 +67,7 @@ back_home:
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        fan_speed: medium
+        fan_speed: standard
     - service: vacuum.return_to_base
       entity_id:
         - vacuum.xiaomi_vacuum_cleaner
