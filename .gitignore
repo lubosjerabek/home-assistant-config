@@ -2,6 +2,7 @@
 .cloud/*
 .storage/*
 certbot/*
+custom_components/*
 .HA_VERSION
 .uuid
 .google_maps_location_sharing.cookies

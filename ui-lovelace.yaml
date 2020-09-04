@@ -37,6 +37,10 @@ views:
         show_header_toggle: true
         title: Air Purifiers
         type: entities
+      # - type: picture-entity
+      #   entity: camera.bedroom_camera
+      # - type: picture-entity
+      #   entity: camera.kitchen_camera
       - detail: 2
         entity: sensor.speedtest_download
         graph: line
