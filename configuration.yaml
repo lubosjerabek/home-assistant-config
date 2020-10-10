@@ -7,7 +7,7 @@ zone:
     latitude: !secret home_latitude
     longitude: !secret home_longitude
     icon: mdi:home
-    radius: 70
+    radius: 250
 
 homeassistant:
   customize:
@@ -20,48 +20,50 @@ http:
   ssl_certificate: /config/backup.cert
   ssl_key: /config/backup.key
 
-lovelace:
-  mode: yaml
+# lovelace:
+#   mode: yaml
 
 tts:
   - platform: google_translate
 
-xiaomi_aqara:
-  discovery_retry: 5
-  gateways:
-    - key: !secret xiaomi_aqara_token
+# xiaomi_aqara:
+#   discovery_retry: 5
+#   gateways:
+#     - key: !secret xiaomi_aqara_token
 
-fan:
-  - platform: xiaomi_miio
-    host: 192.168.1.13
-    token: !secret lounge_purifier_token
-    name: "Lounge Purifier"
-  - platform: xiaomi_miio
-    host: 192.168.1.14
-    token: !secret bedroom_purifier_token
-    name: "Bedroom Purifier"
+# fan:
+#   - platform: xiaomi_miio
+#     host: 192.168.1.13
+#     token: !secret lounge_purifier_token
+#     name: "Lounge Purifier"
+#   - platform: xiaomi_miio
+#     host: 192.168.1.14
+#     token: !secret bedroom_purifier_token
+#     name: "Bedroom Purifier"
 
-# camera:
-#   - platform: generic
-#     name: Bedroom camera
-#     still_image_url: https://jerab.in/media/xiaomi-mijia-home-camera.jpg
-#     stream_source: rtsp://192.168.1.22/live/ch00_0
-#   - platform: generic
-#     name: Kitchen camera
-#     still_image_url: https://jerab.in/media/xiaomi-mijia-home-camera.jpg
-#     stream_source: rtsp://192.168.1.253/live/ch00_0
+# # camera:
+# #   - platform: generic
+# #     name: Bedroom camera
+# #     still_image_url: https://jerab.in/media/xiaomi-mijia-home-camera.jpg
+# #     stream_source: rtsp://192.168.1.22/live/ch00_0
+# #   - platform: generic
+# #     name: Kitchen camera
+# #     still_image_url: https://jerab.in/media/xiaomi-mijia-home-camera.jpg
+# #     stream_source: rtsp://192.168.1.253/live/ch00_0
 
 media_player:
+  - platform: philips_js
+    host: !secret philips_tv_ip
   - platform: frontier_silicon
-    host: 192.168.1.33
+    host: !secret fs_speaker_ip
   - platform: kodi
-    host: 192.168.1.23
-    port: 8080
+    host: !secret xbox_ip
+    port: !secret kodi_port
 
 vacuum:
   - platform: xiaomi_miio
-    host: 192.168.1.15
-    token: !secret vacuum_robot_token
+    host: !secret xiaomi_vacuum_ip
+    token: !secret xiaomi_vacuum_token
 
 speedtestdotnet:
   scan_interval:
@@ -74,141 +76,129 @@ speedtestdotnet:
 sensor:
   - platform: template
     sensors:
-      bedroom_temperature:
-        friendly_name: "Bedroom Purifier"
-        value_template: '{{ states.fan.bedroom_purifier.attributes.temperature }}'
-        unit_of_measurement: '°C'
-      lounge_temperature:
-        friendly_name: "Lounge Purifier"
-        value_template: '{{ states.fan.lounge_purifier.attributes.temperature }}'
-        unit_of_measurement: '°C'
-      avg_lounge_temperature:
-        friendly_name: "Lounge Temperature"
-        value_template: '{{ ((float(states("sensor.temperature_158d0001217046")) + float(states.fan.lounge_purifier.attributes.temperature)) / 2) | round(1) }}'
-        unit_of_measurement: '°C'
       sunset_time:
         value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
         friendly_name: "Next setting"
       sunrise_time:
         value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_rising) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
         friendly_name: "Next rising"
-  - platform: history_stats
-    name: Heating on today
-    entity_id: switch.heating
-    state: 'on'
-    type: time
-    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-    end: '{{ now() }}'
-  - platform: history_stats
-    name: Heating on yesterday
-    entity_id: switch.heating
-    state: 'on'
-    type: time
-    end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-    duration:
-      hours: 24
-  - platform: history_stats
-    name: Heating on past month
-    entity_id: switch.heating
-    state: 'on'
-    type: time
-    end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-    duration:
-      days: 30
-  - platform: history_stats
-    name: Luboš at work today
-    entity_id: person.lubos
-    state: 'Work'
-    type: time
-    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-    end: '{{ now() }}'
-  - platform: history_stats
-    name: Luboš at work this week
-    entity_id: person.lubos
-    state: 'Work'
-    type: time
-    start: '{{ as_timestamp( now().replace(hour=0).replace(minute=0).replace(second=0) ) - now().weekday() * 86400 }}'
-    end: '{{ now() }}'
-  - platform: history_stats
-    name: Janča at work today
-    entity_id: person.janca
-    state: 'Work'
-    type: time
-    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-    end: '{{ now() }}'
-  - platform: history_stats
-    name: Janča at work this week
-    entity_id: person.janca
-    state: 'Work'
-    type: time
-    start: '{{ as_timestamp( now().replace(hour=0).replace(minute=0).replace(second=0) ) - now().weekday() * 86400 }}'
-    end: '{{ now() }}'
+#   - platform: history_stats
+#     name: Heating on today
+#     entity_id: switch.heating
+#     state: 'on'
+#     type: time
+#     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+#     end: '{{ now() }}'
+#   - platform: history_stats
+#     name: Heating on yesterday
+#     entity_id: switch.heating
+#     state: 'on'
+#     type: time
+#     end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+#     duration:
+#       hours: 24
+#   - platform: history_stats
+#     name: Heating on past month
+#     entity_id: switch.heating
+#     state: 'on'
+#     type: time
+#     end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+#     duration:
+#       days: 30
+#   - platform: history_stats
+#     name: Luboš at work today
+#     entity_id: person.lubos
+#     state: 'Work'
+#     type: time
+#     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+#     end: '{{ now() }}'
+#   - platform: history_stats
+#     name: Luboš at work this week
+#     entity_id: person.lubos
+#     state: 'Work'
+#     type: time
+#     start: '{{ as_timestamp( now().replace(hour=0).replace(minute=0).replace(second=0) ) - now().weekday() * 86400 }}'
+#     end: '{{ now() }}'
+#   - platform: history_stats
+#     name: Janča at work today
+#     entity_id: person.janca
+#     state: 'Work'
+#     type: time
+#     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+#     end: '{{ now() }}'
+#   - platform: history_stats
+#     name: Janča at work this week
+#     entity_id: person.janca
+#     state: 'Work'
+#     type: time
+#     start: '{{ as_timestamp( now().replace(hour=0).replace(minute=0).replace(second=0) ) - now().weekday() * 86400 }}'
+#     end: '{{ now() }}'
 
 binary_sensor:
   - platform: workday
     country: GB
 
-light:
-  - platform: xiaomi_miio
-    host: 192.168.1.6
-    name: Hall light
-    token: !secret hall_light_token
-    model: philips.light.bulb
-  - platform: xiaomi_miio
-    host: 192.168.1.8
-    name: Bathroom light
-    token: !secret bathroom_light_token
-    model: philips.light.bulb
-  - platform: xiaomi_miio
-    host: 192.168.1.12
-    name: Cupboard light
-    token: !secret cupboard_light_token
-    model: philips.light.bulb
+# light:
+#   - platform: xiaomi_miio
+#     host: 192.168.1.6
+#     name: Hall light
+#     token: !secret hall_light_token
+#     model: philips.light.bulb
+#   - platform: xiaomi_miio
+#     host: 192.168.1.8
+#     name: Bathroom light
+#     token: !secret bathroom_light_token
+#     model: philips.light.bulb
+#   - platform: xiaomi_miio
+#     host: 192.168.1.12
+#     name: Cupboard light
+#     token: !secret cupboard_light_token
+#     model: philips.light.bulb
 
-yeelight:
-  devices:
-    192.168.1.201:
-      name: Bedroom light
-    192.168.1.144:
-      name: Kitchen light
-    192.168.1.121:
-      name: Kitchen lightstrip
-    192.168.1.197:
-      name: Living room light
-    192.168.1.16:
-      name: Argos lamp
-    192.168.1.123:
-      name: IKEA lamp
-    192.168.1.96:
-      name: Desk lamp
+# yeelight:
+#   devices:
+#     192.168.1.201:
+#       name: Bedroom light
+#     192.168.1.144:
+#       name: Kitchen light
+#     192.168.1.121:
+#       name: Kitchen lightstrip
+#     192.168.1.197:
+#       name: Living room light
+#     192.168.1.16:
+#       name: Argos lamp
+#     192.168.1.123:
+#       name: IKEA lamp
+#     192.168.1.96:
+#       name: Desk lamp
 
-tplink:
-  discovery: false
-  switch:
-    - host: 192.168.1.219
+# tplink:
+#   discovery: false
+#   switch:
+#     - host: 192.168.1.219
 
-climate:
-  - platform: generic_thermostat
-    name: Lounge temperature
-    heater: switch.heating
-    target_sensor: sensor.avg_lounge_temperature
-    min_temp: 17
-    max_temp: 23
-    target_temp: 21
-    away_temp: 18
+# climate:
+#   - platform: generic_thermostat
+#     name: Lounge temperature
+#     heater: switch.heating
+#     target_sensor: sensor.avg_lounge_temperature
+#     min_temp: 17
+#     max_temp: 23
+#     target_temp: 21
+#     away_temp: 18
 
-input_select:
-  vacuum_room:
-    name: Choose a room to clean
-    options:
-      - Select room
-      - Bedroom
-      - Living Room
-      - Kitchen
-      - Bathroom
-      - Hall
+# input_select:
+#   vacuum_room:
+#     name: Choose a room to clean
+#     options:
+#       - Select room
+#       - Bedroom
+#       - Living Room
+#       - Kitchen
+#       - Bathroom
+#       - Hall
 
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
-scene: !include scenes.yaml
+# scene: !include scenes.yaml

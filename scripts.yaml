@@ -1,42 +1,39 @@
 leave_home:
   sequence:
+    - service: script.heating_away
     - service: automation.turn_off
       entity_id:
-        - automation.bathroom_light_on
-        - automation.cupboard_light_on
-        - automation.gateway_light_on
-        - automation.kitchen_lights_on
-        - automation.turn_on_speaker_when_chromecast_is_playing
-        - automation.turn_on_speaker_when_kodi_is_playing
+    #     - automation.bathroom_light_on
+    #     - automation.cupboard_light_on
+    #     - automation.gateway_light_on
+    #     - automation.kitchen_lights_on
+    #     - automation.turn_on_speaker_when_chromecast_is_playing
+    #     - automation.turn_on_speaker_when_kodi_is_playing
         - automation.heating_on_every_morning
-    - service: automation.turn_on
-      entity_id:
-        - automation.hall_light_on_when_door_opens
-        - automation.hall_light_off_after_door_closes
-        - automation.purifiers_off_when_cleanup_done
-        - automation.notify_when_door_opens
-    - service: script.set_heating
-      data:
-        mode: away
-        temperature: 18
-    - service: light.turn_off
-      data:
-        entity_id:
-          - group.kitchen_lights
-          - group.living_room_lights
-          - group.other_lights
-    - service: media_player.turn_off
-      entity_id:
-        - media_player.kodi
-        - media_player.living_room_tv
-        - media_player.tv_speaker
-        - media_player.bedroom_speaker
-        - media_player.kitchen_speaker
-        - media_player.printer_speaker
-        - media_player.desk_speaker
-    - service: fan.turn_on
-      data:
-        entity_id: group.purifiers
+    # - service: automation.turn_on
+    #   entity_id:
+    #     - automation.hall_light_on_when_door_opens
+    #     - automation.hall_light_off_after_door_closes
+    #     - automation.purifiers_off_when_cleanup_done
+    #     - automation.notify_when_door_opens
+    # - service: light.turn_off
+    #   data:
+    #     entity_id:
+    #       - group.kitchen_lights
+    #       - group.living_room_lights
+    #       - group.other_lights
+    # - service: media_player.turn_off
+    #   entity_id:
+    #     - media_player.kodi
+    #     - media_player.living_room_tv
+    #     - media_player.tv_speaker
+    #     - media_player.bedroom_speaker
+    #     - media_player.kitchen_speaker
+    #     - media_player.printer_speaker
+    #     - media_player.desk_speaker
+    # - service: fan.turn_on
+    #   data:
+    #     entity_id: group.purifiers
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
@@ -47,23 +44,20 @@ leave_home:
 
 back_home:
   sequence:
-    - service: script.set_heating
-      data:
-        mode: none
-        temperature: 21
+    - service: script.heating_init
     - service: automation.turn_on
       entity_id:
-        - automation.bathroom_light_on
-        - automation.cupboard_light_on
-        - automation.gateway_light_on
-        - automation.kitchen_lights_on
-        - automation.turn_on_speaker_when_chromecast_is_playing
-        - automation.turn_on_speaker_when_kodi_is_playing
+    #     - automation.bathroom_light_on
+    #     - automation.cupboard_light_on
+    #     - automation.gateway_light_on
+    #     - automation.kitchen_lights_on
+    #     - automation.turn_on_speaker_when_chromecast_is_playing
+    #     - automation.turn_on_speaker_when_kodi_is_playing
         - automation.heating_on_every_morning
-    - service: automation.turn_off
-      entity_id:
-        - automation.purifiers_off_when_cleanup_done
-        - automation.notify_when_door_opens
+    # - service: automation.turn_off
+    #   entity_id:
+    #     - automation.purifiers_off_when_cleanup_done
+    #     - automation.notify_when_door_opens
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
@@ -71,19 +65,70 @@ back_home:
     - service: vacuum.return_to_base
       entity_id:
         - vacuum.xiaomi_vacuum_cleaner
-    - service: kodi.call_method
+    # - service: kodi.call_method
+    #   data:
+    #     entity_id: media_player.kodi
+    #     method: VideoLibrary.Scan
+    # - service: fan.set_speed
+    #   data:
+    #     entity_id: group.purifiers
+    #     speed: auto
+    # - service: media_player.play_media
+    #   data:
+    #     entity_id: media_player.kitchen_speaker
+    #     media_content_id: 'https://jerab.in/media/play_music.mp3'
+    #     media_content_type: music
+
+set_thermostat:
+  sequence:
+    - service: climate.set_preset_mode
       data:
-        entity_id: media_player.kodi
-        method: VideoLibrary.Scan
-    - service: fan.set_speed
+        entity_id: "{{ entity_id }}"
+        preset_mode: "{{ preset_mode }}"
+    - service: climate.set_temperature
+      data_template:
+        entity_id: "{{ entity_id }}"
+        temperature: "{{ temperature }}"
+
+heating_away:
+  sequence:
+    - service: climate.set_preset_mode
       data:
-        entity_id: group.purifiers
-        speed: auto
-    - service: media_player.play_media
+        entity_id: group.thermostats
+        preset_mode: away
+    - service: climate.set_temperature
+      data_template:
+        entity_id: group.thermostats
+        temperature: 16
+
+heating_night:
+  sequence:
+    - service: climate.set_preset_mode
       data:
-        entity_id: media_player.kitchen_speaker
-        media_content_id: 'https://jerab.in/media/play_music.mp3'
-        media_content_type: music
+        entity_id: group.thermostats
+        preset_mode: home
+    - service: climate.set_temperature
+      data_template:
+        entity_id: group.thermostats
+        temperature: 18
+
+heating_init:
+  sequence:
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.living_room
+        preset_mode: home
+        temperature: 21
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.study
+        preset_mode: home
+        temperature: 20
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.kitchen
+        preset_mode: home
+        temperature: 19
 
 notify_presence:
   sequence:
@@ -99,54 +144,3 @@ notify_presence:
         {% else %}
           {{-name }} left {{fromstate}} and arrived at {{tostate}}
         {% endif %}
-
-set_heating:
-  sequence:
-    - service: climate.set_preset_mode
-      data:
-        entity_id: climate.lounge_temperature
-        preset_mode: "{{ mode }}"
-    - service: climate.set_temperature
-      data_template:
-        entity_id: climate.lounge_temperature
-        temperature: "{{ temperature }}"
-
-vacuum_bedroom:
-  sequence:
-    - service: vacuum.send_command
-      data:
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[20650,23230,24100,26480,1]]
-
-vacuum_living_room:
-  sequence:
-    - service: vacuum.send_command
-      data:
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[24230,23380,28630,25980,1]]
-
-vacuum_kitchen:
-  sequence:
-    - service: vacuum.send_command
-      data:
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[25700,26100,28100,27800,1]]
-
-vacuum_bathroom:
-  sequence:
-    - service: vacuum.send_command
-      data:
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[21420,27680,22370,29880,1]]
-
-vacuum_hall:
-  sequence:
-    - service: vacuum.send_command
-      data:
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[22610,26580,24960,28430,1]]

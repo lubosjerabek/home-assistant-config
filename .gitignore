@@ -1,5 +1,6 @@
 
 .cloud/*
+.certs/*
 .storage/*
 certbot/*
 custom_components/*
