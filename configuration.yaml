@@ -26,39 +26,32 @@ http:
 tts:
   - platform: google_translate
 
-# xiaomi_aqara:
-#   discovery_retry: 5
-#   gateways:
-#     - key: !secret xiaomi_aqara_token
-
-# fan:
-#   - platform: xiaomi_miio
-#     host: 192.168.1.13
-#     token: !secret lounge_purifier_token
-#     name: "Lounge Purifier"
-#   - platform: xiaomi_miio
-#     host: 192.168.1.14
-#     token: !secret bedroom_purifier_token
-#     name: "Bedroom Purifier"
-
-# # camera:
-# #   - platform: generic
-# #     name: Bedroom camera
-# #     still_image_url: https://jerab.in/media/xiaomi-mijia-home-camera.jpg
-# #     stream_source: rtsp://192.168.1.22/live/ch00_0
-# #   - platform: generic
-# #     name: Kitchen camera
-# #     still_image_url: https://jerab.in/media/xiaomi-mijia-home-camera.jpg
-# #     stream_source: rtsp://192.168.1.253/live/ch00_0
-
 media_player:
-  - platform: philips_js
+  - platform: philips_android_tv
     host: !secret philips_tv_ip
+    mac: !secret philips_tv_mac
+    # username: !secret philips_tv_username
+    # password: !secret philips_tv_password
   - platform: frontier_silicon
     host: !secret fs_speaker_ip
+    name: Frontier Silicon Speaker
   - platform: kodi
     host: !secret xbox_ip
     port: !secret kodi_port
+  - platform: virgintivo
+    tivos:
+      1:
+        name: Virgin Tivo
+        host: !secret virgin_tivo_ip
+    tvchannellists:
+      enable: True
+
+# light:
+#   - platform: philips_ambilight
+#     name: Philips Ambilight
+#     host: !secret philips_tv_ip
+#     username: !secret philips_tv_username
+#     password: !secret philips_tv_password
 
 vacuum:
   - platform: xiaomi_miio
@@ -82,121 +75,53 @@ sensor:
       sunrise_time:
         value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_rising) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
         friendly_name: "Next rising"
-#   - platform: history_stats
-#     name: Heating on today
-#     entity_id: switch.heating
-#     state: 'on'
-#     type: time
-#     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-#     end: '{{ now() }}'
-#   - platform: history_stats
-#     name: Heating on yesterday
-#     entity_id: switch.heating
-#     state: 'on'
-#     type: time
-#     end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-#     duration:
-#       hours: 24
-#   - platform: history_stats
-#     name: Heating on past month
-#     entity_id: switch.heating
-#     state: 'on'
-#     type: time
-#     end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-#     duration:
-#       days: 30
-#   - platform: history_stats
-#     name: Luboš at work today
-#     entity_id: person.lubos
-#     state: 'Work'
-#     type: time
-#     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-#     end: '{{ now() }}'
-#   - platform: history_stats
-#     name: Luboš at work this week
-#     entity_id: person.lubos
-#     state: 'Work'
-#     type: time
-#     start: '{{ as_timestamp( now().replace(hour=0).replace(minute=0).replace(second=0) ) - now().weekday() * 86400 }}'
-#     end: '{{ now() }}'
-#   - platform: history_stats
-#     name: Janča at work today
-#     entity_id: person.janca
-#     state: 'Work'
-#     type: time
-#     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-#     end: '{{ now() }}'
-#   - platform: history_stats
-#     name: Janča at work this week
-#     entity_id: person.janca
-#     state: 'Work'
-#     type: time
-#     start: '{{ as_timestamp( now().replace(hour=0).replace(minute=0).replace(second=0) ) - now().weekday() * 86400 }}'
-#     end: '{{ now() }}'
 
 binary_sensor:
   - platform: workday
     country: GB
 
-# light:
-#   - platform: xiaomi_miio
-#     host: 192.168.1.6
-#     name: Hall light
-#     token: !secret hall_light_token
-#     model: philips.light.bulb
-#   - platform: xiaomi_miio
-#     host: 192.168.1.8
-#     name: Bathroom light
-#     token: !secret bathroom_light_token
-#     model: philips.light.bulb
-#   - platform: xiaomi_miio
-#     host: 192.168.1.12
-#     name: Cupboard light
-#     token: !secret cupboard_light_token
-#     model: philips.light.bulb
+yeelight:
+  devices:
+    !secret dining_room_light_ip:
+      name: Dining Room Light
+    !secret living_room_light_ip:
+      name: Living Room Light
+    !secret living_room_lamp_ip:
+      name: Living Room Lamp
+    !secret office_lamp_ip:
+      name: Office Lamp
+    !secret loft_lamp_ip:
+      name: Loft Lamp
 
-# yeelight:
-#   devices:
-#     192.168.1.201:
-#       name: Bedroom light
-#     192.168.1.144:
-#       name: Kitchen light
-#     192.168.1.121:
-#       name: Kitchen lightstrip
-#     192.168.1.197:
-#       name: Living room light
-#     192.168.1.16:
-#       name: Argos lamp
-#     192.168.1.123:
-#       name: IKEA lamp
-#     192.168.1.96:
-#       name: Desk lamp
+input_select:
+  play_radio:
+    name: Choose a radio to play
+    options:
+      - Select radio
+      - Český rozhlas Radiožurnál
+      - Rádio Krokodýl
 
-# tplink:
-#   discovery: false
-#   switch:
-#     - host: 192.168.1.219
+garbage_collection:
+  sensors:
+  - name: General Rubbish
+    frequency: "odd-weeks"
+    collection_days: wed
+    verbose_state: True
+    verbose_format: "on {date}, in {days} days"
+  - name: Recycling Waste
+    frequency: "even-weeks"
+    collection_days: wed
+    verbose_state: True
+    verbose_format: "on {date}, in {days} days"
+  - name: Garden Waste
+    frequency: "even-weeks"
+    collection_days: wed
+    first_month: "mar"
+    last_month: "nov"
+    verbose_state: True
+    verbose_format: "on {date}, in {days} days"
 
-# climate:
-#   - platform: generic_thermostat
-#     name: Lounge temperature
-#     heater: switch.heating
-#     target_sensor: sensor.avg_lounge_temperature
-#     min_temp: 17
-#     max_temp: 23
-#     target_temp: 21
-#     away_temp: 18
-
-# input_select:
-#   vacuum_room:
-#     name: Choose a room to clean
-#     options:
-#       - Select room
-#       - Bedroom
-#       - Living Room
-#       - Kitchen
-#       - Bathroom
-#       - Hall
+wake_on_lan:
 
 group: !include groups.yaml
 automation: !include automations.yaml
