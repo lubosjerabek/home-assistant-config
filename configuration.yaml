@@ -108,11 +108,17 @@ garbage_collection:
     collection_days: wed
     verbose_state: True
     verbose_format: "on {date}, in {days} days"
+    expire_after: '12:00'
+    exclude_dates:
+    - '2020-12-30'
+    include_dates:
+    - '2020-12-31'
   - name: Recycling Waste
     frequency: "even-weeks"
     collection_days: wed
     verbose_state: True
     verbose_format: "on {date}, in {days} days"
+    expire_after: '12:00'
   - name: Garden Waste
     frequency: "even-weeks"
     collection_days: wed
@@ -120,6 +126,7 @@ garbage_collection:
     last_month: "nov"
     verbose_state: True
     verbose_format: "on {date}, in {days} days"
+    expire_after: '12:00'
 
 wake_on_lan:
 
