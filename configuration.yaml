@@ -88,6 +88,8 @@ yeelight:
       name: Living Room Light
     !secret living_room_lamp_ip:
       name: Living Room Lamp
+    !secret bedroom_light_ip:
+      name: Bedroom Lamp
     !secret office_lamp_ip:
       name: Office Lamp
     !secret loft_lamp_ip:

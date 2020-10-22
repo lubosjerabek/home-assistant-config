@@ -118,7 +118,7 @@ heating_init:
       data:
         entity_id: climate.living_room
         preset_mode: home
-        temperature: 21
+        temperature: 20
     - service: script.set_thermostat
       data:
         entity_id: climate.study
@@ -145,6 +145,25 @@ notify_presence:
           {{-name }} left {{fromstate}} and arrived at {{tostate}}
         {% endif %}
 
+notify_heating_off:
+  sequence:
+    - service: notify.notify
+      data_template:
+        title: Home Assistant
+        message: >
+          {% set name = states[entityid.split('.')[0]][entityid.split('.')[1]].name %}
+            {{-name }} detected, turning the heating off
+    - service: climate.turn_off
+      data_template:
+        entity_id: >
+          {% if entityid == 'sensor.living_room_open_window' %}climate.living_room
+          {% elif entityid == 'sensor.bedroom_open_window' %}climate.bedroom
+          {% elif entityid == 'sensor.kitchen_open_window' %}climate.kitchen
+          {% elif entityid == 'sensor.study_open_window' %}climate.study
+          {% elif entityid == 'sensor.loft_open_window' %}climate.loft
+          {% else %}none
+          {% endif %}
+
 vacuum_kitchen:
   sequence:
     - service: vacuum.send_command
@@ -164,3 +183,15 @@ play_radio:
           {% elif is_state("input_select.play_radio", "Rádio Krokodýl") %}http://icecast4.play.cz/krokodyl128.mp3
           {% else %}none
           {% endif %}
+
+doorbell:
+  sequence:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        gw_mac: !secret xiaomi_gateway_mac
+        ringtone_id: 10
+        ringtone_vol: 60
+    - service: notify.notify
+      data:
+        title: Home Assistant
+        message: Someone's at the door

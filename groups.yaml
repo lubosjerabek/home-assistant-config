@@ -8,6 +8,7 @@ thermostats:
   name: Thermostats
   entities:
     - climate.living_room
+    - climate.bedroom
     - climate.kitchen
     - climate.study
 

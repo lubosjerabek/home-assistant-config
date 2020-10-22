@@ -53,13 +53,28 @@
           trigger.to_state.state in zones or 
           trigger.from_state.state in zones}}
   action:     
-    - service_template: >
-        script.notify_presence
+    - service: script.notify_presence
       data_template:
         trigger: Presence tracking
         entityid: '{{trigger.entity_id}}'
         tostate: '{{trigger.to_state.state}}'
         fromstate: '{{trigger.from_state.state}}'
+
+- alias: Heating off when window open
+  trigger:
+    platform: state
+    entity_id:
+      - sensor.living_room_open_window
+      - sensor.bedroom_open_window
+      - sensor.kitchen_open_window
+      - sensor.study_open_window
+      - sensor.loft_open_window
+    from: 'False'
+    to: 'True'
+  action:
+    - service: script.notify_heating_off
+      data_template:
+        entityid: '{{trigger.entity_id}}'
 
 - alias: Gateway light on
   trigger:
@@ -92,3 +107,15 @@
       data:
         entity_id: input_select.play_radio
         option: 'Select radio'
+
+- alias: Doorbell
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.switch_158d0001a21126
+      click_type: single
+  action:
+    service: script.turn_on
+    data:
+      entity_id: script.doorbell
