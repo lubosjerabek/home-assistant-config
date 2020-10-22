@@ -8,6 +8,11 @@ zone:
     longitude: !secret home_longitude
     icon: mdi:home
     radius: 250
+  - name: Extended home
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    radius: 15000
+    passive: true
 
 homeassistant:
   customize:
@@ -30,8 +35,6 @@ media_player:
   - platform: philips_android_tv
     host: !secret philips_tv_ip
     mac: !secret philips_tv_mac
-    # username: !secret philips_tv_username
-    # password: !secret philips_tv_password
   - platform: frontier_silicon
     host: !secret fs_speaker_ip
     name: Frontier Silicon Speaker
@@ -45,13 +48,6 @@ media_player:
         host: !secret virgin_tivo_ip
     tvchannellists:
       enable: True
-
-# light:
-#   - platform: philips_ambilight
-#     name: Philips Ambilight
-#     host: !secret philips_tv_ip
-#     username: !secret philips_tv_username
-#     password: !secret philips_tv_password
 
 vacuum:
   - platform: xiaomi_miio
