@@ -11,7 +11,7 @@
     at: '6:30:00'
   action:
     - delay: "{{ '00:00:00' if is_state('binary_sensor.workday_sensor', 'on') else '02:00:00' }}"
-    - service: script.heating_init
+    - service: script.heating_morning
 
 - alias: Back home
   trigger:
