@@ -124,7 +124,7 @@ garbage_collection:
     last_month: "nov"
     verbose_state: True
     verbose_format: "on {date}, in {days} days"
-    expire_after: '12:00'
+    expire_after: '10:00'
 
 wake_on_lan:
 

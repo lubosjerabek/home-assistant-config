@@ -20,9 +20,7 @@
       from: 'not_home'
       to: 'home'
   action:
-    service: script.turn_on
-    data:
-      entity_id: script.back_home
+    - service: script.back_home
 
 - alias: Leave home
   trigger:
@@ -31,9 +29,7 @@
       from: 'home'
       to: 'not_home'
   action:
-    service: script.turn_on
-    data:
-      entity_id: script.leave_home
+    - service: script.leave_home
 
 - alias: Notify zone changes
   trigger:
@@ -52,13 +48,31 @@
           trigger.from_state.state in ['home','not_home'] or
           trigger.to_state.state in zones or 
           trigger.from_state.state in zones}}
-  action:     
+  action:
     - service: script.notify_presence
       data_template:
         trigger: Presence tracking
         entityid: '{{trigger.entity_id}}'
         tostate: '{{trigger.to_state.state}}'
         fromstate: '{{trigger.from_state.state}}'
+
+- alias: Notify garbage collection
+  trigger:
+    - platform: state
+      entity_id: peson.janca, person.lubos
+      from: 'not_home'
+      to: 'home'
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id:
+          - sensor.general_rubbish
+          - sensor.recycling_waste
+          - sensor.garden_waste
+        state: Tomorrow
+  action:
+      - service: script.notify_garbage
 
 - alias: Heating off when window open
   trigger:
@@ -116,6 +130,4 @@
       entity_id: binary_sensor.switch_158d0001a21126
       click_type: single
   action:
-    service: script.turn_on
-    data:
-      entity_id: script.doorbell
+    - service: script.doorbell

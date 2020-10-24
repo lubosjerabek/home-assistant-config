@@ -195,3 +195,19 @@ doorbell:
       data:
         title: Home Assistant
         message: Someone's at the door
+
+notify_garbage:
+  sequence:
+    service: notify.notify
+    data_template:
+      title: Home Assistant
+      message: >
+        {% set ns = namespace ( bins = "" ) %}
+        {%- for entity_id in states.group.garbage_sensors.attributes.entity_id %}
+          {%- set name = states[entity_id.split(".")[0]][ entity_id.split(".")[1]].name %}
+          {%- set state = states[entity_id.split(".")[0]][ entity_id.split(".")[1]].state %}
+            {%- if state == "Tomorrow" %}
+              {%- set ns.bins = ns.bins ~ " and " ~ name %}
+            {%- endif %}
+        {%- endfor %}
+        Take {{ ns.bins[5:].lower() }} out

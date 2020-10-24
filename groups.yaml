@@ -12,6 +12,13 @@ thermostats:
     - climate.kitchen
     - climate.study
 
+garbage_sensors:
+  name: Garbage Collection Sensors
+  entities:
+    - sensor.general_rubbish
+    - sensor.recycling_waste
+    - sensor.garden_waste
+
 # temperature:
 #   name: Temperature
 #   entities:
