@@ -1,6 +1,10 @@
 leave_home:
   sequence:
     - service: script.heating_away
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.virgin_tivo
+        - media_player.philips_tv
     - service: automation.turn_off
       entity_id:
     #     - automation.bathroom_light_on
@@ -45,6 +49,10 @@ leave_home:
 back_home:
   sequence:
     - service: script.heating_back
+    - service: media_player.turn_on
+      entity_id:
+        - media_player.virgin_tivo
+        - media_player.philips_tv
     - service: automation.turn_on
       entity_id:
     #     - automation.bathroom_light_on
