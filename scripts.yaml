@@ -7,37 +7,7 @@ leave_home:
         - media_player.philips_tv
     - service: automation.turn_off
       entity_id:
-    #     - automation.bathroom_light_on
-    #     - automation.cupboard_light_on
-    #     - automation.gateway_light_on
-    #     - automation.kitchen_lights_on
-    #     - automation.turn_on_speaker_when_chromecast_is_playing
-    #     - automation.turn_on_speaker_when_kodi_is_playing
         - automation.heating_on_every_morning
-    # - service: automation.turn_on
-    #   entity_id:
-    #     - automation.hall_light_on_when_door_opens
-    #     - automation.hall_light_off_after_door_closes
-    #     - automation.purifiers_off_when_cleanup_done
-    #     - automation.notify_when_door_opens
-    # - service: light.turn_off
-    #   data:
-    #     entity_id:
-    #       - group.kitchen_lights
-    #       - group.living_room_lights
-    #       - group.other_lights
-    # - service: media_player.turn_off
-    #   entity_id:
-    #     - media_player.kodi
-    #     - media_player.living_room_tv
-    #     - media_player.tv_speaker
-    #     - media_player.bedroom_speaker
-    #     - media_player.kitchen_speaker
-    #     - media_player.printer_speaker
-    #     - media_player.desk_speaker
-    # - service: fan.turn_on
-    #   data:
-    #     entity_id: group.purifiers
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
@@ -55,17 +25,7 @@ back_home:
         - media_player.philips_tv
     - service: automation.turn_on
       entity_id:
-    #     - automation.bathroom_light_on
-    #     - automation.cupboard_light_on
-    #     - automation.gateway_light_on
-    #     - automation.kitchen_lights_on
-    #     - automation.turn_on_speaker_when_chromecast_is_playing
-    #     - automation.turn_on_speaker_when_kodi_is_playing
         - automation.heating_on_every_morning
-    # - service: automation.turn_off
-    #   entity_id:
-    #     - automation.purifiers_off_when_cleanup_done
-    #     - automation.notify_when_door_opens
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
@@ -73,19 +33,6 @@ back_home:
     - service: vacuum.return_to_base
       entity_id:
         - vacuum.xiaomi_vacuum_cleaner
-    # - service: kodi.call_method
-    #   data:
-    #     entity_id: media_player.kodi
-    #     method: VideoLibrary.Scan
-    # - service: fan.set_speed
-    #   data:
-    #     entity_id: group.purifiers
-    #     speed: auto
-    # - service: media_player.play_media
-    #   data:
-    #     entity_id: media_player.kitchen_speaker
-    #     media_content_id: 'https://jerab.in/media/play_music.mp3'
-    #     media_content_type: music
 
 set_thermostat:
   sequence:
