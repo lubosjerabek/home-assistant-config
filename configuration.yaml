@@ -32,15 +32,19 @@ tts:
   - platform: google_translate
 
 media_player:
-  - platform: philips_android_tv
+  - platform: philips_js
     host: !secret philips_tv_ip
-    mac: !secret philips_tv_mac
+    api_version: 6
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: !secret philips_tv_mac
   - platform: frontier_silicon
     host: !secret fs_speaker_ip
     name: Frontier Silicon Speaker
-  - platform: kodi
-    host: !secret xbox_ip
-    port: !secret kodi_port
+  # - platform: kodi
+  #   host: !secret xbox_ip
+  #   port: !secret kodi_port
   - platform: virgintivo
     tivos:
       1:
@@ -48,6 +52,11 @@ media_player:
         host: !secret virgin_tivo_ip
     tvchannellists:
       enable: True
+
+light:
+  - platform: philips_ambilight
+    name: Ambilight
+    host: !secret philips_tv_ip
 
 vacuum:
   - platform: xiaomi_miio
