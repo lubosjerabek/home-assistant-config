@@ -22,8 +22,10 @@ homeassistant:
       entity_picture: "https://jerab.in/media/janca.png"
 
 http:
-  ssl_certificate: /config/backup.cert
-  ssl_key: /config/backup.key
+  base_url: !secret hassio_url
+  server_port: !secret hassio_port
+  ssl_certificate: /config/certs/SSLcertificate.crt
+  ssl_key: /config/certs/SSLprivatekey.key
 
 # lovelace:
 #   mode: yaml

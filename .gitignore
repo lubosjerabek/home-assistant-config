@@ -3,6 +3,7 @@
 .certs/*
 .storage/*
 certbot/*
+certs/*
 custom_components/*
 .HA_VERSION
 .uuid
