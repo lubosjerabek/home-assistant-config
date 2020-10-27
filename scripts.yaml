@@ -213,3 +213,18 @@ notify_garbage:
             {%- endif %}
         {%- endfor %}
         Take {{ ns.bins[5:].lower() }} out
+
+ambilight_off:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.ambilight
+        brightness: 1
+        effect: Manual
+
+ambilight_on:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.ambilight
+        effect: Natural
