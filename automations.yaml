@@ -58,19 +58,22 @@
 
 - alias: Notify garbage collection
   trigger:
-    - platform: state
-      entity_id: peson.janca, person.lubos
-      from: 'not_home'
-      to: 'home'
+    platform: state
+    entity_id: person.janca, person.lubos
+    to: 'home'
   condition:
-    condition: or
-    conditions:
-      - condition: state
-        entity_id:
-          - sensor.general_rubbish
-          - sensor.recycling_waste
-          - sensor.garden_waste
-        state: Tomorrow
+    - condition: template
+      value_template: >
+        {{ trigger.to_state.state is not none and
+          trigger.from_state.state is not none and
+          trigger.to_state.state != trigger.from_state.state }}
+    - condition: template
+      value_template: >
+        {{
+          is_state("sensor.general_rubbish", "tomorrow") or
+          is_state("sensor.recycling_waste", "tomorrow") or
+          is_state("sensor.garden_waste", "tomorrow")
+        }}
   action:
       - service: script.notify_garbage
 

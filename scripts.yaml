@@ -208,7 +208,7 @@ notify_garbage:
         {%- for entity_id in states.group.garbage_sensors.attributes.entity_id %}
           {%- set name = states[entity_id.split(".")[0]][ entity_id.split(".")[1]].name %}
           {%- set state = states[entity_id.split(".")[0]][ entity_id.split(".")[1]].state %}
-            {%- if state == "Tomorrow" %}
+            {%- if state == "tomorrow" %}
               {%- set ns.bins = ns.bins ~ " and " ~ name %}
             {%- endif %}
         {%- endfor %}
