@@ -82,6 +82,23 @@ sensor:
       sunrise_time:
         value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_rising) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
         friendly_name: "Next rising"
+      washer_status:
+        value_template: >
+          {% set washer_state = states('sensor.washing_machine_washer_job_state') %}
+          {% set off_states = ["none", "finish"] %}
+          {%- if washer_state in off_states -%}Off
+          {%- elif washer_state == "delayWash" -%}Delay
+          {%- elif washer_state == "rinse" -%}Rinsing
+          {%- elif washer_state == "spin" -%}Spinning
+          {%- elif washer_state == "wash" -%}Washing
+          {%- else -%}{{ washer_state }}
+          {%- endif %}
+      washer_eta:
+        value_template: >
+          {% set washer_state = states('sensor.washer_status') %}
+          {%- if washer_state == "Off" -%}None
+          {%- else -%}{{ as_timestamp(strptime(states('sensor.washing_machine_washer_completion_time'), "")) | timestamp_custom("%H:%M") }}
+          {%- endif %}
 
 binary_sensor:
   - platform: workday

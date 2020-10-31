@@ -156,3 +156,16 @@
       to: 'on'
   action:
     - service: script.ambilight_off
+
+- alias: Notify washing machine state changes
+  trigger:
+    platform: state
+    entity_id: sensor.washer_status
+  condition:
+    condition: not
+    conditions:
+      condition: state
+      entity_id: sensor.washer_status
+      state: 'Delay'
+  action:
+  - service: script.notify_washer_state

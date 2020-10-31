@@ -228,3 +228,20 @@ ambilight_on:
       data:
         entity_id: light.ambilight
         effect: Natural
+
+notify_washer_state:
+  sequence:
+    service: notify.notify
+    data_template:
+      title: Home Assistant
+      message: >
+        {% set washer_state = states('sensor.washer_status').lower() %}
+        {% set invalid_washer_states = ["off", "delay"] %}
+        {%- if washer_state not in invalid_washer_states -%}
+          Washing machine started {{ washer_state }}.
+        {%- elif washer_state == "off" -%}
+          Washing machine cycle completed.
+        {%- endif %}
+        {% if washer_state == "washing" -%}
+          Completion time estimated at {{ states('sensor.washer_eta') }}.
+        {%- endif -%}
