@@ -83,10 +83,12 @@ sensor:
         value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_rising) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
         friendly_name: "Next rising"
       washer_status:
+        friendly_name: "Washing Machine"
         value_template: >
           {% set washer_state = states('sensor.washing_machine_washer_job_state') %}
           {% set off_states = ["none", "finish"] %}
           {%- if washer_state in off_states -%}Off
+          {%- elif washer_state == "weightSensing" -%}Weighing
           {%- elif washer_state == "delayWash" -%}Delay
           {%- elif washer_state == "rinse" -%}Rinsing
           {%- elif washer_state == "spin" -%}Spinning
@@ -94,6 +96,7 @@ sensor:
           {%- else -%}{{ washer_state }}
           {%- endif %}
       washer_eta:
+        friendly_name: "Completion Time Estimate"
         value_template: >
           {% set washer_state = states('sensor.washer_status') %}
           {%- if washer_state == "Off" -%}None
@@ -134,7 +137,7 @@ garbage_collection:
     collection_days: wed
     verbose_state: True
     verbose_format: "on {date}, in {days} days"
-    expire_after: '12:00'
+    expire_after: '10:00'
     exclude_dates:
     - '2020-12-30'
     include_dates:
@@ -144,7 +147,7 @@ garbage_collection:
     collection_days: wed
     verbose_state: True
     verbose_format: "on {date}, in {days} days"
-    expire_after: '12:00'
+    expire_after: '10:00'
   - name: Garden Waste
     frequency: "even-weeks"
     collection_days: wed
