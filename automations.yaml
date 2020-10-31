@@ -134,3 +134,25 @@
       click_type: single
   action:
     - service: script.doorbell
+
+- alias: Ambilight on when lights turn off
+  trigger:
+    - platform: state
+      entity_id: group.living_room_lights
+      from: 'on'
+      to: 'off'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.xiaomi_gateway_illuminance
+    below: 600
+  action:
+    - service: script.ambilight_on
+
+- alias: Ambilight off when lights turn on
+  trigger:
+    - platform: state
+      entity_id: group.living_room_lights
+      from: 'off'
+      to: 'on'
+  action:
+    - service: script.ambilight_off
