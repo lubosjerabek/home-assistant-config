@@ -24,7 +24,7 @@ homeassistant:
 http:
   base_url: !secret hassio_url
   server_port: !secret hassio_port
-  ssl_certificate: /config/certs/SSLcertificate.crt
+  ssl_certificate: /config/certs/fullchain.pem
   ssl_key: /config/certs/SSLprivatekey.key
 
 # lovelace:
