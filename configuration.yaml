@@ -17,9 +17,9 @@ zone:
 homeassistant:
   customize:
     person.lubos:
-      entity_picture: "https://jerab.in/media/lubos.png"
+      entity_picture: /local/lubos.png
     person.janca:
-      entity_picture: "https://jerab.in/media/janca.png"
+      entity_picture: /local/janca.png
 
 http:
   base_url: !secret hassio_url
