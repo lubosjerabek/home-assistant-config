@@ -170,3 +170,15 @@
           trigger.to_state.state != trigger.from_state.state }}
   action:
     - service: script.notify_washer_state
+
+- alias: Notify proximity
+  trigger:
+    - platform: zone
+      entity_id: person.janca
+      zone: zone.extended_home
+      event: enter
+  action:
+    - service: notify.mobile_app_iphone
+      data:
+        title: Home Assistant
+        message: Extended zone activated

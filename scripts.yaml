@@ -1,10 +1,7 @@
 leave_home:
   sequence:
     - service: script.heating_away
-    - service: media_player.turn_off
-      entity_id:
-        - media_player.virgin_tivo
-        - media_player.philips_tv
+    - service: script.all_media_off
     - service: automation.turn_off
       entity_id:
         - automation.heating_on_every_morning
@@ -33,6 +30,18 @@ back_home:
     - service: vacuum.return_to_base
       entity_id:
         - vacuum.xiaomi_vacuum_cleaner
+
+all_media_off:
+  sequence:
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.virgin_tivo
+        - media_player.philips_tv
+        - media_player.downstairs_speakers
+        - media_player.frontier_silicon_speaker
+        - media_player.office_speaker
+        - media_player.loft_speaker
+        - media_player.bedroom_speaker
 
 set_thermostat:
   sequence:
@@ -245,3 +254,20 @@ notify_washer_state:
         {% if washer_state == "washing" -%}
           Completion time estimated at {{ states('sensor.washer_eta') }}.
         {%- endif -%}
+
+bedtime:
+  sequence:
+    - service: light.turn_on
+      entity_id: light.bedroom_lamp
+    - service: script.all_media_off
+    - service: light.turn_off
+      data:
+        entity_id:
+          - group.living_room_lights
+          - light.dining_room_light
+          - light.loft_lamp
+          - light.office_lamp
+    - service: light.turn_off
+      data:
+        entity_id: light.bedroom_lamp
+        transition: 900
