@@ -1,7 +1,6 @@
 leave_home:
   sequence:
     - service: script.heating_away
-    - service: script.all_media_off
     - service: automation.turn_off
       entity_id:
         - automation.heating_on_every_morning
@@ -12,6 +11,8 @@ leave_home:
     - service: vacuum.start
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
+    - service: script.all_lights_off
+    - service: script.all_media_off
 
 back_home:
   sequence:
@@ -42,6 +43,18 @@ all_media_off:
         - media_player.office_speaker
         - media_player.loft_speaker
         - media_player.bedroom_speaker
+
+all_lights_off:
+  sequence:
+    - service: light.turn_off
+      entity_id:
+        - group.living_room_lights
+        - light.dining_room_light
+        - light.loft_lamp
+        - light.office_lamp
+        - light.bedroom_lamp
+    - service: switch.turn_off
+      entity_id: switch.kitchen_light
 
 set_thermostat:
   sequence:
@@ -245,7 +258,7 @@ notify_washer_state:
       title: Home Assistant
       message: >
         {% set washer_state = states('sensor.washer_status').lower() %}
-        {% set invalid_washer_states = ["off", "delay"] %}
+        {% set invalid_washer_states = ["off", "delay", "weighing"] %}
         {%- if washer_state not in invalid_washer_states -%}
           Washing machine started {{ washer_state }}.
         {%- elif washer_state == "off" -%}
@@ -259,7 +272,7 @@ bedtime:
   sequence:
     - service: light.turn_on
       entity_id: light.bedroom_lamp
-    - service: script.all_media_off
+    - service: script.heating_night
     - service: light.turn_off
       data:
         entity_id:
@@ -271,3 +284,4 @@ bedtime:
       data:
         entity_id: light.bedroom_lamp
         transition: 900
+    - service: script.all_media_off

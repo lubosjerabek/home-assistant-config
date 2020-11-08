@@ -164,7 +164,8 @@
   condition:
     - condition: template
       value_template: >
-        {{ trigger.to_state.state != "Delay" and
+        {{ trigger.to_state.state != "Weighing" and
+          trigger.to_state.state != "Delay" and
           trigger.to_state.state != unknown and
           trigger.from_state.state != unknown and
           trigger.to_state.state != trigger.from_state.state }}
