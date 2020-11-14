@@ -172,14 +172,33 @@
   action:
     - service: script.notify_washer_state
 
-- alias: Notify proximity
+- alias: Evening heating before Jana gets back home
   trigger:
     - platform: zone
       entity_id: person.janca
       zone: zone.extended_home
       event: enter
+  condition:
+    - condition: state
+      entity_id: person.lubos
+      state: 'home'
   action:
-    - service: notify.mobile_app_iphone
+    - service: script.set_thermostat
       data:
-        title: Home Assistant
-        message: Extended zone activated
+        entity_id: climate.living_room
+        temperature: 21
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.bedroom
+        temperature: 21
+
+- alias: Cube automations
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.cube
+      action_type: tap_twice
+  action:
+    - service: script.start_work

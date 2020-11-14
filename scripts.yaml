@@ -295,3 +295,28 @@ bedtime:
         entity_id: light.bedroom_lamp
         transition: 900
     - service: script.all_media_off
+
+start_work:
+  sequence:
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.living_room
+        temperature: 19.5
+    - service: vacuum.set_fan_speed
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        fan_speed: standard
+    - service: vacuum.start
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+    - service: light.turn_off
+      entity_id:
+        - group.living_room_lights
+        - light.dining_room_light
+    - service: switch.turn_off
+      entity_id: switch.kitchen_light
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.downstairs_speakers
+        - media_player.virgin_tivo
+        - media_player.philips_tv
