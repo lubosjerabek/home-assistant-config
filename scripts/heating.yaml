@@ -1,0 +1,97 @@
+set_thermostat:
+  sequence:
+    - service: climate.set_preset_mode
+      data:
+        entity_id: "{{ entity_id }}"
+        preset_mode: home
+    - service: climate.set_temperature
+      data_template:
+        entity_id: "{{ entity_id }}"
+        temperature: "{{ temperature }}"
+
+heating_morning:
+  sequence:
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.living_room
+        temperature: 20
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.kitchen
+        temperature: 19
+    - service: climate.turn_off
+      entity_id: climate.bedroom
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.study
+        temperature: 20
+
+heating_away:
+  sequence:
+    - service: climate.set_preset_mode
+      data:
+        entity_id: group.thermostats
+        preset_mode: away
+    - service: climate.set_temperature
+      data_template:
+        entity_id: group.thermostats
+        temperature: 16
+    - service: climate.turn_off
+      entity_id: climate.loft
+
+heating_close:
+  sequence:
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.living_room
+        temperature: 20
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.kitchen
+        temperature: 19
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.bedroom
+        temperature: 20
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.study
+        temperature: 20
+
+heating_back:
+  sequence:
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.living_room
+        temperature: 21
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.kitchen
+        temperature: 19
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.bedroom
+        temperature: 21
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.study
+        temperature: 20
+
+heating_night:
+  sequence:
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.living_room
+        temperature: 18
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.kitchen
+        temperature: 18
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.bedroom
+        temperature: 19
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.study
+        temperature: 18

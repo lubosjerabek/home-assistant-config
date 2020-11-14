@@ -1,0 +1,66 @@
+notify_presence:
+  sequence:
+    service: notify.notify
+    data_template:
+      title: Home Assistant
+      message: >
+        {% set name = states[entityid.split('.')[0]][entityid.split('.')[1]].name %}
+        {% if tostate == 'not_home' %}
+          {{-name }} left {{fromstate}}
+        {% elif fromstate == 'not_home' %}
+          {{-name }} arrived at {{tostate}}
+        {% else %}
+          {{-name }} left {{fromstate}} and arrived at {{tostate}}
+        {% endif %}
+
+notify_heating_off:
+  sequence:
+    - service: notify.notify
+      data_template:
+        title: Home Assistant
+        message: >
+          {% set name = states[entityid.split('.')[0]][entityid.split('.')[1]].name %}
+            {{-name }} detected, turning the heating off
+    - service: climate.turn_off
+      data_template:
+        entity_id: >
+          {% if entityid == 'sensor.living_room_open_window' %}climate.living_room
+          {% elif entityid == 'sensor.bedroom_open_window' %}climate.bedroom
+          {% elif entityid == 'sensor.kitchen_open_window' %}climate.kitchen
+          {% elif entityid == 'sensor.study_open_window' %}climate.study
+          {% elif entityid == 'sensor.loft_open_window' %}climate.loft
+          {% else %}none
+          {% endif %}
+
+notify_garbage:
+  sequence:
+    service: notify.notify
+    data_template:
+      title: Home Assistant
+      message: >
+        {% set ns = namespace ( bins = "" ) %}
+        {%- for entity_id in states.group.garbage_sensors.attributes.entity_id %}
+          {%- set name = states[entity_id.split(".")[0]][ entity_id.split(".")[1]].name %}
+          {%- set state = states[entity_id.split(".")[0]][ entity_id.split(".")[1]].state %}
+            {%- if state == "tomorrow" %}
+              {%- set ns.bins = ns.bins ~ " and " ~ name %}
+            {%- endif %}
+        {%- endfor %}
+        Take {{ ns.bins[5:].lower() }} out
+
+notify_washer_state:
+  sequence:
+    service: notify.notify
+    data_template:
+      title: Home Assistant
+      message: >
+        {% set washer_state = states('sensor.washer_status').lower() %}
+        {% set invalid_washer_states = ["off", "delay", "weighing"] %}
+        {%- if washer_state not in invalid_washer_states -%}
+          Washing machine started {{ washer_state }}.
+        {%- elif washer_state == "off" -%}
+          Washing machine cycle completed.
+        {%- endif %}
+        {% if washer_state == "washing" -%}
+          Completion time estimated at {{ states('sensor.washer_eta') }}.
+        {%- endif -%}

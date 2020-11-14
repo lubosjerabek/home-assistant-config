@@ -1,0 +1,42 @@
+- alias: Gateway light on
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.xiaomi_gateway_illuminance
+    below: 450
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.xiaomi_gateway_light
+        color_name: azure
+
+- alias: Gateway light off
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.xiaomi_gateway_illuminance
+    above: 600
+  action:
+    service: light.turn_off
+    entity_id: light.xiaomi_gateway_light
+
+- alias: Ambilight on when lights turn off
+  trigger:
+    - platform: state
+      entity_id: light.living_room_light
+      from: 'on'
+      to: 'off'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.xiaomi_gateway_illuminance
+    below: 600
+  action:
+    - service: script.ambilight_on
+
+- alias: Ambilight off when lights turn on
+  trigger:
+    - platform: state
+      entity_id: light.living_room_light
+      from: 'off'
+      to: 'on'
+  action:
+    - service: script.ambilight_off
+
