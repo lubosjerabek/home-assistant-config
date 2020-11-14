@@ -167,5 +167,5 @@ garbage_collection:
 wake_on_lan:
 
 group: !include groups.yaml
-automation: !include_dir_merge_named automations/
+automation: !include_dir_merge_list automations/
 script: !include_dir_merge_named scripts/
