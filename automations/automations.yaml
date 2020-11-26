@@ -48,3 +48,35 @@
       action_type: tap_twice
   action:
     - service: script.start_work
+
+- alias: Bedside automations - Toggle light
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.button_bedside_lubos
+      click_type: single
+  action:
+    - service: light.toggle
+      data:
+        entity_id: light.bedroom_lamp
+
+- alias: Bedside automations - Bedtime script
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.button_bedside_lubos
+      click_type: double
+  action:
+    - service: script.bedtime
+
+- alias: Bedside automations - Morning script
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.button_bedside_lubos
+      click_type: hold
+  action:
+    - service: script.morning
