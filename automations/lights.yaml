@@ -18,6 +18,19 @@
     service: light.turn_off
     entity_id: light.xiaomi_gateway_light
 
+- alias: Ambilight off when TV starts in daylight
+  trigger:
+    - platform: state
+      entity_id: light.living_room_light
+      from: 'unavailable'
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: 'above_horizon'
+  action:
+    - service: script.ambilight_off
+
 - alias: Ambilight on when lights turn off
   trigger:
     - platform: state

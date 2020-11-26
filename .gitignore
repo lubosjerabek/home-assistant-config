@@ -17,3 +17,4 @@ secrets.yaml
 *.cert
 *.conf
 *.temp
+.sonoff.json

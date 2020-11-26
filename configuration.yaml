@@ -164,6 +164,15 @@ garbage_collection:
     verbose_format: "on {date}, in {days} days"
     expire_after: '10:00'
 
+utility_meter:
+  energy:
+    source: sensor.ovo_last_electricity_reading
+    cycle: monthly
+
+sonoff:
+  username: !secret sonoff_username
+  password: !secret sonoff_password
+
 wake_on_lan:
 
 group: !include groups.yaml
