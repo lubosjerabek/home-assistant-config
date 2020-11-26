@@ -19,8 +19,10 @@ heating_morning:
       data:
         entity_id: climate.kitchen
         temperature: 19
-    - service: climate.turn_off
-      entity_id: climate.bedroom
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.bedroom
+        temperature: 20
     - service: script.set_thermostat
       data:
         entity_id: climate.study
@@ -86,12 +88,12 @@ heating_night:
     - service: script.set_thermostat
       data:
         entity_id: climate.kitchen
-        temperature: 18
+        temperature: 17
     - service: script.set_thermostat
       data:
         entity_id: climate.bedroom
-        temperature: 19
+        temperature: 18
     - service: script.set_thermostat
       data:
         entity_id: climate.study
-        temperature: 18
+        temperature: 17
