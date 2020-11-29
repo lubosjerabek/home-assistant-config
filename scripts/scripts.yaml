@@ -89,13 +89,14 @@ all_media_off:
   sequence:
     - service: media_player.turn_off
       entity_id:
-        - media_player.virgin_tivo
-        - media_player.philips_tv
         - media_player.downstairs_speakers
         - media_player.frontier_silicon_speaker
         - media_player.office_speaker
         - media_player.loft_speaker
         - media_player.bedroom_speaker
+        - media_player.virgin_tivo
+        - media_player.xboxone
+        - media_player.philips_tv
 
 all_lights_off:
   sequence:
