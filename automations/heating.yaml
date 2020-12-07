@@ -1,11 +1,11 @@
-- alias: Heating off every night
+- alias: Heating - Night
   trigger:
     platform: time
     at: '22:30:00'
   action:
     - service: script.heating_night
 
-- alias: Heating on every morning
+- alias: Heating - Morning
   trigger:
     platform: time
     at: '6:30:00'
@@ -13,7 +13,7 @@
     - delay: "{{ '00:00:00' if is_state('binary_sensor.workday_sensor', 'on') else '01:00:00' }}"
     - service: script.heating_morning
 
-- alias: Heating off when window open
+- alias: Heating - Temperature drop
   trigger:
     platform: state
     entity_id:
@@ -29,15 +29,15 @@
       data_template:
         entityid: '{{trigger.entity_id}}'
 
-- alias: Evening heating before Jana gets back home
+- alias: Heating - Close to home
   trigger:
     - platform: zone
-      entity_id: person.janca
+      entity_id: person.janca, person.lubos
       zone: zone.extended_home
       event: enter
   condition:
     - condition: state
-      entity_id: person.lubos
+      entity_id: group.everyone
       state: 'home'
   action:
     - service: script.set_thermostat
