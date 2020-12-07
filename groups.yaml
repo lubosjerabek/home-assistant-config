@@ -24,3 +24,8 @@ living_room_lights:
   entities:
     - light.living_room_lamp
     - light.living_room_light
+
+hallway_motion:
+  entities:
+    - binary_sensor.entrance_motion
+    - binary_sensor.hallway_motion

@@ -18,31 +18,25 @@
     service: light.turn_off
     entity_id: light.xiaomi_gateway_light
 
-- alias: Ambilight off when TV starts in daylight
+- alias: Light - Motion in hallway
   trigger:
-    - platform: state
-      entity_id: light.living_room_light
-      from: 'unavailable'
-      to: 'on'
-  condition:
-    - condition: state
-      entity_id: sun.sun
-      state: 'above_horizon'
+    platform: state
+    entity_id: group.hallway_motion
+    from: 'off'
+    to: 'on'
   action:
-    - service: script.ambilight_off
+    service: switch.turn_on
+    entity_id: switch.hallway_light
 
-- alias: Ambilight on when lights turn off
+- alias: Light - No motion in hallway
   trigger:
-    - platform: state
-      entity_id: light.living_room_light
-      from: 'on'
-      to: 'off'
-  condition:
-    condition: numeric_state
-    entity_id: sensor.xiaomi_gateway_illuminance
-    below: 600
+    platform: state
+    entity_id: group.hallway_motion
+    to: 'off'
+    for: '00:01:00'
   action:
-    - service: script.ambilight_on
+    service: switch.turn_off
+    entity_id: switch.hallway_light
 
 - alias: Ambilight off when lights turn on
   trigger:
