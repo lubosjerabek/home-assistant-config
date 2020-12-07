@@ -37,13 +37,3 @@
   action:
     service: switch.turn_off
     entity_id: switch.hallway_light
-
-- alias: Ambilight off when lights turn on
-  trigger:
-    - platform: state
-      entity_id: light.living_room_light
-      from: 'off'
-      to: 'on'
-  action:
-    - service: script.ambilight_off
-
