@@ -60,6 +60,14 @@ bedtime:
         transition: 900
     - service: script.all_media_off
 
+bedside_actions:
+  sequence:
+    - service_template: >
+        {% if action == 'single' %} script.toggle_bedroom_light
+        {% elif action == 'double' %} script.bedtime
+        {% elif action == 'hold' %} script.morning
+        {% endif %}
+
 start_work:
   sequence:
     - service: script.set_thermostat

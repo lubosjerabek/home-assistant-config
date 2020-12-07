@@ -34,7 +34,6 @@
     event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.switch_158d0001a21126
-      click_type: single
   action:
     - service: script.doorbell
 
@@ -49,34 +48,26 @@
   action:
     - service: script.start_work
 
-- alias: Bedside automations - Toggle light
+- alias: Bedside - Lubos Button
   trigger:
     platform: event
     event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.button_bedside_lubos
-      click_type: single
   action:
-    - service: light.toggle
-      data:
-        entity_id: light.bedroom_lamp
+    - service: script.bedside_actions
+      data_template:
+        action: >
+          {{ state_attr('binary_sensor.button_bedside_lubos', 'last_action') }}
 
-- alias: Bedside automations - Bedtime script
+- alias: Bedside - Jana Button
   trigger:
     platform: event
     event_type: xiaomi_aqara.click
     event_data:
-      entity_id: binary_sensor.button_bedside_lubos
-      click_type: double
+      entity_id: binary_sensor.button_bedside_jana
   action:
-    - service: script.bedtime
-
-- alias: Bedside automations - Morning script
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.click
-    event_data:
-      entity_id: binary_sensor.button_bedside_lubos
-      click_type: hold
-  action:
-    - service: script.morning
+    - service: script.bedside_actions
+      data_template:
+        action: >
+          {{ state_attr('binary_sensor.button_bedside_jana', 'last_action') }}
