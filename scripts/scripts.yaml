@@ -180,3 +180,13 @@ ambilight_on:
       data:
         entity_id: light.ambilight
         effect: Natural
+
+restart_tado:
+  sequence:
+    - service: switch.turn_off
+      entity_id:
+        - switch.sonoff_tado_usb
+    - delay: '00:00:10'
+    - service: switch.turn_on
+      entity_id:
+        - switch.sonoff_tado_usb

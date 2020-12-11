@@ -49,3 +49,16 @@
         entity_id: climate.bedroom
         temperature: 21
 
+- alias: Heating - Restart Tado bridge when service goes down
+  trigger:
+    platform: state
+    entity_id:
+      - sensor.living_room_link
+      - sensor.bedroom_link
+      - sensor.kitchen_link
+      - sensor.study_link
+      - sensor.loft_link
+    from: 'ONLINE'
+    to: 'OFFLINE'
+  action:
+    - service: script.restart_tado
