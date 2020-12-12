@@ -37,3 +37,19 @@
   action:
     service: switch.turn_off
     entity_id: switch.hallway_light
+
+- alias: Light - Kitchen and Bedroom on upon Arrival
+  trigger:
+    platform: state
+    entity_id: person.lubos, person.janca
+    from: 'not_home'
+    to: 'home'
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.kitchen_light
+    - service: light.turn_on
+      entity_id: light.bedroom_lamp
