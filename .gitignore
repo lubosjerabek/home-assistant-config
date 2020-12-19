@@ -3,6 +3,7 @@
 .certs/*
 .storage/*
 certbot/*
+blueprints/*
 certs/*
 custom_components/*
 .HA_VERSION
