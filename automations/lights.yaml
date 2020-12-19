@@ -1,4 +1,4 @@
-- alias: Gateway light on
+- alias: Light - Gateway light on
   trigger:
     platform: numeric_state
     entity_id: sensor.xiaomi_gateway_illuminance
@@ -9,7 +9,7 @@
         entity_id: light.xiaomi_gateway_light
         color_name: azure
 
-- alias: Gateway light off
+- alias: Light - Gateway light off
   trigger:
     platform: numeric_state
     entity_id: sensor.xiaomi_gateway_illuminance
@@ -24,6 +24,10 @@
     entity_id: group.hallway_motion
     from: 'off'
     to: 'on'
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
   action:
     service: switch.turn_on
     entity_id: switch.hallway_light
