@@ -21,6 +21,12 @@
     - platform: state
       entity_id: input_select.play_radio
       from: 'Select radio'
+  condition:
+    condition: not
+    conditions:
+      - condition: state
+        entity_id: input_select.play_radio
+        state: 'Select radio'
   action:
     - service: script.play_radio
     - service: input_select.select_option
