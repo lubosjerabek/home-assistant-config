@@ -5,6 +5,7 @@
 certbot/*
 blueprints/*
 certs/*
+ssl_all/*
 custom_components/*
 .HA_VERSION
 .uuid
