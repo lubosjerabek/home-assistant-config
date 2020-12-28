@@ -77,3 +77,14 @@
       data_template:
         action: >
           {{ state_attr('binary_sensor.button_bedside_jana', 'last_action') }}
+
+- alias: Stop music when xbox starts playing
+  trigger:
+    - platform: state
+      entity_id: media_player.xboxone
+      from: 'on'
+      to: 'playing'
+  action:
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.downstairs_speakers
