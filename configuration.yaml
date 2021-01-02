@@ -59,6 +59,11 @@ light:
   - platform: philips_ambilight
     name: Ambilight
     host: !secret philips_tv_ip
+  - platform: xiaomi_miio
+    host: !secret toilet_light_ip
+    name: Toilet Light
+    token: !secret toilet_light_token
+    model: philips.light.bulb
 
 vacuum:
   - platform: xiaomi_miio
