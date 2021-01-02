@@ -65,6 +65,12 @@ light:
     token: !secret toilet_light_token
     model: philips.light.bulb
 
+fan:
+  - platform: xiaomi_miio
+    host: !secret office_purifier_ip
+    token: !secret office_purifier_token
+    name: Office Purifier
+
 vacuum:
   - platform: xiaomi_miio
     host: !secret xiaomi_vacuum_ip
@@ -114,6 +120,10 @@ sensor:
           {%- if date.date() != now().date() -%}Not today
           {%- else -%}{{ as_timestamp(date) | timestamp_custom('%H:%M') }}
           {%- endif %}
+      office_aqi:
+        friendly_name: "Office Air Quality"
+        value_template: '{{ states.fan.office_purifier.attributes.aqi }}'
+        unit_of_measurement: 'PM'
 
 binary_sensor:
   - platform: workday
