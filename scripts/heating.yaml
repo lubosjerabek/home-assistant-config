@@ -26,7 +26,7 @@ heating_morning:
     - service: script.set_thermostat
       data:
         entity_id: climate.study
-        temperature: 20
+        temperature: "{{ '20' if is_state('binary_sensor.workday_sensor', 'on') else '18' }}"
 
 heating_away:
   sequence:
