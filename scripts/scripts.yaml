@@ -51,6 +51,7 @@ bedtime:
           - group.living_room_lights
           - light.dining_room_light
           - light.loft_lamp
+          - light.office_light
           - light.office_lamp
     - service: light.turn_off
       data:
@@ -118,6 +119,7 @@ all_lights_off:
         - light.dining_room_light
         - light.loft_lamp
         - light.office_lamp
+        - light.office_light
         - light.bedroom_lamp
     - service: switch.turn_off
       data:
