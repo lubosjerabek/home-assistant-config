@@ -47,13 +47,13 @@ media_player:
   # - platform: kodi
   #   host: !secret xbox_ip
   #   port: !secret kodi_port
-  - platform: virgintivo
-    tivos:
-      1:
-        name: Virgin Tivo
-        host: !secret virgin_tivo_ip
-    tvchannellists:
-      enable: True
+  # - platform: virgintivo
+  #   tivos:
+  #     1:
+  #       name: Virgin Tivo
+  #       host: !secret virgin_tivo_ip
+  #   tvchannellists:
+  #     enable: True
 
 light:
   - platform: philips_ambilight
@@ -63,6 +63,11 @@ light:
     host: !secret toilet_light_ip
     name: Toilet Light
     token: !secret toilet_light_token
+    model: philips.light.bulb
+  - platform: xiaomi_miio
+    host: !secret bathroom_light_ip
+    name: Bathroom Light
+    token: !secret bathroom_light_token
     model: philips.light.bulb
 
 fan:
@@ -128,10 +133,6 @@ sensor:
 binary_sensor:
   - platform: workday
     country: GB
-    add_holidays:
-      - '2020-12-29'
-      - '2020-12-30'
-      - '2020-12-31'
 
 yeelight:
   devices:

@@ -66,6 +66,30 @@
     service: light.turn_off
     entity_id: light.toilet_light
 
+- alias: Light - Motion in bathroom
+  trigger:
+    platform: state
+    entity_id: binary_sensor.bathroom_motion
+    from: 'off'
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+  action:
+    service: light.turn_on
+    entity_id: light.bathroom_light
+
+- alias: Light - No motion in bathroom
+  trigger:
+    platform: state
+    entity_id: binary_sensor.bathroom_motion
+    to: 'off'
+    for: '00:01:00'
+  action:
+    service: light.turn_off
+    entity_id: light.bathroom_light
+
 - alias: Light - Kitchen and Bedroom on upon Arrival
   trigger:
     platform: state
@@ -81,3 +105,43 @@
       entity_id: switch.kitchen_light
     - service: light.turn_on
       entity_id: light.bedroom_lamp
+
+- alias: Light - Toggle Office using Cube
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.cube
+      action_type: flip90
+  action:
+    - service: light.toggle
+      entity_id: light.office_light
+
+- alias: Light - Dim Office using Cube
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.cube
+      action_type: rotate
+  # condition:
+  #   condition: numeric_state
+  #   # entity_id: light.office_light
+  #   above: 20
+  #   below: 235
+  #   # If your sensor value needs to be adjusted
+  #   value_template: "{{ states.light.office_light.attributes.brightness }}"
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.office_light
+        brightness: >
+          {% if not 30 <= states.light.office_light.attributes.brightness <= 225 %} 
+          {{  states.light.office_light.attributes.brightness }}
+          {% elif trigger.event.data.action_value | float > 0 %} 
+          {{  states.light.office_light.attributes.brightness | int + 30 }}
+          {% else %}
+          {{  states.light.office_light.attributes.brightness | int - 30 }}
+          {% endif %}
