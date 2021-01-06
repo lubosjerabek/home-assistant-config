@@ -11,7 +11,7 @@ zone:
   - name: Extended home
     latitude: !secret home_latitude
     longitude: !secret home_longitude
-    radius: 15000
+    radius: 25000
     passive: true
 
 homeassistant:
