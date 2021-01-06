@@ -32,32 +32,24 @@ heating_away:
   sequence:
     - service: climate.set_preset_mode
       data:
-        entity_id: group.thermostats
+        entity_id: climate.living_room
         preset_mode: away
     - service: climate.set_temperature
       data_template:
-        entity_id: group.thermostats
+        entity_id: climate.living_room
         temperature: 16
     - service: climate.turn_off
-      entity_id: climate.loft
+      entity_id:
+          - climate.kitchen
+          - climate.bedroom
+          - climate.study
+          - climate.loft
 
 heating_close:
   sequence:
     - service: script.set_thermostat
       data:
         entity_id: climate.living_room
-        temperature: 20
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.kitchen
-        temperature: 19
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.bedroom
-        temperature: 20
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.study
         temperature: 20
 
 heating_back:
@@ -73,10 +65,6 @@ heating_back:
     - service: script.set_thermostat
       data:
         entity_id: climate.bedroom
-        temperature: 21
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.study
         temperature: 20
 
 heating_night:
@@ -87,13 +75,9 @@ heating_night:
         temperature: 18
     - service: script.set_thermostat
       data:
-        entity_id: climate.kitchen
-        temperature: 17
-    - service: script.set_thermostat
-      data:
         entity_id: climate.bedroom
         temperature: 18
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.study
-        temperature: 17
+    - service: climate.turn_off
+      entity_id:
+          - climate.kitchen
+          - climate.study
