@@ -43,7 +43,7 @@
   action:
     - service: script.doorbell
 
-- alias: Cube automations
+- alias: Cube - Start work
   initial_state: true
   trigger:
     platform: event
@@ -53,6 +53,17 @@
       action_type: tap_twice
   action:
     - service: script.start_work
+
+- alias: Cube - Finish work
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.cube
+      action_type: shake_air
+  action:
+    - service: script.finish_work
 
 - alias: Bedside - Lubos Button
   trigger:
