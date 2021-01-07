@@ -35,19 +35,8 @@
       entity_id: person.janca, person.lubos
       zone: zone.extended_home
       event: enter
-  condition:
-    - condition: state
-      entity_id: group.everyone
-      state: 'home'
   action:
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.living_room
-        temperature: 21
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.bedroom
-        temperature: 21
+    - service: script.heating_close
 
 - alias: Heating - Restart Tado bridge when service goes down
   trigger:

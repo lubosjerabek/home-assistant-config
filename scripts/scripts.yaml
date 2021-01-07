@@ -75,10 +75,7 @@ bedside_actions:
 
 start_work:
   sequence:
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.living_room
-        temperature: 19.5
+    - service: script.heating_work
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
