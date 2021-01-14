@@ -5,12 +5,29 @@
   action:
     - service: script.heating_night
 
+- alias: Heating - Everyone Leaves
+  trigger:
+    - platform: state
+      entity_id: group.everyone
+      from: 'home'
+      to: 'not_home'
+  action:
+    - service: script.heating_away
+
+- alias: Heating - Someone Arrives Home
+  trigger:
+    platform: state
+    entity_id: person.janca, person.lubos
+    to: 'home'
+  action:
+    - service: script.heating_back
+
 - alias: Heating - Morning
   trigger:
     platform: time
-    at: '6:30:00'
+    at: '6:00:00'
   action:
-    - delay: "{{ '00:00:00' if is_state('binary_sensor.workday_sensor', 'on') else '01:00:00' }}"
+    - delay: "{{ '00:00:00' if is_state('binary_sensor.workday_sensor', 'on') else '01:30:00' }}"
     - service: script.heating_morning
 
 - alias: Heating - Temperature drop

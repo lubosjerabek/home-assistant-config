@@ -73,7 +73,7 @@ heating_back:
     - service: script.set_thermostat
       data:
         entity_id: climate.living_room
-        temperature: 21
+        temperature: 20.5
     - service: script.set_thermostat
       data:
         entity_id: climate.kitchen
@@ -88,7 +88,7 @@ heating_night:
     - service: script.set_thermostat
       data:
         entity_id: climate.living_room
-        temperature: 18
+        temperature: 17
     - service: script.set_thermostat
       data:
         entity_id: climate.bedroom
