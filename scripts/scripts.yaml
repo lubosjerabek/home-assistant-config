@@ -1,8 +1,5 @@
 leave_home:
   sequence:
-    - service: automation.turn_off
-      entity_id:
-        - automation.heating_on_every_morning
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
@@ -10,8 +7,7 @@ leave_home:
     - service: vacuum.start
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-    - service: script.all_lights_off
-    - service: script.all_media_off
+    - service: script.all_rooms_off
 
 back_home:
   sequence:
@@ -45,23 +41,10 @@ bedtime:
     - service: script.heating_night
     - service: light.turn_off
       data:
-        entity_id:
-          - group.living_room_lights
-          - light.dining_room_light
-          - light.loft_lamp
-          - light.office_light
-          - light.office_lamp
-    - service: light.turn_off
-      data:
         entity_id: light.bedroom_lamp
         transition: 900
-    - service: switch.turn_off
-      data:
-        entity_id:
-          - switch.kitchen_light
-          - switch.hallway_light
-          - switch.christmas_tree
-    - service: script.all_media_off
+    - service: script.downstairs_off
+    - service: script.office_off
 
 bedside_actions:
   sequence:
@@ -81,57 +64,14 @@ start_work:
     - service: vacuum.start
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-    - service: light.turn_off
-      entity_id:
-        - group.living_room_lights
-        - light.dining_room_light
-    - service: switch.turn_off
-      entity_id: switch.kitchen_light
-    - service: media_player.turn_off
-      entity_id:
-        - media_player.downstairs_speakers
-        - media_player.virgin_tivo
-        - media_player.philips_tv
+    - service: script.downstairs_off
 
 finish_work:
   sequence:
     - service: climate.turn_off
       entity_id: climate.study
     - delay: '00:00:30'
-    - service: light.turn_off
-      entity_id:
-        - light.office_lamp
-        - light.office_light
-
-all_media_off:
-  sequence:
-    - service: media_player.turn_off
-      entity_id:
-        - media_player.downstairs_speakers
-        - media_player.frontier_silicon_speaker
-        - media_player.office_speaker
-        - media_player.loft_speaker
-        - media_player.bedroom_speaker
-        - media_player.virgin_tivo
-        - media_player.xboxone
-        - media_player.philips_tv
-
-all_lights_off:
-  sequence:
-    - service: light.turn_off
-      entity_id:
-        - group.living_room_lights
-        - light.dining_room_light
-        - light.loft_lamp
-        - light.office_lamp
-        - light.office_light
-        - light.bedroom_lamp
-    - service: switch.turn_off
-      data:
-        entity_id:
-          - switch.kitchen_light
-          - switch.hallway_light
-          - switch.christmas_tree
+    - service: script.office_off
 
 toggle_bedroom_light:
   sequence:

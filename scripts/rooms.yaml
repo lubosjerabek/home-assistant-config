@@ -1,0 +1,51 @@
+all_rooms_off:
+  sequence:
+    - service: script.downstairs_off
+    - service: script.bedroom_off
+    - service: script.office_off
+    - service: script.loft_off
+
+downstairs_off:
+  sequence:
+    - service: light.turn_off
+      entity_id:
+        - light.living_room_lamp
+        - light.living_room_light
+        - light.dining_room_light
+    - service: switch.turn_off
+      entity_id:
+        - switch.kitchen_light
+        - switch.hallway_light
+        - switch.christmas_tree
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.downstairs_speakers
+        - media_player.virgin_tivo
+        - media_player.philips_tv
+
+bedroom_off:
+  sequence:
+    - service: light.turn_off
+      entity_id: light.bedroom_lamp
+    - service: media_player.turn_off
+      entity_id: media_player.bedroom_speaker
+
+office_off:
+  sequence:
+    - service: light.turn_off
+      entity_id:
+        - light.office_lamp
+        - light.office_light
+    - service: fan.turn_off
+      entity_id: fan.office_purifier
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.frontier_silicon_speaker
+        - media_player.office_speaker
+
+loft_off:
+  sequence:
+    - service: light.turn_off
+      entity_id: light.loft_lamp
+    - service: media_player.turn_off
+      entity_id: media_player.loft_speaker

@@ -19,12 +19,6 @@ garbage_sensors:
     - sensor.recycling_waste
     - sensor.garden_waste
 
-living_room_lights:
-  name: Living Room Lights
-  entities:
-    - light.living_room_lamp
-    - light.living_room_light
-
 hallway_motion:
   entities:
     - binary_sensor.entrance_motion
