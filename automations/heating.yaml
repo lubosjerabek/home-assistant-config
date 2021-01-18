@@ -17,7 +17,7 @@
 - alias: Heating - Someone Arrives Home
   trigger:
     platform: state
-    entity_id: person.janca, person.lubos
+    entity_id: person.jana, person.lubos
     to: 'home'
   action:
     - service: script.heating_back
@@ -37,7 +37,7 @@
       - sensor.living_room_open_window
       - sensor.bedroom_open_window
       - sensor.kitchen_open_window
-      - sensor.study_open_window
+      - sensor.office_open_window
       - sensor.loft_open_window
     from: 'False'
     to: 'True'
@@ -49,7 +49,7 @@
 - alias: Heating - Close to home
   trigger:
     - platform: zone
-      entity_id: person.janca, person.lubos
+      entity_id: person.jana, person.lubos
       zone: zone.extended_home
       event: enter
   action:
@@ -62,7 +62,7 @@
       - sensor.living_room_link
       - sensor.bedroom_link
       - sensor.kitchen_link
-      - sensor.study_link
+      - sensor.office_link
       - sensor.loft_link
     from: 'ONLINE'
     to: 'OFFLINE'

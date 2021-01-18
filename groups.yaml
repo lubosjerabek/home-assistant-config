@@ -2,15 +2,7 @@ everyone:
   name: Everyone
   entities:
     - person.lubos
-    - person.janca
-
-thermostats:
-  name: Thermostats
-  entities:
-    - climate.living_room
-    - climate.bedroom
-    - climate.kitchen
-    - climate.study
+    - person.jana
 
 garbage_sensors:
   name: Garbage Collection Sensors

@@ -25,7 +25,7 @@ heating_morning:
         temperature: 20
     - service: script.set_thermostat
       data:
-        entity_id: climate.study
+        entity_id: climate.office
         temperature: "{{ '20' if is_state('binary_sensor.workday_sensor', 'on') else '18' }}"
 
 heating_work:
@@ -36,7 +36,7 @@ heating_work:
         temperature: 19
     - service: script.set_thermostat
       data:
-        entity_id: climate.study
+        entity_id: climate.office
         temperature: 20
     - service: climate.turn_off
       entity_id:
@@ -58,7 +58,7 @@ heating_away:
       entity_id:
           - climate.kitchen
           - climate.bedroom
-          - climate.study
+          - climate.office
           - climate.loft
 
 heating_close:
@@ -96,4 +96,4 @@ heating_night:
     - service: climate.turn_off
       entity_id:
           - climate.kitchen
-          - climate.study
+          - climate.office

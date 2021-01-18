@@ -39,7 +39,7 @@
     platform: event
     event_type: xiaomi_aqara.click
     event_data:
-      entity_id: binary_sensor.switch_158d0001a21126
+      entity_id: binary_sensor.doorbell
   action:
     - service: script.doorbell
 
@@ -70,24 +70,24 @@
     platform: event
     event_type: xiaomi_aqara.click
     event_data:
-      entity_id: binary_sensor.button_bedside_lubos
+      entity_id: binary_sensor.lubos_bedside_button
   action:
     - service: script.bedside_actions
       data_template:
         action: >
-          {{ state_attr('binary_sensor.button_bedside_lubos', 'last_action') }}
+          {{ state_attr('binary_sensor.lubos_bedside_button', 'last_action') }}
 
 - alias: Bedside - Jana Button
   trigger:
     platform: event
     event_type: xiaomi_aqara.click
     event_data:
-      entity_id: binary_sensor.button_bedside_jana
+      entity_id: binary_sensor.jana_bedside_button
   action:
     - service: script.bedside_actions
       data_template:
         action: >
-          {{ state_attr('binary_sensor.button_bedside_jana', 'last_action') }}
+          {{ state_attr('binary_sensor.jana_bedside_button', 'last_action') }}
 
 - alias: Stop music when xbox starts playing
   trigger:

@@ -16,7 +16,7 @@
 - alias: Notify garbage collection
   trigger:
     platform: state
-    entity_id: person.janca, person.lubos
+    entity_id: person.jana, person.lubos
     to: 'home'
   condition:
     - condition: template
@@ -37,7 +37,7 @@
 - alias: Notify zone changes
   trigger:
     platform: state
-    entity_id: person.janca, person.lubos
+    entity_id: person.jana, person.lubos
   condition:
     - condition: template
       value_template: >
@@ -58,4 +58,3 @@
         entityid: '{{trigger.entity_id}}'
         tostate: '{{trigger.to_state.state}}'
         fromstate: '{{trigger.from_state.state}}'
-
