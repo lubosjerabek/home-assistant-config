@@ -69,7 +69,7 @@
 - alias: Light - Motion in bathroom
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_bathroom
+    entity_id: binary_sensor.bathroom_motion
     from: 'off'
     to: 'on'
   condition:
@@ -83,7 +83,7 @@
 - alias: Light - No motion in bathroom
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_bathroom
+    entity_id: binary_sensor.bathroom_motion
     to: 'off'
     for: '00:01:00'
   action:

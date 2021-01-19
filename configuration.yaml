@@ -1,4 +1,3 @@
-
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
@@ -18,7 +17,7 @@ homeassistant:
   customize:
     person.lubos:
       entity_picture: /local/lubos.png
-    person.janca:
+    person.jana:
       entity_picture: /local/janca.png
 
 http:
@@ -34,31 +33,18 @@ tts:
   - platform: google_translate
 
 media_player:
-  - platform: philips_js
-    host: !secret philips_tv_ip
-    api_version: 6
-    turn_on_action:
-      service: wake_on_lan.send_magic_packet
-      data:
-        mac: !secret philips_tv_mac
+  # - platform: philips_js
+  #   host: !secret philips_tv_ip
+  #   api_version: 6
+  #   turn_on_action:
+  #     service: wake_on_lan.send_magic_packet
+  #     data:
+  #       mac: !secret philips_tv_mac
   - platform: frontier_silicon
     host: !secret fs_speaker_ip
     name: Frontier Silicon Speaker
-  # - platform: kodi
-  #   host: !secret xbox_ip
-  #   port: !secret kodi_port
-  # - platform: virgintivo
-  #   tivos:
-  #     1:
-  #       name: Virgin Tivo
-  #       host: !secret virgin_tivo_ip
-  #   tvchannellists:
-  #     enable: True
 
 light:
-  - platform: philips_ambilight
-    name: Ambilight
-    host: !secret philips_tv_ip
   - platform: xiaomi_miio
     host: !secret toilet_light_ip
     name: Toilet Light
@@ -192,10 +178,10 @@ garbage_collection:
     verbose_format: "on {date}, in {days} days"
     expire_after: '10:00'
 
-utility_meter:
-  energy:
-    source: sensor.ovo_last_electricity_reading
-    cycle: monthly
+# utility_meter:
+#   energy:
+#     source: sensor.ovo_last_electricity_reading
+#     cycle: monthly
 
 sonoff:
   username: !secret sonoff_username
