@@ -27,7 +27,7 @@ notify_heating_off:
           {% if entityid == 'sensor.living_room_open_window' %}climate.living_room
           {% elif entityid == 'sensor.bedroom_open_window' %}climate.bedroom
           {% elif entityid == 'sensor.kitchen_open_window' %}climate.kitchen
-          {% elif entityid == 'sensor.study_open_window' %}climate.office
+          {% elif entityid == 'sensor.office_open_window' %}climate.office
           {% elif entityid == 'sensor.loft_open_window' %}climate.loft
           {% else %}none
           {% endif %}
