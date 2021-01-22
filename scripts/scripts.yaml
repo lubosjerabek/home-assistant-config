@@ -87,6 +87,14 @@ vacuum_kitchen:
         command: app_zoned_clean
         params: [[22390,19943,24740,23143,1]]
 
+vacuum_litter:
+  sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params: [[27217,20096,28417,22196,1]]
+
 play_radio:
   sequence:
     - service: media_player.play_media
