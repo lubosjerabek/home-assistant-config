@@ -23,10 +23,13 @@ heating_morning:
       data:
         entity_id: climate.bedroom
         temperature: 20
+    - condition: state
+      entity_id: binary_sensor.workday_sensor
+      state: 'on'
     - service: script.set_thermostat
       data:
         entity_id: climate.office
-        temperature: "{{ '20' if is_state('binary_sensor.workday_sensor', 'on') else '18' }}"
+        temperature: 20
 
 heating_work:
   sequence:
