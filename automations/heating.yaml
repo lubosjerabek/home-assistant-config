@@ -1,7 +1,7 @@
 - alias: Heating - Night
   trigger:
     platform: time
-    at: '22:30:00'
+    at: input_datetime.heating_off
   action:
     - service: script.heating_night
 
@@ -25,9 +25,8 @@
 - alias: Heating - Morning
   trigger:
     platform: time
-    at: '6:00:00'
+    at: input_datetime.heating_on
   action:
-    - delay: "{{ '00:00:00' if is_state('binary_sensor.workday_sensor', 'on') else '01:30:00' }}"
     - service: script.heating_morning
 
 - alias: Heating - Temperature drop

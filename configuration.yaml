@@ -119,6 +119,11 @@ sensor:
 binary_sensor:
   - platform: workday
     country: GB
+    name: workday_today
+  - platform: workday
+    country: GB
+    name: workday_tomorrow
+    days_offset: 1
 
 yeelight:
   devices:
@@ -144,6 +149,16 @@ input_select:
       - Select radio
       - Český rozhlas Radiožurnál
       - Rádio Krokodýl
+
+input_datetime:
+  heating_on:
+    name: Heating on
+    has_date: false
+    has_time: true
+  heating_off:
+    name: Heating off
+    has_date: false
+    has_time: true
 
 garbage_collection:
   sensors:

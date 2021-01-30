@@ -11,6 +11,7 @@ set_thermostat:
 
 heating_morning:
   sequence:
+    - service: script.refresh_heating_on_timer
     - service: script.set_thermostat
       data:
         entity_id: climate.living_room
@@ -24,7 +25,7 @@ heating_morning:
         entity_id: climate.bedroom
         temperature: 20
     - condition: state
-      entity_id: binary_sensor.workday_sensor
+      entity_id: binary_sensor.workday_today
       state: 'on'
     - service: script.set_thermostat
       data:
@@ -88,6 +89,7 @@ heating_back:
 
 heating_night:
   sequence:
+    - service: script.refresh_heating_off_timer
     - service: script.set_thermostat
       data:
         entity_id: climate.living_room
@@ -100,3 +102,19 @@ heating_night:
       entity_id:
           - climate.kitchen
           - climate.office
+
+refresh_heating_on_timer:
+  sequence:
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.heating_on
+      data:
+        time: "{{ '06:30' if is_state('binary_sensor.workday_tomorrow', 'on') else '07:30' }}"
+
+refresh_heating_off_timer:
+  sequence:
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.heating_off
+      data:
+        time: "22:30"
