@@ -100,7 +100,7 @@ play_radio:
     - service: media_player.play_media
       data_template:
         entity_id: media_player.downstairs_speakers
-        media_content_type: channel
+        media_content_type: music
         media_content_id: >
           {% if is_state("input_select.play_radio", "Český rozhlas Radiožurnál") %}https://ice7.radia.cz/cro1-128.aac
           {% elif is_state("input_select.play_radio", "Rádio Krokodýl") %}http://icecast4.play.cz/krokodyl128.mp3
