@@ -1,0 +1,6 @@
+play_radio:
+  name: Choose a radio to play
+  options:
+    - Select radio
+    - Český rozhlas Radiožurnál
+    - Rádio Krokodýl

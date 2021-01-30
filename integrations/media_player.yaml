@@ -1,0 +1,10 @@
+# - platform: philips_js
+#   host: !secret philips_tv_ip
+#   api_version: 6
+#   turn_on_action:
+#     service: wake_on_lan.send_magic_packet
+#     data:
+#       mac: !secret philips_tv_mac
+- platform: frontier_silicon
+  host: !secret fs_speaker_ip
+  name: Frontier Silicon Speaker

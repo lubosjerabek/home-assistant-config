@@ -1,0 +1,5 @@
+customize:
+  person.lubos:
+    entity_picture: /local/lubos.png
+  person.jana:
+    entity_picture: /local/janca.png

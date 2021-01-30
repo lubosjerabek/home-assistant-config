@@ -1,0 +1,8 @@
+heating_on:
+  name: Heating on
+  has_date: false
+  has_time: true
+heating_off:
+  name: Heating off
+  has_date: false
+  has_time: true

@@ -1,0 +1,10 @@
+- name: Home
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  icon: mdi:home
+  radius: 250
+- name: Extended home
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  radius: 25000
+  passive: true
