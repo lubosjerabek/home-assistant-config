@@ -49,9 +49,9 @@
     from: 'off'
     to: 'on'
   condition:
-    - condition: state
-      entity_id: sun.sun
-      state: 'below_horizon'
+    - condition: numeric_state
+      entity_id: sensor.toilet_illumination
+      below: 10
   action:
     service: light.turn_on
     entity_id: light.toilet_light
@@ -73,9 +73,9 @@
     from: 'off'
     to: 'on'
   condition:
-    - condition: state
-      entity_id: sun.sun
-      state: 'below_horizon'
+    - condition: numeric_state
+      entity_id: sensor.bathroom_illumination
+      below: 5
   action:
     service: light.turn_on
     entity_id: light.bathroom_light
