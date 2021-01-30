@@ -54,7 +54,12 @@
       below: 10
   action:
     service: light.turn_on
-    entity_id: light.toilet_light
+    data_template:
+      entity_id: light.toilet_light
+      brightness_pct: >
+        {% if is_state("input_select.hassio_mode", "night") %}5
+        {% else %}100
+        {% endif %}
 
 - alias: Light - No motion in toilet
   trigger:
@@ -78,7 +83,12 @@
       below: 5
   action:
     service: light.turn_on
-    entity_id: light.bathroom_light
+    data_template:
+      entity_id: light.bathroom_light
+      brightness_pct: >
+        {% if is_state("input_select.hassio_mode", "night") %}5
+        {% else %}100
+        {% endif %}
 
 - alias: Light - No motion in bathroom
   trigger:

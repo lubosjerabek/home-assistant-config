@@ -4,3 +4,9 @@ play_radio:
     - Select radio
     - Český rozhlas Radiožurnál
     - Rádio Krokodýl
+
+hassio_mode:
+  options:
+    - home
+    - night
+    - away

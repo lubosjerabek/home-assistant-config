@@ -31,6 +31,10 @@ morning:
     - service: script.heating_morning
     - service: input_select.select_option
       data:
+        entity_id: input_select.hassio_mode
+        option: home
+    - service: input_select.select_option
+      data:
         entity_id: input_select.play_radio
         option: 'Český rozhlas Radiožurnál'
     - service: switch.turn_on
@@ -39,6 +43,10 @@ morning:
 bedtime:
   sequence:
     - service: script.heating_night
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.hassio_mode
+        option: night
     - service: light.turn_off
       data:
         entity_id: light.bedroom_lamp

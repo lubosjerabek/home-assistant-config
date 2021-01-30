@@ -89,6 +89,20 @@
         action: >
           {{ state_attr('binary_sensor.jana_bedside_button', 'last_action') }}
 
+- alias: Home - Select home mode in the morning
+  trigger:
+    platform: time
+    at: input_datetime.heating_on
+  condition:
+    - condition: state
+      entity_id: group.everyone
+      state: home
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.hassio_mode
+        option: home
+
 - alias: Stop music when xbox starts playing
   trigger:
     - platform: state
