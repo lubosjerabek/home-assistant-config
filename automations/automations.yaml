@@ -120,10 +120,7 @@
       event_type: folder_watcher
   action:
     - service_template: >
-        {% if "automations" trigger.event.data.folder %}
-          automation.reload
-        {% elif "scripts" trigger.event.data.folder %}
-          script.reload
-        {% elif "integrations" trigger.event.data.folder %}
-          homeassistant.reload_core_config
+        {% if "automations" trigger.event.data.folder %} automation.reload
+        {% elif "scripts" trigger.event.data.folder %} script.reload
+        {% elif "integrations" trigger.event.data.folder %} homeassistant.reload_core_config
         {% endif %}
