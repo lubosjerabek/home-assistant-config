@@ -119,6 +119,11 @@
     - platform: event
       event_type: folder_watcher
   action:
+    - service: notify.mobile_app_mi_9
+      data_template:
+        title: File changed
+        message: >
+          {{ trigger.event.data.folder }}
     - service_template: >
         {% if "integrations" in trigger.event.data.folder %} homeassistant.restart
         {% elif "automations" in trigger.event.data.folder %} automation.reload
