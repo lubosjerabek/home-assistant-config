@@ -114,14 +114,21 @@
       entity_id:
         - media_player.downstairs_speakers
 
-- alias: Notify when folder watcher kicks in
+- alias: Reload config automatically
   trigger:
     - platform: event
       event_type: folder_watcher
   action:
-    - service: notify.mobile_app_mi_9
-      data:
-        title: File changed
-        message: "Created {{ trigger.event.data.file }} in {{ trigger.event.data.folder }}"
-#       data:
-#         file: "{{ trigger.event.data.path }}"
+    - service: >
+        {% if "automations" trigger.event.data.folder %}
+          automation.reload
+        {% elif "scripts" trigger.event.data.folder %}
+          script.reload
+        {% elif "integrations" trigger.event.data.folder %}
+          homeassistant.reload_core_config
+        {% endif %}
+#       data:
+#         title: File changed
+#         message: "Created {{ trigger.event.data.file }} in {{ trigger.event.data.folder }}"
+# #       data:
+# #         file: "{{ trigger.event.data.path }}"
