@@ -9,6 +9,17 @@ set_thermostat:
         entity_id: "{{ entity_id }}"
         temperature: "{{ temperature }}"
 
+test_script:
+  sequence:
+    - service: climate.set_preset_mode
+      data:
+        entity_id: "{{ entity_id }}"
+        preset_mode: home
+    - service: climate.set_temperature
+      data_template:
+        entity_id: "{{ entity_id }}"
+        temperature: "{{ temperature }}"
+
 heating_morning:
   sequence:
     - service: script.refresh_morning_timer
