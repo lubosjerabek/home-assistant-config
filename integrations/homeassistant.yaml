@@ -4,6 +4,4 @@ customize:
   person.jana:
     entity_picture: /local/janca.png
 whitelist_external_dirs:
-  - /config/automations
-  - /config/integrations
-  - /config/scripts
+  - /config
