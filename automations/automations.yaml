@@ -119,18 +119,11 @@
     - platform: event
       event_type: folder_watcher
   action:
-    - service: >
+    - service_template: >
         {% if "automations" trigger.event.data.folder %}
           automation.reload
         {% elif "scripts" trigger.event.data.folder %}
           script.reload
         {% elif "integrations" trigger.event.data.folder %}
           homeassistant.reload_core_config
-        {% else %}
-          homeassistant.none
         {% endif %}
-#       data:
-#         title: File changed
-#         message: "Created {{ trigger.event.data.file }} in {{ trigger.event.data.folder }}"
-# #       data:
-# #         file: "{{ trigger.event.data.path }}"
