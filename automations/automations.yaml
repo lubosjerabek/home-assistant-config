@@ -126,6 +126,8 @@
           script.reload
         {% elif "integrations" trigger.event.data.folder %}
           homeassistant.reload_core_config
+        {% else %}
+          homeassistant.none
         {% endif %}
 #       data:
 #         title: File changed
