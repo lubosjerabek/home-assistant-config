@@ -72,6 +72,9 @@
   trigger:
   - minutes: /10
     platform: time_pattern
-  # condition: []
+  condition:
+    condition: state
+    entity_id: input_select.hassio_mode
+    state: 'night'
   action:
     - service: script.refresh_heating_on_timer
