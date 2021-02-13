@@ -67,3 +67,11 @@
     to: 'OFFLINE'
   action:
     - service: script.restart_tado
+
+- alias: Heating - Early morning start
+  trigger:
+  - minutes: /10
+    platform: time_pattern
+  # condition: []
+  action:
+    - service: script.refresh_heating_on_timer

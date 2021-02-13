@@ -109,13 +109,12 @@ refresh_heating_on_timer:
     - service: input_datetime.set_datetime
       target:
         entity_id: input_datetime.heating_on
-      data_template:
-        data:
-          time: >
-            {% set temp = states('sensor.living_room_temperature') %}  
-            {% set heat = 20 %}
-            {% set speed = 30 %}
-            {{ (((state_attr('input_datetime.morning' , 'timestamp')) - ((heat - float(temp)) * speed * 60))|timestamp_custom('%H:%M', false)) }}
+      data:
+        time: >
+          {% set temp = states('sensor.living_room_temperature') %}  
+          {% set heat = 20 %}
+          {% set speed = 30 %}
+          {{ (((state_attr('input_datetime.morning' , 'timestamp')) - ((heat - float(temp)) * speed * 60))|timestamp_custom('%H:%M', false)) }}
 
 refresh_morning_timer:
   sequence:
