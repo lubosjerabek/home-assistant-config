@@ -117,11 +117,11 @@
 - alias: Notify when folder watcher kicks in
   trigger:
     - platform: event
-      event_type: folder_watcher
+      event_type: folder_watcher
   action:
     - service: notify.mobile_app_mi_9
-       data:
-         title: File changed
-         message: "Created {{ trigger.event.data.file }} in {{ trigger.event.data.folder }}"
+      data:
+        title: File changed
+        message: "Created {{ trigger.event.data.file }} in {{ trigger.event.data.folder }}"
 #       data:
 #         file: "{{ trigger.event.data.path }}"
