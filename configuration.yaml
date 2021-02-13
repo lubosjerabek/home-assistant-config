@@ -3,6 +3,7 @@ default_config:
 
 binary_sensor: !include integrations/binary_sensor.yaml
 fan: !include integrations/fan.yaml
+folder_watcher: !include integrations/folder_watcher.yaml
 garbage_collection: !include integrations/garbage_collection.yaml
 homeassistant: !include integrations/homeassistant.yaml
 http: !include integrations/http.yaml
