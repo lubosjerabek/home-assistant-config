@@ -3,5 +3,3 @@ customize:
     entity_picture: /local/lubos.png
   person.jana:
     entity_picture: /local/janca.png
-whitelist_external_dirs:
-  - /config
