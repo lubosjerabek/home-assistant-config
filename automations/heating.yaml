@@ -22,10 +22,17 @@
   action:
     - service: script.heating_back
 
-- alias: Heating - Morning
+- alias: Heating - Early morning
   trigger:
     platform: time
     at: input_datetime.heating_on
+  action:
+    - service: script.heating_early_morning
+
+- alias: Heating - Morning
+  trigger:
+    platform: time
+    at: input_datetime.morning
   action:
     - service: script.heating_morning
 
@@ -68,7 +75,7 @@
   action:
     - service: script.restart_tado
 
-- alias: Heating - Early morning start
+- alias: Heating - Refresh Early Morning Timer
   trigger:
   - minutes: /1
     platform: time_pattern
@@ -77,4 +84,4 @@
     entity_id: input_select.hassio_mode
     state: 'night'
   action:
-    - service: script.refresh_heating_on_timer
+    - service: script.refresh_early_morning_timer

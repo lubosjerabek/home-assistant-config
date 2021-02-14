@@ -9,6 +9,13 @@ set_thermostat:
         entity_id: "{{ entity_id }}"
         temperature: "{{ temperature }}"
 
+heating_early_morning:
+  sequence:
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.living_room
+        temperature: 20
+
 heating_morning:
   sequence:
     - service: script.refresh_morning_timer
@@ -103,7 +110,7 @@ heating_night:
           - climate.kitchen
           - climate.office
 
-refresh_heating_on_timer:
+refresh_early_morning_timer:
   sequence:
     - service: input_datetime.set_datetime
       target:
