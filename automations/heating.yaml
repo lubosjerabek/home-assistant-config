@@ -70,7 +70,7 @@
 
 - alias: Heating - Early morning start
   trigger:
-  - minutes: /10
+  - minutes: /1
     platform: time_pattern
   condition:
     condition: state
