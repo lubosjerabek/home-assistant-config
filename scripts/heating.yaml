@@ -130,7 +130,6 @@ refresh_morning_timer:
       data:
         time: "{{ '08:00' if is_state('binary_sensor.workday_tomorrow', 'on') else '09:00' }}"
 
-
 refresh_heating_off_timer:
   sequence:
     - service: input_datetime.set_datetime
