@@ -123,9 +123,9 @@
       data_template:
         title: Home Assistant
         message: >
-          Trigger query: {{ trigger.query }}
-          Trigger json: {{ trigger.json }}
-          Trigger data: {{ trigger.data }}
+          Trigger query: {{ str(trigger.query) }}
+          Trigger json: {{ str(trigger.json) }}
+          Trigger data: {{ str(trigger.data) }}
     - service: automation.reload
 
 - alias: Reload integrations
