@@ -119,13 +119,6 @@
     - platform: webhook
       webhook_id: automations
   action:
-    - service: notify.mobile_app_mi_9
-      data_template:
-        title: Home Assistant
-        message: >
-          Trigger query: {{ trigger.query }}
-          Trigger json: {{ trigger.json }}
-          Trigger data: {{ trigger.data }}
     - service: automation.reload
 
 - alias: Reload integrations
