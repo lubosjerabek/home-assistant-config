@@ -1,5 +1,0 @@
-- folder: /config
-  patterns:
-    - '*automations/*'
-    - '*integrations/*'
-    - '*scripts/*'
