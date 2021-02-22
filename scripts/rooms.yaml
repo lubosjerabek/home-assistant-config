@@ -29,6 +29,8 @@ bedroom_off:
       entity_id: light.bedroom_lamp
     - service: media_player.turn_off
       entity_id: media_player.bedroom_speaker
+    - service: fan.turn_off
+      entity_id: fan.bedroom_purifier
 
 office_off:
   sequence:
