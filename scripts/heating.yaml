@@ -1,5 +1,8 @@
 set_thermostat:
   sequence:
+    - condition: state
+      entity_id: input_boolean.heating
+      state: "on"
     - service: climate.set_preset_mode
       data:
         entity_id: "{{ entity_id }}"
