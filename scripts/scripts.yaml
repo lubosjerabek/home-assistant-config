@@ -3,7 +3,7 @@ leave_home:
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        fan_speed: standard
+        fan_speed: Standard
     - service: vacuum.start
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
@@ -21,7 +21,7 @@ back_home:
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        fan_speed: standard
+        fan_speed: Standard
     - service: vacuum.return_to_base
       entity_id:
         - vacuum.xiaomi_vacuum_cleaner
@@ -68,7 +68,7 @@ start_work:
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        fan_speed: standard
+        fan_speed: Standard
     - service: vacuum.start
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
