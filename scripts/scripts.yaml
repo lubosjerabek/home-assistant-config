@@ -13,7 +13,6 @@ back_home:
   sequence:
     - service: media_player.turn_on
       entity_id:
-        - media_player.virgin_tivo
         - media_player.philips_tv
     - service: automation.turn_on
       entity_id:
