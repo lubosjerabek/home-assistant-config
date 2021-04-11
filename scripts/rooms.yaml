@@ -21,6 +21,7 @@ downstairs_off:
       entity_id:
         - media_player.downstairs_speakers
         - media_player.philips_tv
+        - media_player.xboxone
 
 bedroom_off:
   sequence:
