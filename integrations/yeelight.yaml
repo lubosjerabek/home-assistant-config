@@ -13,3 +13,5 @@ devices:
     name: Office Lamp
   !secret loft_lamp_ip:
     name: Loft Lamp
+  !secret kitchen_lightstrip_ip:
+    name: Kitchen Lightstrip
