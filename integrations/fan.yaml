@@ -1,8 +1,0 @@
-- platform: xiaomi_miio
-  host: !secret office_purifier_ip
-  token: !secret office_purifier_token
-  name: Office Purifier
-- platform: xiaomi_miio
-  host: !secret bedroom_purifier_ip
-  token: !secret bedroom_purifier_token
-  name: Bedroom Purifier
