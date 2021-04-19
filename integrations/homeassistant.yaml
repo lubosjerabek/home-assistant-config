@@ -1,3 +1,4 @@
+external_url: !secret hassio_url
 customize:
   person.lubos:
     entity_picture: /local/lubos.png
