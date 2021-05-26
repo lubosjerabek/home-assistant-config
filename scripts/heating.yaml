@@ -114,6 +114,13 @@ heating_night:
       entity_id:
           - climate.kitchen
           - climate.office
+    - condition: state
+      entity_id: input_boolean.heating
+      state: "off"
+    - service: climate.turn_off
+      entity_id:
+          - climate.living_room
+          - climate.bedroom
 
 refresh_early_morning_timer:
   sequence:
