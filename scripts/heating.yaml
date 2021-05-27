@@ -117,6 +117,10 @@ heating_night:
     - condition: state
       entity_id: input_boolean.heating
       state: "off"
+    - service: notify.mobile_app_mi10t_pro
+      data:
+        title: Home Assistant
+        message: Test
     - service: climate.turn_off
       entity_id:
           - climate.living_room
