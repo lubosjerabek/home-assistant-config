@@ -117,7 +117,6 @@
       entity_id: light.bedroom_lamp
 
 - alias: Light - Toggle Office using Cube
-  initial_state: true
   trigger:
     platform: event
     event_type: xiaomi_aqara.cube_action
@@ -127,3 +126,14 @@
   action:
     - service: light.toggle
       entity_id: light.office_light
+
+- alias: Light - Mirror Kitchen Light Status
+  trigger:
+    platform: state
+    entity_id: switch.kitchen_light
+  action:
+    - service_template: >
+        {% if is_state("input_select.hassio_mode", "on") %}light.turn_on
+        {% else %}light.turn_off
+        {% endif %}
+      entity_id: light.kitchen_lightstrip

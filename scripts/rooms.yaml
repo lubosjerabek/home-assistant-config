@@ -12,6 +12,7 @@ downstairs_off:
         - light.living_room_lamp
         - light.living_room_light
         - light.dining_room_light
+        - light.kitchen_lightstrip
     - service: switch.turn_off
       entity_id:
         - switch.kitchen_light
