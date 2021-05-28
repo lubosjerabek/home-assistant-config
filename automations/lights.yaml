@@ -133,7 +133,7 @@
     entity_id: switch.kitchen_light
   action:
     - service_template: >
-        {% if is_state("input_select.hassio_mode", "on") %}light.turn_on
+        {% if is_state("switch.kitchen_light", "on") %}light.turn_on
         {% else %}light.turn_off
         {% endif %}
       entity_id: light.kitchen_lightstrip
