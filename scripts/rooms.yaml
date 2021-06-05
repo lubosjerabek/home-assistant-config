@@ -45,6 +45,8 @@ office_off:
       entity_id:
         - media_player.frontier_silicon_speaker
         - media_player.office_speaker
+    - service: switch.turn_off
+      entity_id: switch.office_fan
 
 loft_off:
   sequence:
