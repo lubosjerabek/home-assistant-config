@@ -1,9 +1,9 @@
 all_rooms_off:
   sequence:
-    - service: script.downstairs_off
     - service: script.bedroom_off
     - service: script.office_off
     - service: script.loft_off
+    - service: script.downstairs_off
 
 downstairs_off:
   sequence:
