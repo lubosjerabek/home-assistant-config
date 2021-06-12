@@ -1,3 +1,17 @@
+- platform: rest
+  name: tado_weather
+  verify_ssl: true
+  scan_interval: 1800
+  resource: !secret tado_weather_api
+  headers:
+    User-Agent: Home Assistant
+    Content-Type: application/json
+  method: GET
+  json_attributes:
+    - roomMessages
+    - outdoorQuality
+  value_template: 'Tado Weather Data'
+
 - platform: template
   sensors:
     sunset_time:
@@ -41,3 +55,39 @@
       friendly_name: "Bedroom Air Quality"
       value_template: '{{ states.fan.bedroom_purifier.attributes.aqi }}'
       unit_of_measurement: 'PM'
+
+    # Pollen sensors
+    air_pollen_level:
+      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["dominant"]["level"]  | capitalize }}'
+      friendly_name: "Pollen Level"
+      icon_template: mdi:flower
+
+    air_pollen_level_grass:
+      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][0]["forecast"][0]["level"] | capitalize }}'
+      friendly_name: "Pollen Level Grass"
+      icon_template: mdi:flower
+
+    air_pollen_level_grass_tomorrow:
+      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][0]["forecast"][1]["level"] | capitalize  }}'
+      friendly_name: "Pollen Level Grass Tomorrow"
+      icon_template: mdi:flower
+
+    air_pollen_level_weed:
+      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][1]["forecast"][0]["level"] | capitalize  }}'
+      friendly_name: "Pollen Level Weed"
+      icon_template: mdi:sprout
+
+    air_pollen_level_weed_tomorrow:
+      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][1]["forecast"][1]["level"] | capitalize  }}'
+      friendly_name: "Pollen Level Weed Tomorrow"
+      icon_template: mdi:sprout
+
+    air_pollen_level_tree:
+      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][2]["forecast"][0]["level"] | capitalize  }}'
+      friendly_name: "Pollen Level Tree"
+      icon_template: mdi:tree
+
+    air_pollen_level_tree_tomorrow:
+      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][2]["forecast"][1]["level"]  | capitalize }}'
+      friendly_name: "Pollen Level Tree Tomorrow"
+      icon_template: mdi:tree
