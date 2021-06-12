@@ -58,36 +58,36 @@
 
     # Pollen sensors
     air_pollen_level:
-      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["dominant"]["level"]  | capitalize }}'
+      value_template: '{{ states.sensor.tado_weather.attributes["outdoorQuality"]["pollens"]["dominant"]["level"]  | capitalize }}'
       friendly_name: "Pollen Level"
       icon_template: mdi:flower
 
     air_pollen_level_grass:
-      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][0]["forecast"][0]["level"] | capitalize }}'
+      value_template: '{{ states.sensor.tado_weather.attributes["outdoorQuality"]["pollens"]["types"][0]["forecast"][0]["level"] | capitalize }}'
       friendly_name: "Pollen Level Grass"
       icon_template: mdi:flower
 
     air_pollen_level_grass_tomorrow:
-      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][0]["forecast"][1]["level"] | capitalize  }}'
+      value_template: '{{ states.sensor.tado_weather.attributes["outdoorQuality"]["pollens"]["types"][0]["forecast"][1]["level"] | capitalize  }}'
       friendly_name: "Pollen Level Grass Tomorrow"
       icon_template: mdi:flower
 
     air_pollen_level_weed:
-      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][1]["forecast"][0]["level"] | capitalize  }}'
+      value_template: '{{ states.sensor.tado_weather.attributes["outdoorQuality"]["pollens"]["types"][1]["forecast"][0]["level"] | capitalize  }}'
       friendly_name: "Pollen Level Weed"
       icon_template: mdi:sprout
 
     air_pollen_level_weed_tomorrow:
-      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][1]["forecast"][1]["level"] | capitalize  }}'
+      value_template: '{{ states.sensor.tado_weather.attributes["outdoorQuality"]["pollens"]["types"][1]["forecast"][1]["level"] | capitalize  }}'
       friendly_name: "Pollen Level Weed Tomorrow"
       icon_template: mdi:sprout
 
     air_pollen_level_tree:
-      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][2]["forecast"][0]["level"] | capitalize  }}'
+      value_template: '{{ states.sensor.tado_weather.attributes["outdoorQuality"]["pollens"]["types"][2]["forecast"][0]["level"] | capitalize  }}'
       friendly_name: "Pollen Level Tree"
       icon_template: mdi:tree
 
     air_pollen_level_tree_tomorrow:
-      value_template: '{{ states.sensor.tadoair.attributes["outdoorQuality"]["pollens"]["types"][2]["forecast"][1]["level"]  | capitalize }}'
+      value_template: '{{ states.sensor.tado_weather.attributes["outdoorQuality"]["pollens"]["types"][2]["forecast"][1]["level"]  | capitalize }}'
       friendly_name: "Pollen Level Tree Tomorrow"
       icon_template: mdi:tree
