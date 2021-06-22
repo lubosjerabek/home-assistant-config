@@ -124,7 +124,7 @@ doorbell:
     - service: notify.notify
       data:
         title: Home Assistant
-        message: Someone's at the door
+        message: Someone is at the door
 
 ambilight_off:
   sequence:
