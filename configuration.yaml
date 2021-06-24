@@ -12,7 +12,6 @@ light: !include integrations/light.yaml
 media_player: !include integrations/media_player.yaml
 sensor: !include integrations/sensor.yaml
 sonoff: !include integrations/sonoff.yaml
-speedtestdotnet: !include integrations/speedtestdotnet.yaml
 tts: !include integrations/tts.yaml
 vacuum: !include integrations/vacuum.yaml
 yeelight: !include integrations/yeelight.yaml
