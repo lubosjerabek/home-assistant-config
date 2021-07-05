@@ -1,3 +1,4 @@
 - platform: generic
-  still_image_url: !secret baby_camera_rstp
-  stream_source: !secret baby_camera_rstp
+  name: Driveway Camera
+  still_image_url: !secret camera_cover_img
+  stream_source: !secret front_camera_rstp
