@@ -17,6 +17,7 @@ downstairs_off:
       entity_id:
         - switch.kitchen_light
         - switch.hallway_light
+        - switch.big_fan
         - switch.christmas_tree
     - service: media_player.turn_off
       entity_id:
