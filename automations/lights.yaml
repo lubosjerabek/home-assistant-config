@@ -137,3 +137,36 @@
         {% else %}light.turn_off
         {% endif %}
       entity_id: light.kitchen_lightstrip
+
+- alias: Holiday - Simulate lights
+  trigger:
+    - platform: sun
+      event: sunset
+  action:
+    - type: turn_on
+      entity_id: switch.kitchen_light
+      domain: switch
+    - delay:
+        hours: 0
+        minutes: 3
+        seconds: 45
+        milliseconds: 0
+    - type: turn_on
+      entity_id: light.bedroom_lamp
+      domain: light
+    - delay:
+        hours: 1
+        minutes: 30
+        seconds: 0
+        milliseconds: 0
+    - type: turn_off
+      entity_id: switch.kitchen_light
+      domain: switch
+    - delay:
+        hours: 0
+        minutes: 45
+        seconds: 0
+        milliseconds: 0
+    - type: turn_off
+      entity_id: light.bedroom_lamp
+      domain: light
