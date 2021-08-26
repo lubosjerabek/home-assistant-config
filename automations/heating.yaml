@@ -65,13 +65,13 @@
   trigger:
     platform: state
     entity_id:
-      - sensor.living_room_link
-      - sensor.bedroom_link
-      - sensor.kitchen_link
-      - sensor.office_link
-      - sensor.loft_link
-    from: 'ONLINE'
-    to: 'OFFLINE'
+      - binary_sensor.living_room_link
+      - binary_sensor.bedroom_link
+      - binary_sensor.kitchen_link
+      - binary_sensor.office_link
+      - binary_sensor.loft_link
+    from: 'on'
+    to: 'off'
   action:
     - service: script.restart_tado
 
