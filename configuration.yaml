@@ -2,7 +2,7 @@
 default_config:
 
 binary_sensor: !include integrations/binary_sensor.yaml
-camera: !include integrations/camera.yaml
+# camera: !include integrations/camera.yaml
 garbage_collection: !include integrations/garbage_collection.yaml
 homeassistant: !include integrations/homeassistant.yaml
 http: !include integrations/http.yaml
