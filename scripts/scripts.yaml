@@ -149,7 +149,7 @@ restart_tado:
     - service: switch.turn_off
       entity_id:
         - switch.sonoff_tado_usb
-    - delay: '00:00:05'
+    - delay: '00:00:02'
     - service: switch.turn_on
       entity_id:
         - switch.sonoff_tado_usb
@@ -160,7 +160,7 @@ restart_arc_devices:
       entity_id:
         - switch.soundbar
         - switch.tv_socket
-    - delay: '00:00:05'
+    - delay: '00:00:02'
     - service: switch.turn_on
       entity_id:
         - switch.soundbar
