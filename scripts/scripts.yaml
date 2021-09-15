@@ -38,6 +38,8 @@ morning:
         option: 'Český rozhlas Radiožurnál'
     - service: switch.turn_on
       entity_id: switch.kitchen_light
+    - service: light.turn_on
+      entity_id: light.dining_room_light
 
 bedtime:
   sequence:
