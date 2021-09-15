@@ -14,6 +14,7 @@ media_player: !include integrations/media_player.yaml
 sensor: !include integrations/sensor.yaml
 sonoff: !include integrations/sonoff.yaml
 tts: !include integrations/tts.yaml
+camera: !include integrations/xiaomi_cloud_map_extractor.yaml
 # yeelight: !include integrations/yeelight.yaml
 zone: !include integrations/zone.yaml
 
