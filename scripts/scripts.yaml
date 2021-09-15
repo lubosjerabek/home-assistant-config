@@ -52,6 +52,7 @@ bedtime:
         transition: 900
     - service: script.downstairs_off
     - service: script.office_off
+    - service: script.hallway_off
 
 bedside_actions:
   sequence:

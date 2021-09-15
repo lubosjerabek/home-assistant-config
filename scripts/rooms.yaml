@@ -1,5 +1,6 @@
 all_rooms_off:
   sequence:
+    - service: script.kids_room_off
     - service: script.bedroom_off
     - service: script.office_off
     - service: script.loft_off
@@ -24,6 +25,20 @@ downstairs_off:
         - media_player.downstairs_speakers
         - media_player.philips_tv
         - media_player.xboxone
+
+hallway_off:
+  sequence:
+    - service: light.turn_off
+      entity_id: light.downstairs_hall_light
+    - service: light.turn_off
+      entity_id: light.upstairs_hall_light
+
+kids_room_off:
+  sequence:
+    - service: light.turn_off
+      entity_id: light.kids_room_light
+    - service: media_player.turn_off
+      entity_id: media_player.kids_room_speaker
 
 bedroom_off:
   sequence:
@@ -51,7 +66,5 @@ office_off:
 
 loft_off:
   sequence:
-    - service: light.turn_off
-      entity_id: light.loft_lamp
     - service: media_player.turn_off
       entity_id: media_player.loft_speaker
