@@ -50,7 +50,7 @@ bedtime:
         option: night
     - service: light.turn_off
       data:
-        entity_id: light.bedroom_lamp
+        entity_id: light.bedroom_light
         transition: 900
     - service: script.downstairs_off
     - service: script.office_off
@@ -87,7 +87,7 @@ toggle_bedroom_light:
   sequence:
     - service: light.toggle
       data:
-        entity_id: light.bedroom_lamp
+        entity_id: light.bedroom_light
 
 vacuum_kitchen:
   sequence:
