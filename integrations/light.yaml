@@ -8,3 +8,8 @@
   name: Bathroom Light
   token: !secret bathroom_light_token
   model: philips.light.bulb
+- platform: group
+  name: Bedroom Light
+  entities:
+    - light.bedroom_light_1
+    - light.bedroom_light_2
