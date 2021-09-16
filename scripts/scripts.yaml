@@ -48,10 +48,7 @@ bedtime:
       data:
         entity_id: input_select.hassio_mode
         option: night
-    - service: light.turn_off
-      data:
-        entity_id: light.bedroom_light
-        transition: 900
+    - service: script.sunset_bedroom
     - service: script.downstairs_off
     - service: script.office_off
     - service: script.hallway_off

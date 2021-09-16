@@ -1,0 +1,10 @@
+sunset_bedroom:
+  sequence:
+    - service: light.turn_on
+      entity_id: light.bedroom_light_2
+    - service: light.turn_off
+      entity_id: light.bedroom_light_1
+    - service: light.turn_off
+      data:
+        entity_id: light.bedroom_light_2
+        transition: 900
