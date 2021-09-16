@@ -55,7 +55,7 @@ notify_washer_state:
       title: Home Assistant
       message: >
         {% set washer_state = states('sensor.washer_status').lower() %}
-        {% set invalid_washer_states = ["off", "delay", "weighing"] %}
+        {% set invalid_washer_states = ["off"] %}
         {%- if washer_state not in invalid_washer_states -%}
           Washing machine started {{ washer_state }}.
         {%- elif washer_state == "off" -%}
