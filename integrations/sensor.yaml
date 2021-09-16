@@ -45,14 +45,6 @@
         {%- if date.date() != now().date() -%}Not today
         {%- else -%}{{ as_timestamp(date) | timestamp_custom('%H:%M') }}
         {%- endif %}
-    office_aqi:
-      friendly_name: "Office Air Quality"
-      value_template: '{{ states.fan.office_purifier.attributes.aqi }}'
-      unit_of_measurement: 'PM'
-    bedroom_aqi:
-      friendly_name: "Bedroom Air Quality"
-      value_template: '{{ states.fan.bedroom_purifier.attributes.aqi }}'
-      unit_of_measurement: 'PM'
 
     # Pollen sensors
     air_pollen_level:
