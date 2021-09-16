@@ -118,7 +118,7 @@ play_radio_kids_room:
   sequence:
     - service: media_player.play_media
       data_template:
-        entity_id: media_player.downstairs_speakers
+        entity_id: media_player.play_radio_kids_room
         media_content_type: music
         media_content_id: >
           {% if is_state("input_select.play_radio_kids_room", "Český rozhlas Radiožurnál") %}https://ice7.radia.cz/cro1-128.aac

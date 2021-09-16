@@ -51,7 +51,7 @@
     - delay: '00:00:05'
     - service: input_select.select_option
       data:
-        entity_id: input_select.play_radio_downstairs
+        entity_id: input_select.play_radio_kids_room
         option: 'Select radio'
 
 - alias: Doorbell
