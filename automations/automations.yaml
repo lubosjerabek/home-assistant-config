@@ -16,22 +16,42 @@
   action:
     - service: script.leave_home
 
-- alias: Play radio
+- alias: Play radio downstairs
   trigger:
     - platform: state
-      entity_id: input_select.play_radio
+      entity_id: input_select.play_radio_downstairs
       from: 'Select radio'
   condition:
     condition: not
     conditions:
       - condition: state
-        entity_id: input_select.play_radio
+        entity_id: input_select.play_radio_downstairs
         state: 'Select radio'
   action:
-    - service: script.play_radio
+    - service: script.play_radio_downstairs
+    - delay: '00:00:05'
     - service: input_select.select_option
       data:
-        entity_id: input_select.play_radio
+        entity_id: input_select.play_radio_downstairs
+        option: 'Select radio'
+
+- alias: Play radio kid's room
+  trigger:
+    - platform: state
+      entity_id: input_select.play_radio_kids_room
+      from: 'Select radio'
+  condition:
+    condition: not
+    conditions:
+      - condition: state
+        entity_id: input_select.play_radio_kids_room
+        state: 'Select radio'
+  action:
+    - service: script.play_radio_kids_room
+    - delay: '00:00:05'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.play_radio_downstairs
         option: 'Select radio'
 
 - alias: Doorbell

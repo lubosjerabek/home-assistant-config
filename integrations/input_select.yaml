@@ -1,4 +1,11 @@
-play_radio:
+play_radio_downstairs:
+  name: Choose a radio to play
+  options:
+    - Select radio
+    - Český rozhlas Radiožurnál
+    - Rádio Krokodýl
+
+play_radio_kids_room:
   name: Choose a radio to play
   options:
     - Select radio
