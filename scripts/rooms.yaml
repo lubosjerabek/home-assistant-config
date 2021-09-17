@@ -4,6 +4,7 @@ all_rooms_off:
     - service: script.bedroom_off
     - service: script.office_off
     - service: script.loft_off
+    - service: script.hallway_off
     - service: script.downstairs_off
 
 downstairs_off:
