@@ -2,7 +2,6 @@ sunset_bedroom:
   sequence:
     - service: light.turn_off
       entity_id: light.bedroom_light_1
-    - delay: '00:00:05'
     - service: light.turn_off
       data:
         entity_id: light.bedroom_light_2
@@ -13,4 +12,15 @@ sunset_kids_room:
     - service: light.turn_off
       data:
         entity_id: light.kids_room_light
+        transition: 900
+
+sunset_loft:
+  sequence:
+    - service: light.turn_off
+      entity_id:
+        - light.loft_light_1
+        - light.loft_light_2
+    - service: light.turn_off
+      data:
+        entity_id: light.loft_light_3
         transition: 900
