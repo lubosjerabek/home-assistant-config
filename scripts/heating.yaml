@@ -62,6 +62,15 @@ heating_work:
 
 heating_away:
   sequence:
+    - service: climate.turn_off
+      entity_id:
+          - climate.kitchen
+          - climate.bedroom
+          - climate.office
+          - climate.loft
+    - condition: state
+      entity_id: input_boolean.heating
+      state: "on"
     - service: climate.set_preset_mode
       data:
         entity_id: climate.living_room
@@ -70,12 +79,6 @@ heating_away:
       data_template:
         entity_id: climate.living_room
         temperature: 16
-    - service: climate.turn_off
-      entity_id:
-          - climate.kitchen
-          - climate.bedroom
-          - climate.office
-          - climate.loft
 
 heating_close:
   sequence:
