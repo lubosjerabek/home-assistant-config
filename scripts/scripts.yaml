@@ -46,9 +46,9 @@ bedtime:
         entity_id: input_select.hassio_mode
         option: night
     - service: script.sunset_bedroom
-    - service: script.downstairs_off
-    - service: script.office_off
     - service: script.hallway_off
+    - service: script.office_off
+    - service: script.downstairs_off
 
 bedside_actions:
   sequence:
