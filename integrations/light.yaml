@@ -13,3 +13,9 @@
   entities:
     - light.bedroom_light_1
     - light.bedroom_light_2
+- platform: group
+  name: Loft Light
+  entities:
+    - light.loft_light_1
+    - light.loft_light_2
+    - light.loft_light_3
