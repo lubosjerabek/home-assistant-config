@@ -99,30 +99,6 @@ vacuum_litter:
         command: app_zoned_clean
         params: [[27217,20096,28417,22196,1]]
 
-play_radio_downstairs:
-  sequence:
-    - service: media_player.play_media
-      data_template:
-        entity_id: media_player.downstairs_speakers
-        media_content_type: music
-        media_content_id: >
-          {% if is_state("input_select.play_radio_downstairs", "Český rozhlas Radiožurnál") %}https://ice7.radia.cz/cro1-128.aac
-          {% elif is_state("input_select.play_radio_downstairs", "Rádio Krokodýl") %}http://icecast4.play.cz/krokodyl128.mp3
-          {% else %}none
-          {% endif %}
-
-play_radio_kids_room:
-  sequence:
-    - service: media_player.play_media
-      data_template:
-        entity_id: media_player.kids_room_speaker
-        media_content_type: music
-        media_content_id: >
-          {% if is_state("input_select.play_radio_kids_room", "Český rozhlas Radiožurnál") %}https://ice7.radia.cz/cro1-128.aac
-          {% elif is_state("input_select.play_radio_kids_room", "Rádio Krokodýl") %}http://icecast4.play.cz/krokodyl128.mp3
-          {% else %}none
-          {% endif %}
-
 doorbell:
   sequence:
     - service: xiaomi_aqara.play_ringtone
