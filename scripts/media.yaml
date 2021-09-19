@@ -24,9 +24,11 @@ play_radio_kids_room:
 
 turn_xbox_off:
   sequence:
-    - condition: state
-      entity_id: media_player.xboxone
-      state: "on"
+    - condition:
+      condition: not
+      conditions:
+        - condition: state
+          entity_id: media_player.xboxone
+          state: "off"
     - service: media_player.turn_off
       entity_id: media_player.xboxone
-
