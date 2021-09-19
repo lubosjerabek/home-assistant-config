@@ -28,3 +28,10 @@ turn_xbox_off:
       value_template: '{{ not is_state("media_player.xboxone", "off") }}'
     - service: media_player.turn_off
       entity_id: media_player.xboxone
+
+turn_tv_off:
+  sequence:
+    - condition: template
+      value_template: '{{ not is_state("media_player.philips_tv", "off") }}'
+    - service: media_player.turn_off
+      entity_id: media_player.philips_tv

@@ -21,11 +21,10 @@ downstairs_off:
         - switch.hallway_light
         - switch.big_fan
         - switch.christmas_tree
+    - service: turn_xbox_off
+    - service: turn_tv_off
     - service: media_player.turn_off
-      entity_id:
-        - media_player.downstairs_speakers
-        - media_player.philips_tv
-        - media_player.xboxone
+      entity_id: media_player.downstairs_speakers
 
 hallway_off:
   sequence:
