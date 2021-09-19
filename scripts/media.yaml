@@ -24,11 +24,7 @@ play_radio_kids_room:
 
 turn_xbox_off:
   sequence:
-    - condition:
-        condition: not
-        conditions:
-          - condition: state
-            entity_id: media_player.xboxone
-            state: "off"
+    - condition: template
+      value_template: '{{ not is_state("media_player.xboxone", "off") }}'
     - service: media_player.turn_off
       entity_id: media_player.xboxone
