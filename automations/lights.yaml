@@ -127,6 +127,16 @@
     - service: light.toggle
       entity_id: light.office_light
 
+- alias: Light - Toggle Kid's Room Lights
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.kids_room_button
+  action:
+    - service: light.toggle
+      entity_id: light.kid_s_room_light
+
 - alias: Light - Mirror Kitchen Light Status
   trigger:
     platform: state
