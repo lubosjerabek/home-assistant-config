@@ -103,11 +103,21 @@
     event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.jana_bedside_button
+      click_type: double
   action:
     - service: script.bedside_actions
       data_template:
         action: >
           {{ state_attr('binary_sensor.jana_bedside_button', 'last_action') }}
+
+- alias: Kids Room - Bedtime
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.kids_room_button
+  action:
+    - service: script.kids_bedtime
 
 - alias: Home - Select home mode in the morning
   trigger:

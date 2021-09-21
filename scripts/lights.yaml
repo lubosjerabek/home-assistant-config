@@ -10,8 +10,10 @@ sunset_bedroom:
 sunset_kids_room:
   sequence:
     - service: light.turn_off
+      entity_id: light.kids_room_light
+    - service: light.turn_off
       data:
-        entity_id: light.kids_room_light
+        entity_id: light.kids_room_lamp
         transition: 900
 
 sunset_loft:

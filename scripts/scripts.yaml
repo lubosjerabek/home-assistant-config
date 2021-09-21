@@ -50,6 +50,10 @@ bedtime:
     - service: script.office_off
     - service: script.downstairs_off
 
+kids_bedtime:
+  sequence:
+    - service: script.sunset_kids_room
+
 bedside_actions:
   sequence:
     - service_template: >

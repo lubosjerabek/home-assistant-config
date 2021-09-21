@@ -133,6 +133,7 @@
     event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.kids_room_button
+      click_type: single
   action:
     - service: light.toggle
       entity_id: light.kid_s_room_light
