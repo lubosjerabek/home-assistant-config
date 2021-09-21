@@ -14,6 +14,11 @@
     - light.bedroom_light_1
     - light.bedroom_light_2
 - platform: group
+  name: Kid's Room Light
+  entities:
+    - light.kids_room_light
+    - light.kids_room_lamp
+- platform: group
   name: Loft Light
   entities:
     - light.loft_light_1
