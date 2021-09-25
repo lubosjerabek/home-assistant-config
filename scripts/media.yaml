@@ -9,7 +9,11 @@ play_radio:
           {% elif is_state(input_select, "Rádio Krokodýl") %}http://icecast4.play.cz/krokodyl128.mp3
           {% else %}none
           {% endif %}
-
+    - delay: '00:00:05'
+    - service: input_select.select_option
+      data:
+        entity_id: '{{ input_select }}'
+        option: 'Select radio'
 
 turn_xbox_off:
   sequence:
