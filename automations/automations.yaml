@@ -28,7 +28,10 @@
         entity_id: input_select.play_radio_downstairs
         state: 'Select radio'
   action:
-    - service: script.play_radio_downstairs
+    - service: script.play_radio
+      data_template:
+        media_player: media_player.downstairs_speakers
+        input_select: input_select.play_radio_downstairs
     - delay: '00:00:05'
     - service: input_select.select_option
       data:
@@ -47,7 +50,10 @@
         entity_id: input_select.play_radio_kids_room
         state: 'Select radio'
   action:
-    - service: script.play_radio_kids_room
+    - service: script.play_radio
+      data_template:
+        media_player: media_player.kids_room_speaker
+        input_select: input_select.play_radio_kids_room
     - delay: '00:00:05'
     - service: input_select.select_option
       data:
