@@ -12,6 +12,13 @@ play_radio_kids_room:
     - Český rozhlas Radiožurnál
     - Rádio Krokodýl
 
+play_radio_loft:
+  name: Choose a radio to play
+  options:
+    - Select radio
+    - Český rozhlas Radiožurnál
+    - Rádio Krokodýl
+
 hassio_mode:
   options:
     - home

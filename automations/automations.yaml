@@ -28,12 +28,10 @@
         entity_id: input_select.play_radio_downstairs
         state: 'Select radio'
   action:
-    - service: script.play_radio_downstairs
-    - delay: '00:00:05'
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.play_radio_downstairs
-        option: 'Select radio'
+    - service: script.play_radio
+      data_template:
+        media_player: media_player.downstairs_speakers
+        input_select: input_select.play_radio_downstairs
 
 - alias: Play radio kid's room
   trigger:
@@ -47,12 +45,27 @@
         entity_id: input_select.play_radio_kids_room
         state: 'Select radio'
   action:
-    - service: script.play_radio_kids_room
-    - delay: '00:00:05'
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.play_radio_kids_room
-        option: 'Select radio'
+    - service: script.play_radio
+      data_template:
+        media_player: media_player.kids_room_speaker
+        input_select: input_select.play_radio_kids_room
+
+- alias: Play radio loft
+  trigger:
+    - platform: state
+      entity_id: input_select.play_radio_loft
+      from: 'Select radio'
+  condition:
+    condition: not
+    conditions:
+      - condition: state
+        entity_id: input_select.play_radio_loft
+        state: 'Select radio'
+  action:
+    - service: script.play_radio
+      data_template:
+        media_player: media_player.loft_speaker
+        input_select: input_select.play_radio_loft
 
 - alias: Doorbell
   trigger:
