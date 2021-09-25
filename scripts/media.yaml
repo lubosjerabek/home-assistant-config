@@ -15,6 +15,7 @@ play_radio:
         entity_id: '{{ input_select }}'
         option: 'Select radio'
 
+
 turn_xbox_off:
   sequence:
     - condition: template
