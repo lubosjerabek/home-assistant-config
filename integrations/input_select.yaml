@@ -37,6 +37,24 @@ white_noises_player_kids_room:
     - White Noise
     - Womb Sounds
 
+white_noises_player_bedroom:
+  name: Choose a white noise to play
+  options:
+    - Select noise
+    - Fan
+    - Heater
+    - Ocean 1
+    - Ocean 2
+    - Pink Noise
+    - Rain 1
+    - Rain 2
+    - Train
+    - Water
+    - Waterfall
+    - Waves
+    - White Noise
+    - Womb Sounds
+
 hassio_mode:
   options:
     - home

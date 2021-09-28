@@ -79,6 +79,18 @@
         media_player: media_player.kids_room_speaker
         input_select: input_select.white_noises_player_kids_room
 
+- alias: White noises player bedroom
+  trigger:
+    - platform: state
+      entity_id: input_select.white_noises_player_bedroom
+      from: 'Select noise'
+  action:
+    - service: script.play_white_noises
+      data_template:
+        white_noise_media_path: !secret white_noise_media_path
+        media_player: media_player.bedroom_speaker
+        input_select: input_select.white_noises_player_bedroom
+
 - alias: Doorbell
   trigger:
     platform: event
