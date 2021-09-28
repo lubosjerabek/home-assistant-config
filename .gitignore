@@ -12,7 +12,6 @@ custom_components/*
 .uuid
 .google_maps_location_sharing.cookies
 secrets.yaml
-*.mp3
 *.log
 *.db
 *.key
