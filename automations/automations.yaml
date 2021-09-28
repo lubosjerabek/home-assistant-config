@@ -72,12 +72,6 @@
     - platform: state
       entity_id: input_select.white_noises_player_kids_room
       from: 'Select noise'
-  condition:
-    condition: not
-    conditions:
-      - condition: state
-        entity_id: input_select.white_noises_player_kids_room
-        state: 'Select noise'
   action:
     - service: script.play_white_noises
       data_template:
