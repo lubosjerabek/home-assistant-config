@@ -17,11 +17,8 @@ play_radio:
 
 play_white_noises:
   sequence:
-    - condition: not
-      conditions:
-        - condition: state
-          entity_id: '{{ input_select }}'
-          state: 'Select noise'
+    - condition: template
+      value_template: '{{ not is_state(input_select, "Select noise") }}'
     - service: media_player.play_media
       data_template:
         entity_id: '{{ media_player }}'
