@@ -17,8 +17,7 @@ play_radio:
 
 play_white_noises:
   sequence:
-    - condition:
-      condition: not
+    - condition: not
       conditions:
         - condition: state
           entity_id: '{{ input_select }}'
