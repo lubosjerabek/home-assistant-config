@@ -22,6 +22,7 @@ play_radio_loft:
 white_noises_player_kids_room:
   name: Choose a white noise to play
   options:
+    - Select noise
     - Fan
     - Heater
     - Ocean 1

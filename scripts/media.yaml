@@ -26,7 +26,7 @@ play_white_noises:
     - service: input_select.select_option
       data:
         entity_id: '{{ input_select }}'
-        option: 'Choose a white noise to play'
+        option: 'Select noise'
 
 turn_xbox_off:
   sequence:

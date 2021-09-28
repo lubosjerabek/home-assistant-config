@@ -71,13 +71,13 @@
   trigger:
     - platform: state
       entity_id: input_select.white_noises_player_kids_room
-      from: 'Choose a white noise to play'
+      from: 'Select noise'
   condition:
     condition: not
     conditions:
       - condition: state
         entity_id: input_select.white_noises_player_kids_room
-        state: 'Choose a white noise to play'
+        state: 'Select noise'
   action:
     - service: script.play_radio
       data_template:
