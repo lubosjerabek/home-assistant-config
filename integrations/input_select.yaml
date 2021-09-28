@@ -19,6 +19,23 @@ play_radio_loft:
     - Český rozhlas Radiožurnál
     - Rádio Krokodýl
 
+white_noises_player_kids_room:
+  name: Choose a white noise to play
+  options:
+    - Fan
+    - Heater
+    - Ocean 1
+    - Ocean 2
+    - Pink Noise
+    - Rain 1
+    - Rain 2
+    - Train
+    - Water
+    - Waterfall
+    - Waves
+    - White Noise
+    - Womb Sounds
+
 hassio_mode:
   options:
     - home
