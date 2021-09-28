@@ -79,7 +79,7 @@
         entity_id: input_select.white_noises_player_kids_room
         state: 'Select noise'
   action:
-    - service: script.play_radio
+    - service: script.play_white_noises
       data_template:
         white_noise_media_path: !secret white_noise_media_path
         media_player: media_player.kids_room_speaker
