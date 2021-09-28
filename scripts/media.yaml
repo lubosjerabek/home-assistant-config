@@ -21,7 +21,7 @@ play_white_noises:
       data_template:
         entity_id: '{{ media_player }}'
         media_content_type: music
-        media_content_id: '{{ white_noise_media_path }}/{{ filename }}.mp3'
+        media_content_id: '{{ white_noise_media_path }}/{{ states(input_select) }}.mp3'
     - delay: '00:00:05'
     - service: input_select.select_option
       data:
