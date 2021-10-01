@@ -92,7 +92,7 @@ heating_back:
     - service: script.set_thermostat
       data:
         entity_id: climate.living_room
-        temperature: 20.5
+        temperature: 20
     - service: script.set_thermostat
       data:
         entity_id: climate.kitchen
