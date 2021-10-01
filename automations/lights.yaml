@@ -100,7 +100,7 @@
     service: light.turn_off
     entity_id: light.bathroom_light
 
-- alias: Light - Kitchen and Bedroom on upon Arrival
+- alias: Light - Late Arrival
   trigger:
     platform: state
     entity_id: person.lubos, person.jana
@@ -114,7 +114,10 @@
     - service: switch.turn_on
       entity_id: switch.kitchen_light
     - service: light.turn_on
-      entity_id: light.bedroom_light
+      entity_id:
+        - light.bedroom_light
+        - light.dining_room_light
+        - light.upstairs_hall_light
 
 - alias: Light - Toggle Office using Cube
   trigger:
