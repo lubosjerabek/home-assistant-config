@@ -81,7 +81,7 @@
     platform: time_pattern
   condition:
     condition: state
-    entity_id: input_select.hassio_mode
-    state: 'night'
+    entity_id: input_boolean.preheating
+    state: 'on'
   action:
     - service: script.refresh_early_morning_timer
