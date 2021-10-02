@@ -22,13 +22,6 @@
   action:
     - service: script.heating_back
 
-- alias: Heating - Early morning
-  trigger:
-    platform: time
-    at: input_datetime.heating_on
-  action:
-    - service: script.heating_early_morning
-
 - alias: Heating - Morning
   trigger:
     platform: time
@@ -75,7 +68,7 @@
   action:
     - service: script.restart_tado
 
-- alias: Heating - Refresh Early Morning Timer
+- alias: Heating - Refresh Start Time
   trigger:
   - minutes: /1
     platform: time_pattern
@@ -85,3 +78,15 @@
     state: 'on'
   action:
     - service: script.refresh_early_morning_timer
+
+- alias: Heating - Periodic Check For Start
+  trigger:
+  - minutes: /1
+    platform: time_pattern
+  condition: template
+    value_template: >
+      {% set time = states('input_datetime.heating_on')%}
+      {% set now = now().strftime("%H:%M:%S") %}
+      {{ time > now and is_state('input_boolean.preheating', 'on') }}
+  action:
+    - service: script.heating_early_morning
