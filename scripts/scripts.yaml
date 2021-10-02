@@ -41,8 +41,6 @@ bedtime:
     - service: script.heating_night
     - service: input_boolean.turn_off
       entity_id: input_select.night_mode
-    - service: input_boolean.turn_on
-      entity_id: input_select.preheating
     - service: script.sunset_bedroom
     - service: script.hallway_off
     - service: script.office_off
