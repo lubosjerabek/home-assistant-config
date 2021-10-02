@@ -86,7 +86,7 @@
   condition:
     - condition: template
       value_template: >
-        {% set time = states('input_datetime.morning')%}
+        {% set time = states('input_datetime.heating_on')%}
         {% set now = now().strftime("%H:%M:%S") %}
         {{ now > time and is_state('input_boolean.preheating', 'on') }}
   action:
