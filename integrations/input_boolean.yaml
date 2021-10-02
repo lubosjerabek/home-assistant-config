@@ -3,7 +3,7 @@ heating:
   icon: mdi:fire
 
 preheating:
-  name: Heating expected
+  name: Early start
   icon: mdi:fire
 
 night_mode:
