@@ -14,14 +14,14 @@ set_thermostat:
     - service: system_log.write
       data:
         message: "{{ entity_id }} was set to {{ temperature }}"
-        level: info
+        level: warning
 
 heating_early_morning:
   sequence:
     - service: system_log.write
       data:
         message: heating_early_morning was triggered
-        level: info
+        level: warning
     - service: script.set_thermostat
       data:
         entity_id: climate.living_room
