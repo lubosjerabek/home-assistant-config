@@ -88,6 +88,6 @@
       value_template: >
         {% set time = states('input_datetime.morning')%}
         {% set now = now().strftime("%H:%M:%S") %}
-        {{ time > now and is_state('input_boolean.preheating', 'on') }}
+        {{ now > time and is_state('input_boolean.preheating', 'on') }}
   action:
     - service: script.heating_early_morning
