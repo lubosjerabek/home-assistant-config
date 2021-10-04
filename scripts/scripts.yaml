@@ -40,7 +40,7 @@ bedtime:
   sequence:
     - service: script.heating_night
     - service: input_boolean.turn_on
-      entity_id: input_select.night_mode
+      entity_id: input_boolean.night_mode
     - service: script.sunset_bedroom
     - service: script.hallway_off
     - service: script.office_off
