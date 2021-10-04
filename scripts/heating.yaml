@@ -46,6 +46,8 @@ heating_morning:
         temperature: 19
     - service: climate.turn_off
       entity_id: climate.bedroom
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.preheating
 
 heating_work:
   sequence:
