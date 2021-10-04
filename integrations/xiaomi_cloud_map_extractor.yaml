@@ -6,5 +6,3 @@
     draw: ['all']
     attributes:
       - calibration_points    
-    store_map_image: true
-    store_map_path: "/config/www"
