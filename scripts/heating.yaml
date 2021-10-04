@@ -45,6 +45,7 @@ heating_morning:
         entity_id: climate.kitchen
         temperature: 19
     - service: climate.turn_off
+      entity_id: climate.bedroom
 
 heating_work:
   sequence:
