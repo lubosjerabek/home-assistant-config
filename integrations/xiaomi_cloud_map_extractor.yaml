@@ -8,3 +8,5 @@
       - calibration_points
     colors:
       color_map_outside: [0, 0, 0, 0]
+    map_transformation:
+      scale: 2
