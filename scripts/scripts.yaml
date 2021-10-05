@@ -25,10 +25,8 @@ back_home:
 morning:
   sequence:
     - service: script.heating_morning
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.hassio_mode
-        option: home
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.night_mode
     - service: input_select.select_option
       data:
         entity_id: input_select.play_radio_downstairs
@@ -41,10 +39,8 @@ morning:
 bedtime:
   sequence:
     - service: script.heating_night
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.hassio_mode
-        option: night
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.night_mode
     - service: script.sunset_bedroom
     - service: script.hallway_off
     - service: script.office_off

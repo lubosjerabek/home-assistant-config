@@ -165,10 +165,8 @@
       entity_id: group.everyone
       state: home
   action:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.hassio_mode
-        option: home
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.night_mode
 
 - alias: Stop music when xbox starts playing
   trigger:

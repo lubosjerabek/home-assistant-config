@@ -11,9 +11,17 @@ set_thermostat:
       data_template:
         entity_id: "{{ entity_id }}"
         temperature: "{{ temperature }}"
+    - service: system_log.write
+      data:
+        message: "{{ entity_id }} was set to {{ temperature }}"
+        level: warning
 
 heating_early_morning:
   sequence:
+    - service: system_log.write
+      data:
+        message: heating_early_morning was triggered
+        level: warning
     - service: script.set_thermostat
       data:
         entity_id: climate.living_room
@@ -22,6 +30,8 @@ heating_early_morning:
       data:
         entity_id: climate.bedroom
         temperature: 19
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.preheating
 
 heating_morning:
   sequence:
@@ -36,13 +46,8 @@ heating_morning:
         temperature: 19
     - service: climate.turn_off
       entity_id: climate.bedroom
-    - condition: state
-      entity_id: binary_sensor.workday_today
-      state: 'on'
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.office
-        temperature: 20
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.preheating
 
 heating_work:
   sequence:

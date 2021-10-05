@@ -54,9 +54,3 @@ white_noises_player_bedroom:
     - Waves
     - White Noise
     - Womb Sounds
-
-hassio_mode:
-  options:
-    - home
-    - night
-    - away

@@ -1,3 +1,11 @@
 heating:
   name: Heating
   icon: mdi:fire
+
+preheating:
+  name: Early start
+  icon: mdi:fire
+
+night_mode:
+  name: Night mode
+  icon: mdi:weather-night
