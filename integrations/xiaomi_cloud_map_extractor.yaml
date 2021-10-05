@@ -10,10 +10,6 @@
       color_map_outside: [0, 0, 0, 0]
     map_transformation:
       scale: 2
-    sizes:
-      charger_radius: 0
-      vacuum_radius: 0
-      obstacle_radius: 0
-      ignored_obstacle_radius: 0
-      obstacle_with_photo_radius: 0
-      ignored_obstacle_with_photo_radius: 0
+      trim:
+        top: 20
+        bottom: 30
