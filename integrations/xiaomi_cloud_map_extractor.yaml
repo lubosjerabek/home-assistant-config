@@ -11,5 +11,5 @@
     map_transformation:
       scale: 2
       trim:
-        top: 20
-        bottom: 20
+        top: 25
+        bottom: 25
