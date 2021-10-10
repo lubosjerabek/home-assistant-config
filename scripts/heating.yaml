@@ -45,7 +45,9 @@ heating_morning:
         entity_id: climate.kitchen
         temperature: 19
     - service: climate.turn_off
-      entity_id: climate.bedroom
+      entity_id:
+          - climate.bedroom
+          - climate.loft
     - service: input_boolean.turn_off
       entity_id: input_boolean.preheating
 
@@ -156,4 +158,4 @@ refresh_heating_off_timer:
       target:
         entity_id: input_datetime.heating_off
       data:
-        time: "22:30"
+        time: "22:00"
