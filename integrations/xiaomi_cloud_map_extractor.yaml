@@ -9,9 +9,8 @@
     colors:
       color_map_outside: [0, 0, 0, 0]
     map_transformation:
-      # scale: 2
       trim:
-        left: 20
-        right: 20
-        top: 25
-        bottom: 25
+        left: 25
+        right: 25
+        top: 30
+        bottom: 30
