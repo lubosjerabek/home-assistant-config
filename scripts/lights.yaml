@@ -32,10 +32,9 @@ night_light:
     - service: light.turn_on
       data:
         entity_id: "{{ entity_id }}"
-        rgb_color:
-          - 255
-          - 153
-          - 0
+        hs_color:
+          - 36
+          - 100
         brightness: 1
 
 home_light:
@@ -43,10 +42,9 @@ home_light:
     - service: light.turn_on
       data:
         entity_id: "{{ entity_id }}"
-        rgb_color:
-          - 255
-          - 183
-          - 123
+        hs_color:
+          - 27.519
+          - 52.157
         brightness: 204
 
 bright_light:
@@ -54,8 +52,7 @@ bright_light:
     - service: light.turn_on
       data:
         entity_id: "{{ entity_id }}"
-        rgb_color:
-          - 255
-          - 241
-          - 228
+        hs_color:
+          - 28.745
+          - 10.321
         brightness: 255
