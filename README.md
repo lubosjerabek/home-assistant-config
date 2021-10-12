@@ -21,6 +21,7 @@ Hassio instance integrating:
 # Screenshots
 ![Home](https://raw.githubusercontent.com/lubosjerabek/home-assistant-config/master/src/home.png)
 ![Bedroom](https://raw.githubusercontent.com/lubosjerabek/home-assistant-config/master/src/bedroom.png)
-![Study](https://raw.githubusercontent.com/lubosjerabek/home-assistant-config/master/src/study.png)
+![Kid's room](https://raw.githubusercontent.com/lubosjerabek/home-assistant-config/master/src/kids-room.png)
+![Office](https://raw.githubusercontent.com/lubosjerabek/home-assistant-config/master/src/office.png)
 ![Loft](https://raw.githubusercontent.com/lubosjerabek/home-assistant-config/master/src/loft.png)
 ![Info](https://raw.githubusercontent.com/lubosjerabek/home-assistant-config/master/src/info.png)
