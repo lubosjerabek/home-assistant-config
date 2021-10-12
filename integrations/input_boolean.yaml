@@ -4,7 +4,7 @@ heating:
 
 preheating:
   name: Early start
-  icon: mdi:fire
+  icon: mdi:timer-outline
 
 night_mode:
   name: Night mode
