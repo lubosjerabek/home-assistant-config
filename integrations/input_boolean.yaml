@@ -9,3 +9,7 @@ preheating:
 night_mode:
   name: Night mode
   icon: mdi:weather-night
+
+guest_mode:
+  name: Guest mode
+  icon: mdi:bed
