@@ -30,8 +30,8 @@ sunset_loft:
 night_light:
   sequence:
     - service: light.turn_on
-      entity_id: "{{ entity_id }}"
       data:
+        entity_id: "{{ entity_id }}"
         rgb_color:
           - 255
           - 153
@@ -41,8 +41,8 @@ night_light:
 home_light:
   sequence:
     - service: light.turn_on
-      entity_id: "{{ entity_id }}"
       data:
+        entity_id: "{{ entity_id }}"
         rgb_color:
           - 255
           - 183
@@ -52,8 +52,8 @@ home_light:
 bright_light:
   sequence:
     - service: light.turn_on
-      entity_id: "{{ entity_id }}"
       data:
+        entity_id: "{{ entity_id }}"
         rgb_color:
           - 255
           - 241
