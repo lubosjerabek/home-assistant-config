@@ -26,3 +26,39 @@ sunset_loft:
       data:
         entity_id: light.loft_light_3
         transition: 900
+
+night_light:
+  sequence:
+    - service: light.turn_on
+      entity_id: "{{ entity_id }}"
+      data:
+        rgb_color:
+          rgb_color:
+            - 255
+            - 153
+            - 0
+        brightness: 1
+
+home_light:
+  sequence:
+    - service: light.turn_on
+      entity_id: "{{ entity_id }}"
+      data:
+        rgb_color:
+          rgb_color:
+            - 255
+            - 183
+            - 123
+        brightness: 204
+
+bright_light:
+  sequence:
+    - service: light.turn_on
+      entity_id: "{{ entity_id }}"
+      data:
+        rgb_color:
+          rgb_color:
+            - 255
+            - 241
+            - 228
+        brightness: 255
