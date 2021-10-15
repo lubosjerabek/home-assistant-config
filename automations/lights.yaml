@@ -57,7 +57,7 @@
         {% else %} script.bright_light
         {% endif %}
     data:
-      entity_id: light.bathroom_light
+      entity_id: light.toilet_light
 
 - alias: Light - No motion in toilet
   trigger:
