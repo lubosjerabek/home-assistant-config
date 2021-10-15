@@ -4,10 +4,9 @@
     entity_id: sensor.xiaomi_gateway_illuminance
     below: 450
   action:
-    - service: light.turn_on
+    - service: script.home_light
       data:
         entity_id: light.xiaomi_gateway_light
-        color_name: azure
 
 - alias: Light - Gateway light off
   trigger:
@@ -111,11 +110,15 @@
   action:
     - service: switch.turn_on
       entity_id: switch.kitchen_light
-    - service: light.turn_on
-      entity_id:
-        - light.bedroom_light
-        - light.dining_room_light
-        - light.upstairs_hall_light
+    - service: script.home_light
+      data:
+        entity_id: light.bedroom_light
+    - service: script.home_light
+      data:
+        entity_id: light.dining_room_light
+    - service: script.home_light
+      data:
+        entity_id: light.upstairs_hall_light
 
 - alias: Light - Toggle Office using Cube
   trigger:
