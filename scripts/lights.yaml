@@ -32,7 +32,7 @@ night_light:
     - service: light.turn_on
       data:
         entity_id: "{{ entity_id }}"
-        color_temp: 588
+        color_temp: 333
         brightness: 1
 
 home_light:
