@@ -78,7 +78,7 @@
   condition:
     - condition: numeric_state
       entity_id: sensor.bathroom_illumination
-      below: 5
+      below: 10
   action:
     service_template: >
         {% if is_state("input_boolean.night_mode", "on") %} script.night_light
