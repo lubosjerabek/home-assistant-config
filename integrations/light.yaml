@@ -1,13 +1,13 @@
-- platform: xiaomi_miio
-  host: !secret toilet_light_ip
-  name: Toilet Light
-  token: !secret toilet_light_token
-  model: philips.light.bulb
-- platform: xiaomi_miio
-  host: !secret bathroom_light_ip
-  name: Bathroom Light
-  token: !secret bathroom_light_token
-  model: philips.light.bulb
+# - platform: xiaomi_miio
+#   host: !secret toilet_light_ip
+#   name: Toilet Light
+#   token: !secret toilet_light_token
+#   model: philips.light.bulb
+# - platform: xiaomi_miio
+#   host: !secret bathroom_light_ip
+#   name: Bathroom Light
+#   token: !secret bathroom_light_token
+#   model: philips.light.bulb
 - platform: group
   name: Bedroom Light
   entities:
