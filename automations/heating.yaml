@@ -80,7 +80,7 @@
     - service: script.set_thermostat
       data:
         entity_id: climate.loft
-        temperature: 19
+        temperature: 18
 
 - alias: Heating - Preheating On
   trigger:
