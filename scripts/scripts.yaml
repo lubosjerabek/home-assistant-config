@@ -33,8 +33,9 @@ morning:
         option: 'Český rozhlas Radiožurnál'
     - service: switch.turn_on
       entity_id: switch.kitchen_light
-    - service: light.turn_on
-      entity_id: light.dining_room_light
+    - service: script.home_light
+      data:
+        entity_id: light.dining_room_light
 
 bedtime:
   sequence:
@@ -45,6 +46,12 @@ bedtime:
     - service: script.hallway_off
     - service: script.office_off
     - service: script.downstairs_off
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "on"
+    - service: script.night_light
+      data:
+        entity_id: light.upstairs_hall_light
 
 kids_bedtime:
   sequence:

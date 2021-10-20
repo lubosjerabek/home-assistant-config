@@ -68,6 +68,20 @@
   action:
     - service: script.restart_tado
 
+- alias: Heating - Preheat Loft for Guests
+  trigger:
+    platform: time
+    at: "21:00:00"
+  condition:
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "on"
+  action:
+    - service: script.set_thermostat
+      data:
+        entity_id: climate.loft
+        temperature: 18
+
 - alias: Heating - Preheating On
   trigger:
     platform: time

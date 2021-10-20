@@ -4,10 +4,9 @@
     entity_id: sensor.xiaomi_gateway_illuminance
     below: 450
   action:
-    - service: light.turn_on
+    - service: script.home_light
       data:
         entity_id: light.xiaomi_gateway_light
-        color_name: azure
 
 - alias: Light - Gateway light off
   trigger:
@@ -53,13 +52,12 @@
       entity_id: sensor.toilet_illumination
       below: 10
   action:
-    service: light.turn_on
-    data_template:
-      entity_id: light.toilet_light
-      brightness_pct: >
-        {% if is_state("input_boolean.night_mode", "on") %}5
-        {% else %}100
+    service_template: >
+        {% if is_state("input_boolean.night_mode", "on") %} script.night_light
+        {% else %} script.bright_light
         {% endif %}
+    data:
+      entity_id: light.toilet_light
 
 - alias: Light - No motion in toilet
   trigger:
@@ -80,16 +78,15 @@
   condition:
     - condition: numeric_state
       entity_id: sensor.bathroom_illumination
-      below: 5
+      below: 10
   action:
-    service: light.turn_on
-    data_template:
-      entity_id: light.bathroom_light
-      brightness_pct: >
-        {% if is_state("input_boolean.night_mode", "on") %}5
-        {% else %}100
+    service_template: >
+        {% if is_state("input_boolean.night_mode", "on") %} script.night_light
+        {% else %} script.bright_light
         {% endif %}
-
+    data:
+      entity_id: light.bathroom_light
+      
 - alias: Light - No motion in bathroom
   trigger:
     platform: state
@@ -113,11 +110,12 @@
   action:
     - service: switch.turn_on
       entity_id: switch.kitchen_light
-    - service: light.turn_on
-      entity_id:
-        - light.bedroom_light
-        - light.dining_room_light
-        - light.upstairs_hall_light
+    - service: script.home_light
+      data:
+        entity_id:
+          - light.dining_room_light
+          - light.bedroom_light
+          - light.upstairs_hall_light
 
 - alias: Light - Toggle Office using Cube
   trigger:
