@@ -110,18 +110,12 @@
   action:
     - service: switch.turn_on
       entity_id: switch.kitchen_light
-    # - service: script.home_light
-    #   data:
-    #     entity_id: light.bedroom_light
     - service: script.home_light
       data:
         entity_id:
           - light.dining_room_light
           - light.bedroom_light
           - light.upstairs_hall_light
-    # - service: script.home_light
-    #   data:
-    #     entity_id: light.upstairs_hall_light
 
 - alias: Light - Toggle Office using Cube
   trigger:
