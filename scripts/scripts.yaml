@@ -113,6 +113,11 @@ doorbell:
         gw_mac: !secret xiaomi_gateway_mac
         ringtone_id: 10
         ringtone_vol: 60
+    - service: logbook.log
+      data:
+        name: Doorbell
+        message: Someone is at the door
+        entity_id: binary_sensor.doorbell
     - service: notify.notify
       data:
         title: Home Assistant

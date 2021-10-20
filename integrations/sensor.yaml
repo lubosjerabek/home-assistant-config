@@ -38,13 +38,6 @@
         {%- if washer_state == "Off" -%}None
         {%- else -%}{{ as_timestamp(strptime(states('sensor.washing_machine_washer_completion_time'), "")) | timestamp_custom("%H:%M") }}
         {%- endif %}
-    doorbell_last_triggered:
-      friendly_name: "Doorbell pressed"
-      value_template: >
-        {% set date = strptime(states.automation.doorbell.attributes.last_triggered, '') %}
-        {%- if date.date() != now().date() -%}Not today
-        {%- else -%}{{ as_timestamp(date) | timestamp_custom('%H:%M') }}
-        {%- endif %}
 
     # Pollen sensors
     air_pollen_level:
