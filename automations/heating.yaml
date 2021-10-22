@@ -37,22 +37,6 @@
   action:
     - service: script.heating_morning
 
-- alias: Heating - Temperature drop
-  trigger:
-    platform: state
-    entity_id:
-      - sensor.living_room_open_window
-      - sensor.bedroom_open_window
-      - sensor.kitchen_open_window
-      - sensor.office_open_window
-      - sensor.loft_open_window
-    from: 'False'
-    to: 'True'
-  action:
-    - service: script.notify_heating_off
-      data_template:
-        entityid: '{{trigger.entity_id}}'
-
 - alias: Heating - Close to home
   trigger:
     - platform: zone
