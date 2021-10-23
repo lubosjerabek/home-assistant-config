@@ -136,7 +136,11 @@
       entity_id: binary_sensor.kids_room_button
       click_type: single
   action:
-    - service: light.toggle
+    - service_template: >
+        {% if is_state("light.kid_s_room_light", "off") and is_state("input_boolean.kids_night_light", "off") %}script.home_light
+        {% if is_state("light.kid_s_room_light", "off") and is_state("input_boolean.kids_night_light", "on") %}script.night_light
+        {% else %}light.turn_off
+        {% endif %}
       entity_id: light.kid_s_room_light
 
 - alias: Light - Mirror Kitchen Light Status
