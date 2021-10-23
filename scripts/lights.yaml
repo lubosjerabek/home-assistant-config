@@ -50,3 +50,16 @@ bright_light:
         entity_id: "{{ entity_id }}"
         color_temp: 175
         brightness: 255
+
+default_light_colors:
+  sequence:
+    - service: script.home_light
+      data:
+        entity_id: all
+    - service: script.bright_light
+      data:
+        entity_id:
+          - light.office_lamp
+          - light.office_light
+          - light.toilet_light
+          - light.bathroom_light
