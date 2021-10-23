@@ -156,17 +156,15 @@
   action:
     - service: script.kids_bedtime
 
-- alias: Home - Select home mode in the morning
+- alias: Home - Disable night lights every morning
   trigger:
     platform: time
     at: "06:00:00"
-  condition:
-    - condition: state
-      entity_id: group.everyone
-      state: home
   action:
     - service: input_boolean.turn_off
-      entity_id: input_boolean.night_mode
+      entity_id:
+        - input_boolean.night_mode
+        - input_boolean.kids_night_light
 
 - alias: Stop music when xbox starts playing
   trigger:
