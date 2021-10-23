@@ -10,6 +10,10 @@ night_mode:
   name: Night mode
   icon: mdi:weather-night
 
+kids_night_light:
+  name: Kid's Room Night Light
+  icon: mdi:human-baby-changing-table
+
 guest_mode:
   name: Guest mode
   icon: mdi:bed
