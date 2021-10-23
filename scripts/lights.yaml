@@ -59,6 +59,7 @@ default_light_colors:
     - service: script.bright_light
       data:
         entity_id:
+          - light.kitchen_lightstrip
           - light.office_lamp
           - light.office_light
           - light.toilet_light
