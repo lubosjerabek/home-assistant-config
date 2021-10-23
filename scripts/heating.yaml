@@ -16,17 +16,28 @@ set_thermostat:
         message: "{{ entity_id }} was set to {{ temperature }}"
         level: warning
 
+increase_temperature:
+  sequence:
+    - condition: template
+      value_template: >
+        {% set set_temperature = state_attr(entity_id, "temperature")%}
+        {{ temperature > set_temperature }}
+    - service: script.set_thermostat
+      data:
+        entity_id: "{{ entity_id }}"
+        temperature: "{{ temperature }}"
+
 heating_early_morning:
   sequence:
     - service: system_log.write
       data:
         message: heating_early_morning was triggered
         level: warning
-    - service: script.set_thermostat
+    - service: script.increase_temperature
       data:
         entity_id: climate.living_room
         temperature: 20
-    - service: script.set_thermostat
+    - service: script.increase_temperature
       data:
         entity_id: climate.bedroom
         temperature: 19
@@ -36,11 +47,11 @@ heating_early_morning:
 heating_morning:
   sequence:
     - service: script.refresh_morning_timer
-    - service: script.set_thermostat
+    - service: script.increase_temperature
       data:
         entity_id: climate.living_room
         temperature: 20
-    - service: script.set_thermostat
+    - service: script.increase_temperature
       data:
         entity_id: climate.kitchen
         temperature: 19
@@ -89,22 +100,22 @@ heating_away:
 
 heating_close:
   sequence:
-    - service: script.set_thermostat
+    - service: script.increase_temperature
       data:
         entity_id: climate.living_room
         temperature: 20
 
 heating_back:
   sequence:
-    - service: script.set_thermostat
+    - service: script.increase_temperature
       data:
         entity_id: climate.living_room
         temperature: 20
-    - service: script.set_thermostat
+    - service: script.increase_temperature
       data:
         entity_id: climate.kitchen
         temperature: 19
-    - service: script.set_thermostat
+    - service: script.increase_temperature
       data:
         entity_id: climate.bedroom
         temperature: 20

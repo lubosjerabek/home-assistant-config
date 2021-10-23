@@ -69,7 +69,7 @@
       entity_id: input_boolean.guest_mode
       state: "on"
   action:
-    - service: script.set_thermostat
+    - service: script.increase_temperature
       data:
         entity_id: climate.loft
         temperature: 18.5
