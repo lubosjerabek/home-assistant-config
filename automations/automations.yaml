@@ -153,6 +153,7 @@
     event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.kids_room_button
+      click_type: double
   action:
     - service: script.kids_bedtime
 
