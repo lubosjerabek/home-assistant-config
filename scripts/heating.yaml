@@ -78,6 +78,7 @@ heating_away:
           - climate.bedroom
           - climate.office
           - climate.loft
+          - climate.kid_s_room
     - condition: state
       entity_id: input_boolean.heating
       state: "on"
@@ -127,6 +128,7 @@ heating_night:
       entity_id:
           - climate.kitchen
           - climate.office
+          - climate.kid_s_room
     - condition: state
       entity_id: input_boolean.heating
       state: "off"
