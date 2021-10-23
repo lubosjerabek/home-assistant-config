@@ -138,7 +138,7 @@
   action:
     - service_template: >
         {% if is_state("light.kid_s_room_light", "off") and is_state("input_boolean.kids_night_light", "off") %}script.home_light
-        {% if is_state("light.kid_s_room_light", "off") and is_state("input_boolean.kids_night_light", "on") %}script.night_light
+        {% elif is_state("light.kid_s_room_light", "off") and is_state("input_boolean.kids_night_light", "on") %}script.night_light
         {% else %}light.turn_off
         {% endif %}
       entity_id: light.kid_s_room_light
