@@ -2,6 +2,10 @@
   trigger:
     platform: time
     at: input_datetime.heating_off
+  condition:
+    - condition: state
+      entity_id: group.everyone
+      state: home
   action:
     - service: script.heating_night
 
@@ -26,24 +30,12 @@
   trigger:
     platform: time
     at: input_datetime.morning
+  condition:
+    - condition: state
+      entity_id: group.everyone
+      state: home
   action:
     - service: script.heating_morning
-
-- alias: Heating - Temperature drop
-  trigger:
-    platform: state
-    entity_id:
-      - sensor.living_room_open_window
-      - sensor.bedroom_open_window
-      - sensor.kitchen_open_window
-      - sensor.office_open_window
-      - sensor.loft_open_window
-    from: 'False'
-    to: 'True'
-  action:
-    - service: script.notify_heating_off
-      data_template:
-        entityid: '{{trigger.entity_id}}'
 
 - alias: Heating - Close to home
   trigger:
@@ -77,7 +69,7 @@
       entity_id: input_boolean.guest_mode
       state: "on"
   action:
-    - service: script.set_thermostat
+    - service: script.increase_temperature
       data:
         entity_id: climate.loft
         temperature: 18.5
@@ -114,6 +106,6 @@
       value_template: >
         {% set time = states('input_datetime.heating_on')%}
         {% set now = now().strftime("%H:%M:%S") %}
-        {{ now > time and is_state('input_boolean.preheating', 'on') }}
+        {{ now >= time and is_state('input_boolean.preheating', 'on') }}
   action:
     - service: script.heating_early_morning

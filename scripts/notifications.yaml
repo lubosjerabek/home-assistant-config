@@ -13,25 +13,6 @@ notify_presence:
           {{-name }} left {{fromstate}} and arrived at {{tostate}}
         {% endif %}
 
-notify_heating_off:
-  sequence:
-    - service: notify.notify
-      data_template:
-        title: Home Assistant
-        message: >
-          {% set name = states[entityid.split('.')[0]][entityid.split('.')[1]].name %}
-            {{-name }} detected, turning the heating off
-    - service: climate.turn_off
-      data_template:
-        entity_id: >
-          {% if entityid == 'sensor.living_room_open_window' %}climate.living_room
-          {% elif entityid == 'sensor.bedroom_open_window' %}climate.bedroom
-          {% elif entityid == 'sensor.kitchen_open_window' %}climate.kitchen
-          {% elif entityid == 'sensor.office_open_window' %}climate.office
-          {% elif entityid == 'sensor.loft_open_window' %}climate.loft
-          {% else %}none
-          {% endif %}
-
 notify_garbage:
   sequence:
     service: notify.notify
