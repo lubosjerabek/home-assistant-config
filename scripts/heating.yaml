@@ -108,10 +108,20 @@ heating_back:
       data:
         entity_id: climate.kitchen
         temperature: 19
+
+heating_bedrooms:
+  sequence:
     - service: script.increase_temperature
       data:
         entity_id: climate.bedroom
         temperature: 20
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "on"
+    - service: script.increase_temperature
+      data:
+        entity_id: climate.loft
+        temperature: 18.5
 
 heating_night:
   sequence:
