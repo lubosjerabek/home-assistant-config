@@ -17,7 +17,7 @@ increase_temperature:
     - condition: template
       value_template: >
         {% set set_temperature = state_attr(entity_id, "temperature")%}
-        {{ temperature > set_temperature }}
+        {{ is_state(entity_id, "off") or temperature > set_temperature }}
     - service: script.set_thermostat
       data:
         entity_id: "{{ entity_id }}"
@@ -108,10 +108,20 @@ heating_back:
       data:
         entity_id: climate.kitchen
         temperature: 19
+
+heating_bedrooms:
+  sequence:
     - service: script.increase_temperature
       data:
         entity_id: climate.bedroom
         temperature: 20
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "on"
+    - service: script.increase_temperature
+      data:
+        entity_id: climate.loft
+        temperature: 18.5
 
 heating_night:
   sequence:
