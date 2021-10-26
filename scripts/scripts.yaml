@@ -24,7 +24,6 @@ back_home:
 
 morning:
   sequence:
-    - service: script.heating_morning
     - service: input_boolean.turn_off
       entity_id: input_boolean.night_mode
     - service: input_select.select_option
