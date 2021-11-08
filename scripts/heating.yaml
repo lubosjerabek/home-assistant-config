@@ -165,7 +165,7 @@ refresh_morning_timer:
       target:
         entity_id: input_datetime.morning
       data:
-        time: "{{ '07:30' if is_state('binary_sensor.workday_tomorrow', 'on') else '08:30' }}"
+        time: "{{ '08:30' if is_state('binary_sensor.workday_tomorrow', 'on') else '08:30' }}"
 
 refresh_heating_off_timer:
   sequence:
