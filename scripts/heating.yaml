@@ -32,7 +32,7 @@ heating_early_morning:
     - service: script.increase_temperature
       data:
         entity_id: climate.bedroom
-        temperature: 19
+        temperature: 19.5
     - service: input_boolean.turn_off
       entity_id: input_boolean.preheating
 
@@ -58,15 +58,10 @@ heating_work:
   sequence:
     - service: script.set_thermostat
       data:
-        entity_id: climate.living_room
-        temperature: 19
-    - service: script.set_thermostat
-      data:
         entity_id: climate.office
-        temperature: 20
+        temperature: 19.5
     - service: climate.turn_off
       entity_id:
-          - climate.kitchen
           - climate.bedroom
           - climate.loft
 
@@ -133,7 +128,7 @@ heating_night:
     - service: script.set_thermostat
       data:
         entity_id: climate.bedroom
-        temperature: 18
+        temperature: 18.5
     - service: climate.turn_off
       entity_id:
           - climate.kitchen
