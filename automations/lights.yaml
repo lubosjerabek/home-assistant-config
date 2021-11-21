@@ -50,7 +50,7 @@
   condition:
     - condition: template
       value_template: >
-        {{} states('sensor.toilet_illumination') <= 10 or states('sun.sun') == 'below_horizon' }}
+        {{ states('sensor.toilet_illumination') <= 10 or states('sun.sun') == 'below_horizon' }}
   action:
     service_template: >
         {% if is_state("input_boolean.night_mode", "on") %} script.night_light
@@ -78,7 +78,7 @@
   condition:
     - condition: template
       value_template: >
-        {{} states('sensor.bathroom_illumination') <= 10 or states('sun.sun') == 'below_horizon' }}
+        {{ states('sensor.bathroom_illumination') <= 10 or states('sun.sun') == 'below_horizon' }}
   action:
     service_template: >
         {% if is_state("input_boolean.night_mode", "on") %} script.night_light
