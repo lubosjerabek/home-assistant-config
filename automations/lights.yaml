@@ -47,10 +47,10 @@
     entity_id: binary_sensor.toilet_motion
     from: 'off'
     to: 'on'
-  condition:
-    - condition: numeric_state
-      entity_id: sensor.toilet_illumination
-      below: 10
+    - condition: template
+      value_template: >
+        {% states('sensor.toilet_illumination') <= 10 or states('sun.sun') == 'below_horizon' %}
+
   action:
     service_template: >
         {% if is_state("input_boolean.night_mode", "on") %} script.night_light
@@ -76,9 +76,10 @@
     from: 'off'
     to: 'on'
   condition:
-    - condition: numeric_state
-      entity_id: sensor.bathroom_illumination
-      below: 10
+    - condition: template
+      value_template: >
+        {% states('sensor.bathroom_illumination') <= 10 or states('sun.sun') == 'below_horizon' %}
+
   action:
     service_template: >
         {% if is_state("input_boolean.night_mode", "on") %} script.night_light
