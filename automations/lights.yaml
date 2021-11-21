@@ -47,6 +47,7 @@
     entity_id: binary_sensor.toilet_motion
     from: 'off'
     to: 'on'
+  condition:
     - condition: template
       value_template: >
         {% states('sensor.toilet_illumination') <= 10 or states('sun.sun') == 'below_horizon' %}
