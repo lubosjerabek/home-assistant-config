@@ -47,6 +47,10 @@ heating_morning:
       data:
         entity_id: climate.kitchen
         temperature: 19
+    - service: script.increase_temperature
+      data:
+        entity_id: climate.kid_s_room
+        temperature: 19
     - service: climate.turn_off
       entity_id:
           - climate.bedroom
@@ -102,6 +106,10 @@ heating_back:
     - service: script.increase_temperature
       data:
         entity_id: climate.kitchen
+        temperature: 19
+    - service: script.increase_temperature
+      data:
+        entity_id: climate.kid_s_room
         temperature: 19
 
 heating_bedrooms:
