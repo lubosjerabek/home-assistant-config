@@ -124,7 +124,6 @@ heating_bedrooms:
     - service: script.increase_temperature
       data:
         entity_id: climate.loft
-        # temperature: input_number.default_loft_temperature
         temperature: "{{ states('input_number.default_loft_temperature') | float }}"
 
 heating_night:

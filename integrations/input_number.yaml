@@ -4,3 +4,4 @@ default_loft_temperature:
   min: 16
   max: 22
   step: 0.5
+  icon: mdi:fire
