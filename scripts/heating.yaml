@@ -50,7 +50,7 @@ heating_morning:
     # - service: script.increase_temperature
     #   data:
     #     entity_id: climate.kid_s_room
-    #     temperature: 19
+    #     temperature: "{{ states('input_number.default_kids_room_temperature') | float }}"
     - service: climate.turn_off
       entity_id:
           - climate.bedroom
@@ -110,7 +110,7 @@ heating_back:
     # - service: script.increase_temperature
     #   data:
     #     entity_id: climate.kid_s_room
-    #     temperature: 19
+    #     temperature: "{{ states('input_number.default_kids_room_temperature') | float }}"
 
 heating_bedrooms:
   sequence:
@@ -161,7 +161,7 @@ boost_heating:
     - service: script.set_thermostat
       data:
         entity_id: climate.kid_s_room
-        temperature: "{{ states('input_number.default_kids_room_temperature') | float }}"
+        temperature: "{{ states('input_number.default_kids_room_temperature') }}"
 
 refresh_early_morning_timer:
   sequence:
