@@ -157,7 +157,7 @@ boost_heating:
         entity_id: climate.kid_s_room
         temperature: >
           {{ state_attr('climate.kid_s_room', 'temperature') + 1 }}
-    - delay: '00:01:00'
+    - delay: '00:30:00'
     - service: script.set_thermostat
       data:
         entity_id: climate.kid_s_room
