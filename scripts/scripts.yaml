@@ -129,7 +129,7 @@ doorbell:
         entity_id: binary_sensor.doorbell
     - service: notify.notify
       data:
-        title: Home Assistant
+        title: Doorbell
         message: Someone is at the door
 
 restart_tado:

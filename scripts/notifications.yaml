@@ -2,7 +2,8 @@ notify_presence:
   sequence:
     service: notify.notify
     data_template:
-      title: Home Assistant
+      title: >
+        {{ states[entityid.split('.')[0]][entityid.split('.')[1]].name }}
       message: >
         {% set name = states[entityid.split('.')[0]][entityid.split('.')[1]].name %}
         {% if tostate == 'not_home' %}
@@ -17,7 +18,7 @@ notify_garbage:
   sequence:
     service: notify.notify
     data_template:
-      title: Home Assistant
+      title: Garbage Collection
       message: >
         {% set ns = namespace ( bins = "" ) %}
         {%- for entity_id in states.group.garbage_sensors.attributes.entity_id %}
@@ -33,7 +34,7 @@ notify_washer_state:
   sequence:
     service: notify.notify
     data_template:
-      title: Home Assistant
+      title: Washing Machine
       message: >
         {% set washer_state = states('sensor.washer_status').lower() %}
         {% set invalid_washer_states = ["off"] %}
