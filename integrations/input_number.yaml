@@ -1,7 +1,15 @@
+default_kids_room_temperature:
+  name: Kid's Room Temperature
+  initial: 19
+  min: 16
+  max: 22
+  step: 0.5
+  icon: mdi:baby
+
 default_loft_temperature:
-  name: Default Loft Temperature
+  name: Loft Temperature
   initial: 18.5
   min: 16
   max: 22
   step: 0.5
-  icon: mdi:fire
+  icon: mdi:home-roof
