@@ -150,6 +150,16 @@ heating_night:
           - climate.living_room
           - climate.bedroom
 
+boost_heating:
+  sequence:
+    - service: tado.set_climate_timer
+      target:
+        entity_id: climate.kid_s_room
+      data:
+        time_period: "00:30:00"
+        temperature: >
+          {{ state_attr('climate.kid_s_room', 'temperature') + 1 }}
+
 refresh_early_morning_timer:
   sequence:
     - service: input_datetime.set_datetime
