@@ -156,14 +156,14 @@ boost_heating:
       data:
         entity_id: climate.kid_s_room
         temperature: >
-          {% set temp = state_attr('climate.kid_s_room', 'temperature') %}  
-          {{ temp + 1 }}
-    - delay: '00:05:00'
+          {% set boost = namespace ( kid_s_room = state_attr('climate.kid_s_room', 'temperature') ) %}
+          {{ boost.kid_s_room + 1 }}
+    - delay: '00:01:00'
     - service: script.increase_temperature
       data:
         entity_id: climate.kid_s_room
         temperature: >
-          {{ temp }}
+          {{ boost.kid_s_room }}
 
 refresh_early_morning_timer:
   sequence:
