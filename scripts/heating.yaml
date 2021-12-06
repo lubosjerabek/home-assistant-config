@@ -124,7 +124,7 @@ heating_bedrooms:
     - service: script.increase_temperature
       data:
         entity_id: climate.loft
-        temperature: 18.5
+        temperature: input_number.default_loft_temperature
 
 heating_night:
   sequence:
