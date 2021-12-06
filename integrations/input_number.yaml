@@ -1,5 +1,5 @@
 default_loft_temperature:
-  name: Loft Temperature
+  name: Default Loft Temperature
   initial: 18.5
   min: 16
   max: 22
