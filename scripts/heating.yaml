@@ -161,7 +161,7 @@ boost_heating:
     - service: script.set_thermostat
       data:
         entity_id: climate.kid_s_room
-        temperature: input_number.default_kids_room_temperature
+        temperature: "{{ states('input_number.default_kids_room_temperature') | float }}"
 
 refresh_early_morning_timer:
   sequence:
