@@ -1,2 +1,5 @@
 group.default_view:
   hidden: true
+
+climate.living_room:
+  precision: 0.5
