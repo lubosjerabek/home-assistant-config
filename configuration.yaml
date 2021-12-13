@@ -21,7 +21,7 @@ zone: !include integrations/zone.yaml
 homeassistant:
   customize:
     climate.living_room:
-      precision: 0.5
+      target_temp_step: 0.5
 
 group: !include groups.yaml
 automation: !include_dir_merge_list automations/
