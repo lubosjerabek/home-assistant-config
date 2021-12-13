@@ -3,4 +3,6 @@ customize:
   person.lubos:
     entity_picture: /local/lubos.png
   person.jana:
-    entity_picture: /local/janca.png
+    entity_picture: /local/janca.png=
+  climate.living_room:
+    target_temp_step: 0.5
