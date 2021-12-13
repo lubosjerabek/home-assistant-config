@@ -18,9 +18,10 @@ tts: !include integrations/tts.yaml
 # camera: !include integrations/xiaomi_cloud_map_extractor.yaml
 zone: !include integrations/zone.yaml
 
-customize:
-  climate.living_room:
-    precision: 0.5
+homeassistant:
+  customize:
+    climate.living_room:
+      precision: 0.5
 
 group: !include groups.yaml
 automation: !include_dir_merge_list automations/
