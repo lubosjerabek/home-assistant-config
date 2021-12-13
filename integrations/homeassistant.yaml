@@ -6,3 +6,7 @@ customize:
     entity_picture: /local/janca.png=
   climate.living_room:
     target_temp_step: 0.5
+
+customize_domain:
+  climate:
+    max_temp: 22
