@@ -152,6 +152,8 @@ heating_night:
 
 boost_heating:
   sequence:
+    - condition: template
+      value_template: " {{ state_attr('climate.kid_s_room', 'temperature') <= 21 }}"
     - service: script.increase_temperature
       data:
         entity_id: climate.kid_s_room
@@ -161,7 +163,8 @@ boost_heating:
     - service: script.set_thermostat
       data:
         entity_id: climate.kid_s_room
-        temperature: "{{ states('input_number.default_kids_room_temperature') }}"
+        temperature: >
+          {{ state_attr('climate.kid_s_room', 'temperature') - 1 }}
 
 refresh_early_morning_timer:
   sequence:
