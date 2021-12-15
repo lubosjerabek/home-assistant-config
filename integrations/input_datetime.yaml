@@ -13,7 +13,7 @@ heating_off:
   has_date: false
   has_time: true
 
-bedroom_boost:
+bedroom_boost_expiry:
   name: Boost Heating
   has_date: true
   has_time: true
