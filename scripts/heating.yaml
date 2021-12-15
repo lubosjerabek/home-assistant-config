@@ -151,6 +151,7 @@ heating_night:
           - climate.bedroom
 
 boost_heating:
+  mode: parallel
   sequence:
     - condition: template
       value_template: "{{ state_attr(zone, 'temperature') <= 21 }}"
