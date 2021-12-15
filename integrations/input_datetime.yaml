@@ -2,11 +2,18 @@ heating_on:
   name: Heating on
   has_date: false
   has_time: true
+
 morning:
   name: Morning
   has_date: false
   has_time: true
+
 heating_off:
   name: Heating off
   has_date: false
+  has_time: true
+
+bedroom_boost:
+  name: Boost Heating
+  has_date: true
   has_time: true
