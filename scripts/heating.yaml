@@ -155,6 +155,11 @@ boost_heating:
   sequence:
     - condition: template
       value_template: "{{ state_attr(zone, 'temperature') <= 21 }}"
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: "{{ boost_expiry }}"
+      data:
+        datetime: "{{ now() + timedelta(minutes=30) }}"
     - service: script.increase_temperature
       data:
         entity_id: "{{ zone }}"
