@@ -159,12 +159,13 @@ boost_heating:
       target:
         entity_id: "{{ boost_expiry }}"
       data:
-        datetime: "{{ now() + timedelta(minutes=30) }}"
+        datetime: "{{ now() + timedelta(minutes=2) }}"
     - service: script.increase_temperature
       data:
         entity_id: "{{ zone }}"
         temperature: "{{ state_attr(zone, 'temperature') + 1 }}"
-    - delay: '00:30:00'
+    # - delay: '00:30:00'
+    - wait_template: "{{ state_attr('input_datetime.bedroom_boost_expiry' , 'timestamp') < now().timestamp() }}"
     - service: script.set_thermostat
       data:
         entity_id: "{{ zone }}"
