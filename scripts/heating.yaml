@@ -160,6 +160,8 @@ boost_heating:
         entity_id: "{{ boost_expiry }}"
       data:
         datetime: "{{ now() + timedelta(minutes=2) }}"
+    - condition: template
+      value_template: "{{ state_attr('input_datetime.bedroom_boost_expiry' , 'timestamp') > now().timestamp() }}"
     - service: script.increase_temperature
       data:
         entity_id: "{{ zone }}"
