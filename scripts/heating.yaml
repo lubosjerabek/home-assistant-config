@@ -199,4 +199,4 @@ boost_bedroom_heating:
   sequence:
     - service: script.boost_heating
       data:
-        entity_id: climate.bedroom
+        zone: climate.bedroom
