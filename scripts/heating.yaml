@@ -200,3 +200,21 @@ boost_bedroom_heating:
     - service: script.boost_heating
       data:
         zone: climate.bedroom
+
+boost_kids_room_heating:
+  sequence:
+    - service: script.boost_heating
+      data:
+        zone: climate.kid_s_room
+
+boost_office_heating:
+  sequence:
+    - service: script.boost_heating
+      data:
+        zone: climate.office
+
+boost_loft_heating:
+  sequence:
+    - service: script.boost_heating
+      data:
+        zone: climate.loft
