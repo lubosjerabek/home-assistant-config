@@ -28,7 +28,7 @@ heating_early_morning:
     - service: script.increase_temperature
       data:
         entity_id: climate.living_room
-        temperature: 20
+        temperature: "{{ states('input_number.default_living_room_temperature') }}"
     - service: script.increase_temperature
       data:
         entity_id: climate.bedroom
@@ -42,7 +42,7 @@ heating_morning:
     - service: script.increase_temperature
       data:
         entity_id: climate.living_room
-        temperature: 20
+        temperature: "{{ states('input_number.default_living_room_temperature') }}"
     - service: script.increase_temperature
       data:
         entity_id: climate.kitchen
@@ -95,14 +95,14 @@ heating_close:
     - service: script.increase_temperature
       data:
         entity_id: climate.living_room
-        temperature: 20
+        temperature: "{{ states('input_number.default_living_room_temperature') }}"
 
 heating_back:
   sequence:
     - service: script.increase_temperature
       data:
         entity_id: climate.living_room
-        temperature: 20
+        temperature: "{{ states('input_number.default_living_room_temperature') }}"
     - service: script.increase_temperature
       data:
         entity_id: climate.kitchen
