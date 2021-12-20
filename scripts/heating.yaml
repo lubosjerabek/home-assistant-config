@@ -10,13 +10,13 @@ set_thermostat:
     - service: climate.set_temperature
       data_template:
         entity_id: "{{ entity_id }}"
-        temperature: "{{ temperature }}"
+        temperature: "{{ temperature | float }}"
 
 increase_temperature:
   sequence:
     - condition: template
       value_template: >
-        {% set set_temperature = state_attr(entity_id, "temperature")%}
+        {% set set_temperature = state_attr(entity_id, "temperature") %}
         {{ is_state(entity_id, "off") or temperature > set_temperature }}
     - service: script.set_thermostat
       data:
@@ -47,10 +47,10 @@ heating_morning:
       data:
         entity_id: climate.kitchen
         temperature: 19
-    # - service: script.increase_temperature
-    #   data:
-    #     entity_id: climate.kid_s_room
-    #     temperature: "{{ states('input_number.default_kids_room_temperature') | float }}"
+    - service: script.increase_temperature
+      data:
+        entity_id: climate.kid_s_room
+        temperature: "{{ states('input_number.default_kids_room_temperature') }}"
     - service: climate.turn_off
       entity_id:
           - climate.bedroom
@@ -107,10 +107,10 @@ heating_back:
       data:
         entity_id: climate.kitchen
         temperature: 19
-    # - service: script.increase_temperature
-    #   data:
-    #     entity_id: climate.kid_s_room
-    #     temperature: "{{ states('input_number.default_kids_room_temperature') | float }}"
+    - service: script.increase_temperature
+      data:
+        entity_id: climate.kid_s_room
+        temperature: "{{ states('input_number.default_kids_room_temperature') }}"
 
 heating_bedrooms:
   sequence:
@@ -124,7 +124,7 @@ heating_bedrooms:
     - service: script.increase_temperature
       data:
         entity_id: climate.loft
-        temperature: "{{ states('input_number.default_loft_temperature') | float }}"
+        temperature: "{{ states('input_number.default_loft_temperature') }}"
 
 heating_night:
   sequence:
