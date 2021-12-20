@@ -160,9 +160,8 @@ boost_heating:
         entity_id: "{{ zone }}"
         temperature: "{{ state_attr(zone, 'temperature') + 1 }}"
     - delay: '00:30:00'
-    - condition: state
-      entity_id: "{{ zone }}"
-      state: heat
+    - condition: template
+      value_template: "{{ states(zone) == 'heat' }}"
     - service: script.set_thermostat
       data:
         entity_id: "{{ zone }}"
