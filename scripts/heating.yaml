@@ -43,7 +43,7 @@ heating_morning:
     - service: script.increase_temperature
       data:
         entity_id: climate.kitchen
-        temperature: 19
+        temperature: "{{ states('input_number.default_kitchen_temperature') }}"
     - service: script.increase_temperature
       data:
         entity_id: climate.kid_s_room
@@ -103,7 +103,7 @@ heating_back:
     - service: script.increase_temperature
       data:
         entity_id: climate.kitchen
-        temperature: 19
+        temperature: "{{ states('input_number.default_kitchen_temperature') }}"
     - service: script.increase_temperature
       data:
         entity_id: climate.kid_s_room
