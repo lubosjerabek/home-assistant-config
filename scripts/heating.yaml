@@ -29,10 +29,7 @@ heating_early_morning:
       data:
         entity_id: climate.living_room
         temperature: "{{ states('input_number.default_living_room_temperature') }}"
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.bedroom
-        temperature: 19.5
+    - service: script.boost_bedroom_heating
     - service: input_boolean.turn_off
       entity_id: input_boolean.preheating
 
@@ -117,7 +114,7 @@ heating_bedrooms:
     - service: script.increase_temperature
       data:
         entity_id: climate.bedroom
-        temperature: 20
+        temperature: "{{ states('input_number.default_bedroom_temperature') }}"
     - condition: state
       entity_id: input_boolean.guest_mode
       state: "on"
@@ -136,7 +133,7 @@ heating_night:
     - service: script.set_thermostat
       data:
         entity_id: climate.bedroom
-        temperature: 18.5
+        temperature: "{{ states('input_number.default_bedroom_temperature') }}"
     - service: climate.turn_off
       entity_id:
           - climate.kitchen
