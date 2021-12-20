@@ -150,23 +150,6 @@ heating_night:
           - climate.living_room
           - climate.bedroom
 
-boost_heating:
-  mode: parallel
-  sequence:
-    - condition: template
-      value_template: "{{ state_attr(zone, 'temperature') <= 21 }}"
-    - service: script.increase_temperature
-      data:
-        entity_id: "{{ zone }}"
-        temperature: "{{ state_attr(zone, 'temperature') + 1 }}"
-    - delay: '00:30:00'
-    - condition: template
-      value_template: "{{ states(zone) == 'heat' }}"
-    - service: script.set_thermostat
-      data:
-        entity_id: "{{ zone }}"
-        temperature: "{{ state_attr(zone, 'temperature') - 1 }}"
-
 refresh_early_morning_timer:
   sequence:
     - service: input_datetime.set_datetime
@@ -194,3 +177,26 @@ refresh_heating_off_timer:
         entity_id: input_datetime.heating_off
       data:
         time: "22:00"
+
+boost_heating:
+  mode: parallel
+  sequence:
+    - condition: template
+      value_template: "{{ state_attr(zone, 'temperature') <= 21 }}"
+    - service: script.increase_temperature
+      data:
+        entity_id: "{{ zone }}"
+        temperature: "{{ state_attr(zone, 'temperature') + 1 }}"
+    - delay: '00:30:00'
+    - condition: template
+      value_template: "{{ states(zone) == 'heat' }}"
+    - service: script.set_thermostat
+      data:
+        entity_id: "{{ zone }}"
+        temperature: "{{ state_attr(zone, 'temperature') - 1 }}"
+
+boost_bedroom_heating:
+  sequence:
+    - service: script.boost_heating
+      data:
+        entity_id: climate.bedroom
