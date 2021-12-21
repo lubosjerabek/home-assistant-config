@@ -157,7 +157,7 @@ refresh_early_morning_timer:
           {% set temp = states('sensor.living_room_temperature') %}  
           {% set target = states('input_number.default_living_room_temperature') %}
           {% set speed = 30 %}
-          {{ (((state_attr('input_datetime.morning' , 'timestamp')) - ((target - float(temp)) * speed * 60))|timestamp_custom('%H:%M', false)) }}
+          {{ (((state_attr('input_datetime.morning' , 'timestamp')) - ((float(target) - float(temp)) * speed * 60))|timestamp_custom('%H:%M', false)) }}
 
 refresh_morning_timer:
   sequence:
