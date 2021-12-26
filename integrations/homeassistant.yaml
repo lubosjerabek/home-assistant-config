@@ -5,10 +5,10 @@ customize:
   person.jana:
     entity_picture: /local/janca.png
   camera.baby_monitor:
-    # video_attribute: 1
+    video_attribute: 1
     keep_streaming: true
   camera.baby_monitor_motion_event:
-    # video_attribute: 1
+    video_attribute: 1
     keep_streaming: true
 
 customize_domain:
