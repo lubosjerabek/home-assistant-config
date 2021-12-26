@@ -4,3 +4,8 @@ customize:
     entity_picture: /local/lubos.png
   person.jana:
     entity_picture: /local/janca.png
+
+customize_domain:
+  climate:
+    target_temp_step: 0.5
+    max_temp: 22

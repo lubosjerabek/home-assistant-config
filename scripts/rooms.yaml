@@ -24,7 +24,9 @@ downstairs_off:
     - service: script.turn_xbox_off
     - service: script.turn_tv_off
     - service: media_player.turn_off
-      entity_id: media_player.downstairs_speakers
+      entity_id:
+        - media_player.downstairs_speakers
+        - media_player.virgin_tv
 
 hallway_off:
   sequence:

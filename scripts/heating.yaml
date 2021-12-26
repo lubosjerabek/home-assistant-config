@@ -10,13 +10,13 @@ set_thermostat:
     - service: climate.set_temperature
       data_template:
         entity_id: "{{ entity_id }}"
-        temperature: "{{ temperature }}"
+        temperature: "{{ temperature | float }}"
 
 increase_temperature:
   sequence:
     - condition: template
       value_template: >
-        {% set set_temperature = state_attr(entity_id, "temperature")%}
+        {% set set_temperature = state_attr(entity_id, "temperature") %}
         {{ is_state(entity_id, "off") or temperature > set_temperature }}
     - service: script.set_thermostat
       data:
@@ -28,11 +28,8 @@ heating_early_morning:
     - service: script.increase_temperature
       data:
         entity_id: climate.living_room
-        temperature: 20
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.bedroom
-        temperature: 19.5
+        temperature: "{{ states('input_number.default_living_room_temperature') }}"
+    - service: script.boost_bedroom_heating
     - service: input_boolean.turn_off
       entity_id: input_boolean.preheating
 
@@ -42,15 +39,15 @@ heating_morning:
     - service: script.increase_temperature
       data:
         entity_id: climate.living_room
-        temperature: 20
+        temperature: "{{ states('input_number.default_living_room_temperature') }}"
     - service: script.increase_temperature
       data:
         entity_id: climate.kitchen
-        temperature: 19
-    # - service: script.increase_temperature
-    #   data:
-    #     entity_id: climate.kid_s_room
-    #     temperature: 19
+        temperature: "{{ states('input_number.default_kitchen_temperature') }}"
+    - service: script.increase_temperature
+      data:
+        entity_id: climate.kid_s_room
+        temperature: "{{ states('input_number.default_kids_room_temperature') }}"
     - service: climate.turn_off
       entity_id:
           - climate.bedroom
@@ -63,7 +60,7 @@ heating_work:
     - service: script.set_thermostat
       data:
         entity_id: climate.office
-        temperature: 19.5
+        temperature: "{{ states('input_number.default_office_temperature') }}"
     - service: climate.turn_off
       entity_id:
           - climate.bedroom
@@ -88,43 +85,43 @@ heating_away:
     - service: climate.set_temperature
       data_template:
         entity_id: climate.living_room
-        temperature: 16
+        temperature: "{{ states('input_number.default_away_temperature') }}"
 
 heating_close:
   sequence:
     - service: script.increase_temperature
       data:
         entity_id: climate.living_room
-        temperature: 20
+        temperature: "{{ states('input_number.default_living_room_temperature') }}"
 
 heating_back:
   sequence:
     - service: script.increase_temperature
       data:
         entity_id: climate.living_room
-        temperature: 20
+        temperature: "{{ states('input_number.default_living_room_temperature') }}"
     - service: script.increase_temperature
       data:
         entity_id: climate.kitchen
-        temperature: 19
-    # - service: script.increase_temperature
-    #   data:
-    #     entity_id: climate.kid_s_room
-    #     temperature: 19
+        temperature: "{{ states('input_number.default_kitchen_temperature') }}"
+    - service: script.increase_temperature
+      data:
+        entity_id: climate.kid_s_room
+        temperature: "{{ states('input_number.default_kids_room_temperature') }}"
 
 heating_bedrooms:
   sequence:
     - service: script.increase_temperature
       data:
         entity_id: climate.bedroom
-        temperature: 20
+        temperature: "{{ states('input_number.default_bedroom_temperature') }}"
     - condition: state
       entity_id: input_boolean.guest_mode
       state: "on"
     - service: script.increase_temperature
       data:
         entity_id: climate.loft
-        temperature: 18.5
+        temperature: "{{ states('input_number.default_loft_temperature') }}"
 
 heating_night:
   sequence:
@@ -132,11 +129,11 @@ heating_night:
     - service: script.set_thermostat
       data:
         entity_id: climate.living_room
-        temperature: 16
+        temperature: "{{ states('input_number.default_away_temperature') }}"
     - service: script.set_thermostat
       data:
         entity_id: climate.bedroom
-        temperature: 18.5
+        temperature: "{{ states('input_number.default_bedroom_temperature') }}"
     - service: climate.turn_off
       entity_id:
           - climate.kitchen
@@ -158,9 +155,9 @@ refresh_early_morning_timer:
       data:
         time: >
           {% set temp = states('sensor.living_room_temperature') %}  
-          {% set target = 20 %}
+          {% set target = states('input_number.default_living_room_temperature') %}
           {% set speed = 30 %}
-          {{ (((state_attr('input_datetime.morning' , 'timestamp')) - ((target - float(temp)) * speed * 60))|timestamp_custom('%H:%M', false)) }}
+          {{ (((state_attr('input_datetime.morning' , 'timestamp')) - ((float(target) - float(temp)) * speed * 60))|timestamp_custom('%H:%M', false)) }}
 
 refresh_morning_timer:
   sequence:
@@ -177,3 +174,44 @@ refresh_heating_off_timer:
         entity_id: input_datetime.heating_off
       data:
         time: "22:00"
+
+boost_heating:
+  mode: parallel
+  sequence:
+    - condition: template
+      value_template: "{{ state_attr(zone, 'temperature') <= 21 }}"
+    - service: script.increase_temperature
+      data:
+        entity_id: "{{ zone }}"
+        temperature: "{{ state_attr(zone, 'temperature') + 1 }}"
+    - delay: '00:30:00'
+    - condition: template
+      value_template: "{{ states(zone) == 'heat' }}"
+    - service: script.set_thermostat
+      data:
+        entity_id: "{{ zone }}"
+        temperature: "{{ state_attr(zone, 'temperature') - 1 }}"
+
+boost_bedroom_heating:
+  sequence:
+    - service: script.boost_heating
+      data:
+        zone: climate.bedroom
+
+boost_kids_room_heating:
+  sequence:
+    - service: script.boost_heating
+      data:
+        zone: climate.kid_s_room
+
+boost_office_heating:
+  sequence:
+    - service: script.boost_heating
+      data:
+        zone: climate.office
+
+boost_loft_heating:
+  sequence:
+    - service: script.boost_heating
+      data:
+        zone: climate.loft
