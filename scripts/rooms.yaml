@@ -41,6 +41,8 @@ kids_room_off:
       entity_id: light.light.kid_s_room_light
     - service: media_player.turn_off
       entity_id: media_player.kids_room_speaker
+    - service: fan.turn_off
+      entity_id: fan.kids_room_purifier
 
 bedroom_off:
   sequence:
@@ -57,8 +59,6 @@ office_off:
       entity_id:
         - light.office_lamp
         - light.office_light
-    - service: fan.turn_off
-      entity_id: fan.office_purifier
     - service: media_player.turn_off
       entity_id:
         - media_player.frontier_silicon_speaker
