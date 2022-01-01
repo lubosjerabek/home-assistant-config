@@ -119,7 +119,7 @@ vacuum_upstairs_litter:
   sequence:
     - service: vacuum.send_command
       data:
-        entity_id: vacuum.downstairs_vacuum
+        entity_id: vacuum.upstairs_vacuum
         command: app_zoned_clean
         params: [[28252,23438,29852,24288,1]]
 
