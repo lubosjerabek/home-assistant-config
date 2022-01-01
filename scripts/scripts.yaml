@@ -107,13 +107,26 @@ vacuum_kitchen:
         command: app_zoned_clean
         params: [[26730,27840,28880,31090,1]]
 
-vacuum_litter:
+vacuum_downstairs_litter:
   sequence:
     - service: vacuum.send_command
       data:
         entity_id: vacuum.downstairs_vacuum
         command: app_zoned_clean
         params: [[22950,28730,23950,30830,1]]
+
+vacuum_upstairs_litter:
+  sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.downstairs_vacuum
+        command: app_zoned_clean
+        params: [[28252,23438,29852,24288,1]]
+
+vacuum_litter:
+  sequence:
+    - service: script.vacuum_upstairs_litter
+    - service: script.vacuum_downstairs_litter
 
 doorbell:
   sequence:
