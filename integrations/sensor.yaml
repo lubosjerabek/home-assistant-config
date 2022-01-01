@@ -36,7 +36,7 @@
       value_template: >
         {% set washer_state = states('sensor.washer_status') %}
         {%- if washer_state == "Off" -%}None
-        {%- else -%}{{ as_timestamp(strptime(states('sensor.washing_machine_washer_completion_time'), "")) | timestamp_custom("%H:%M") }}
+        {%- else -%}{{ as_timestamp(states('sensor.washing_machine_washer_completion_time')) | timestamp_custom("%H:%M") }}
         {%- endif %}
 
     # Pollen sensors
