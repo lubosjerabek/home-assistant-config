@@ -14,13 +14,7 @@ back_home:
     - service: automation.turn_on
       entity_id:
         - automation.heating_on_every_morning
-    - service: vacuum.set_fan_speed
-      data:
-        entity_id: vacuum.downstairs_vacuum
-        fan_speed: Standard
-    - service: vacuum.return_to_base
-      entity_id:
-        - vacuum.downstairs_vacuum
+    - service: script.vacuum_litter
 
 morning:
   sequence:
