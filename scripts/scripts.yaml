@@ -2,11 +2,11 @@ leave_home:
   sequence:
     - service: vacuum.set_fan_speed
       data:
-        entity_id: vacuum.rockrobo_vacuum_v1
+        entity_id: vacuum.downstairs_vacuum
         fan_speed: Standard
     - service: vacuum.start
       data:
-        entity_id: vacuum.rockrobo_vacuum_v1
+        entity_id: vacuum.downstairs_vacuum
     - service: script.all_rooms_off
 
 back_home:
@@ -14,13 +14,7 @@ back_home:
     - service: automation.turn_on
       entity_id:
         - automation.heating_on_every_morning
-    - service: vacuum.set_fan_speed
-      data:
-        entity_id: vacuum.rockrobo_vacuum_v1
-        fan_speed: Standard
-    - service: vacuum.return_to_base
-      entity_id:
-        - vacuum.rockrobo_vacuum_v1
+    - service: script.vacuum_litter
 
 morning:
   sequence:
@@ -79,11 +73,11 @@ start_work:
     - service: script.heating_work
     - service: vacuum.set_fan_speed
       data:
-        entity_id: vacuum.rockrobo_vacuum_v1
+        entity_id: vacuum.downstairs_vacuum
         fan_speed: Standard
     - service: vacuum.start
       data:
-        entity_id: vacuum.rockrobo_vacuum_v1
+        entity_id: vacuum.downstairs_vacuum
     - service: script.downstairs_off
 
 finish_work:
@@ -103,17 +97,30 @@ vacuum_kitchen:
   sequence:
     - service: vacuum.send_command
       data:
-        entity_id: vacuum.rockrobo_vacuum_v1
+        entity_id: vacuum.downstairs_vacuum
         command: app_zoned_clean
-        params: [[22390,19943,24740,23143,1]]
+        params: [[26730,27840,28880,31090,1]]
 
-vacuum_litter:
+vacuum_downstairs_litter:
   sequence:
     - service: vacuum.send_command
       data:
-        entity_id: vacuum.rockrobo_vacuum_v1
+        entity_id: vacuum.downstairs_vacuum
         command: app_zoned_clean
-        params: [[27217,20096,28417,22196,1]]
+        params: [[22950,28730,23950,30830,1]]
+
+vacuum_upstairs_litter:
+  sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.upstairs_vacuum
+        command: app_zoned_clean
+        params: [[28252,23438,29852,24288,1]]
+
+vacuum_litter:
+  sequence:
+    - service: script.vacuum_upstairs_litter
+    - service: script.vacuum_downstairs_litter
 
 doorbell:
   sequence:
