@@ -60,6 +60,24 @@ kids_bedtime:
     - service: input_boolean.turn_on
       entity_id: input_boolean.kids_night_light
 
+baby_bedtime_bedroom:
+  sequence:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.white_noises_player_bedroom
+        option: 'Rain 1'
+    - service: media_player.volume_set
+      data:
+        volume_level: 0.05
+        entity_id: media_player.bedroom_speaker
+    - service: light.turn_off
+      entity_id: light.bedroom_light
+    - service: script.night_light
+      data:
+        entity_id: light.upstairs_hall_light
+    - service: switch.turn_off
+      entity_id: switch.subwoofer
+
 bedside_actions:
   sequence:
     - service_template: >
