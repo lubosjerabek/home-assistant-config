@@ -44,10 +44,6 @@ heating_morning:
       data:
         entity_id: climate.kitchen
         temperature: "{{ states('input_number.default_kitchen_temperature') }}"
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.kid_s_room
-        temperature: "{{ states('input_number.default_kids_room_temperature') }}"
     - service: climate.turn_off
       entity_id:
           - climate.bedroom
@@ -75,6 +71,8 @@ heating_away:
           - climate.office
           - climate.loft
           - climate.kid_s_room
+    - service: switch.turn_off
+      entity_id: switch.schedule_kids_room_heating
     - condition: state
       entity_id: input_boolean.heating
       state: "on"
@@ -104,10 +102,8 @@ heating_back:
       data:
         entity_id: climate.kitchen
         temperature: "{{ states('input_number.default_kitchen_temperature') }}"
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.kid_s_room
-        temperature: "{{ states('input_number.default_kids_room_temperature') }}"
+    - service: switch.turn_on
+      entity_id: switch.schedule_kids_room_heating
 
 heating_bedrooms:
   sequence:
@@ -138,7 +134,6 @@ heating_night:
       entity_id:
           - climate.kitchen
           - climate.office
-          - climate.kid_s_room
     - condition: state
       entity_id: input_boolean.heating
       state: "off"
