@@ -8,6 +8,11 @@ leave_home:
       data:
         entity_id: vacuum.downstairs_vacuum
     - service: script.all_rooms_off
+    - service: alarm_control_panel.alarm_arm_away
+      data:
+        entity_id:
+          - alarm_control_panel.doorbell
+          - alarm_control_panel.homebase
 
 back_home:
   sequence:
@@ -15,6 +20,11 @@ back_home:
       entity_id:
         - automation.heating_on_every_morning
     - service: script.vacuum_litter
+    - service: alarm_control_panel.alarm_arm_home
+      data:
+        entity_id:
+          - alarm_control_panel.doorbell
+          - alarm_control_panel.homebase
 
 morning:
   sequence:
