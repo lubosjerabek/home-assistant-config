@@ -102,8 +102,6 @@ heating_back:
       data:
         entity_id: climate.kitchen
         temperature: "{{ states('input_number.default_kitchen_temperature') }}"
-    - service: switch.turn_on
-      entity_id: switch.schedule_kids_room_heating
 
 heating_bedrooms:
   sequence:
