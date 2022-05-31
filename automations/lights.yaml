@@ -114,7 +114,7 @@
       data:
         entity_id:
           - light.dining_room_light
-          - light.bedroom_light
+          - light.living_room_lamp
           - light.upstairs_hall_light
 
 - alias: Light - Toggle Office using Cube
