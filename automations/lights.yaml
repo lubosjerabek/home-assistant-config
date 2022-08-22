@@ -114,7 +114,7 @@
       data:
         entity_id:
           - light.dining_room_light
-          - light.bedroom_light
+          - light.living_room_lamp
           - light.upstairs_hall_light
 
 - alias: Light - Toggle Office using Cube
@@ -139,7 +139,7 @@
     - service_template: >
         {% if is_state("light.kid_s_room_light", "off") and is_state("input_boolean.kids_night_light", "off") %}script.home_light
         {% elif is_state("light.kid_s_room_light", "off") and is_state("input_boolean.kids_night_light", "on") %}script.night_light
-        {% else %}light.turn_off
+        {% else %}script.kids_room_light_off
         {% endif %}
       entity_id: light.kid_s_room_light
 
