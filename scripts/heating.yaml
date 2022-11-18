@@ -70,7 +70,7 @@ heating_away:
           - climate.bedroom
           - climate.office
           - climate.loft
-          - climate.kid_s_room
+          - climate.kids_room
     - service: switch.turn_off
       entity_id: switch.schedule_kids_room_heating
     - condition: state
@@ -195,7 +195,7 @@ boost_kids_room_heating:
   sequence:
     - service: script.boost_heating
       data:
-        zone: climate.kid_s_room
+        zone: climate.kids_room
 
 boost_office_heating:
   sequence:
