@@ -93,23 +93,27 @@ heating_away:
 
 heating_close:
   sequence:
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.living_room
-        temperature: "{{ states('input_number.default_living_room_temperature') }}"
+    - service: switch.turn_on
+      entity_id:
+          - switch.schedule_living_room_heating
+          - switch.schedule_kids_room_heating
+          - switch.schedule_bedroom_heating
 
-# heating_back:
-#   sequence:
-#     - service: script.increase_temperature
-#       data:
-#         entity_id: climate.living_room
-#         temperature: "{{ states('input_number.default_living_room_temperature') }}"
-#     - service: script.increase_temperature
-#       data:
-#         entity_id: climate.kitchen
-#         temperature: "{{ states('input_number.default_kitchen_temperature') }}"
-#     - service: switch.turn_on
-#       entity_id: switch.schedule_kids_room_heating
+heating_back:
+  sequence:
+    - service: switch.turn_on
+      entity_id:
+          - switch.schedule_living_room_heating
+          - switch.schedule_kids_room_heating
+          - switch.schedule_bedroom_heating
+          - switch.schedule_kitchen_heating
+    - if:
+        - condition: state
+          entity_id: input_boolean.guest_mode
+          state: "on"
+      then:
+        - service: switch.turn_on
+          entity_id: switch.schedule_loft_heating
 
 # heating_bedrooms:
 #   sequence:
