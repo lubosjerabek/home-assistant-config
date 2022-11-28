@@ -1,10 +1,10 @@
-default_living_room_temperature:
-  name: Living Room Temperature
-  initial: 20
-  min: 10
-  max: 22
-  step: 0.5
-  icon: mdi:television-classic
+# default_living_room_temperature:
+#   name: Living Room Temperature
+#   initial: 20
+#   min: 10
+#   max: 22
+#   step: 0.5
+#   icon: mdi:television-classic
 
 default_away_temperature:
   name: Away Temperature
@@ -14,42 +14,42 @@ default_away_temperature:
   step: 0.5
   icon: mdi:television-classic-off
 
-default_kitchen_temperature:
-  name: Kitchen Temperature
-  initial: 19
-  min: 10
-  max: 22
-  step: 0.5
-  icon: mdi:pot-steam
+# default_kitchen_temperature:
+#   name: Kitchen Temperature
+#   initial: 19
+#   min: 10
+#   max: 22
+#   step: 0.5
+#   icon: mdi:pot-steam
 
-default_bedroom_temperature:
-  name: Bedroom Temperature
-  initial: 18.5
-  min: 10
-  max: 22
-  step: 0.5
-  icon: mdi:bed
+# default_bedroom_temperature:
+#   name: Bedroom Temperature
+#   initial: 18.5
+#   min: 10
+#   max: 22
+#   step: 0.5
+#   icon: mdi:bed
 
-default_office_temperature:
-  name: Office Temperature
-  initial: 19.5
-  min: 10
-  max: 22
-  step: 0.5
-  icon: mdi:desktop-mac
+# default_office_temperature:
+#   name: Office Temperature
+#   initial: 19.5
+#   min: 10
+#   max: 22
+#   step: 0.5
+#   icon: mdi:desktop-mac
 
-default_kids_room_temperature:
-  name: Kid's Room Temperature
-  initial: 19
-  min: 10
-  max: 22
-  step: 0.5
-  icon: mdi:baby
+# default_kids_room_temperature:
+#   name: Kid's Room Temperature
+#   initial: 19
+#   min: 10
+#   max: 22
+#   step: 0.5
+#   icon: mdi:baby
 
-default_loft_temperature:
-  name: Loft Temperature
-  initial: 18.5
-  min: 10
-  max: 22
-  step: 0.5
-  icon: mdi:home-roof
+# default_loft_temperature:
+#   name: Loft Temperature
+#   initial: 18.5
+#   min: 10
+#   max: 22
+#   step: 0.5
+#   icon: mdi:home-roof
