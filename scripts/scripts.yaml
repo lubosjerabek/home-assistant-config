@@ -98,7 +98,7 @@ bedside_actions:
 
 start_work:
   sequence:
-    - service: script.heating_work
+    # - service: script.heating_work
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.downstairs_vacuum
