@@ -16,9 +16,9 @@ leave_home:
 
 back_home:
   sequence:
-    - service: automation.turn_on
-      entity_id:
-        - automation.heating_on_every_morning
+    # - service: automation.turn_on
+    #   entity_id:
+    #     - automation.heating_on_every_morning
     - service: script.vacuum_litter
     - service: alarm_control_panel.alarm_arm_home
       data:
@@ -42,7 +42,7 @@ morning:
 
 bedtime:
   sequence:
-    - service: script.heating_night
+    # - service: script.heating_night
     - service: input_boolean.turn_on
       entity_id: input_boolean.night_mode
     - service: script.sunset_bedroom
