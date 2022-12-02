@@ -107,6 +107,10 @@ heating_back:
           - switch.schedule_kids_room_heating
           - switch.schedule_bedroom_heating
           - switch.schedule_kitchen_heating
+    - service: climate.set_preset_mode
+      data:
+        entity_id: climate.living_room
+        preset_mode: home
     - if:
         - condition: state
           entity_id: input_boolean.guest_mode
