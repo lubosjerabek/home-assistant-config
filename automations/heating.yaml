@@ -26,6 +26,24 @@
   action:
     - service: script.heating_back
 
+- alias: Heating - Office Occupied
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.office_occupation
+      to: 'on'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.schedule_living_room_heating
+
+- alias: Heating - Office Unoccupied
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.office_occupation
+      to: 'off'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.schedule_living_room_heating
+
 # - alias: Heating - Morning
 #   trigger:
 #     platform: time
