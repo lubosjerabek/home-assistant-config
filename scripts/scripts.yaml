@@ -42,7 +42,13 @@ morning:
 
 bedtime:
   sequence:
-    # - service: script.heating_night
+    - service: scheduler.run_action
+      entity_id:
+          - switch.schedule_living_room_heating
+          - switch.schedule_kids_room_heating
+          - switch.schedule_bedroom_heating
+          - switch.schedule_kitchen_heating
+      time: 00:00:00
     - service: input_boolean.turn_on
       entity_id: input_boolean.night_mode
     - service: script.sunset_bedroom

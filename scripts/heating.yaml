@@ -107,6 +107,12 @@ heating_back:
           - switch.schedule_kids_room_heating
           - switch.schedule_bedroom_heating
           - switch.schedule_kitchen_heating
+    - service: scheduler.run_action
+      entity_id:
+          - switch.schedule_living_room_heating
+          - switch.schedule_kids_room_heating
+          - switch.schedule_bedroom_heating
+          - switch.schedule_kitchen_heating
     - service: climate.set_preset_mode
       data:
         entity_id: climate.living_room
