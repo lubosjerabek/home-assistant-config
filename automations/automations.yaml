@@ -168,6 +168,26 @@
       entity_id:
         - media_player.downstairs_speakers
 
+- alias: Office Occupied
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.office_occupation
+      to: 'on'
+  action:
+    - service: media_player.turn_on
+      entity_id: media_player.frontier_silicon_speaker
+    - service: switch.turn_on
+      entity_id: switch.schedule_office_heating
+
+- alias: Office Unoccupied
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.office_occupation
+      to: 'off'
+      for: '00:05:00'
+  action:
+    - service: script.office_off
+
 - alias: Reload automations
   trigger:
     - platform: webhook
