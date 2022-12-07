@@ -7,7 +7,6 @@ garbage_collection: !include integrations/garbage_collection.yaml
 homeassistant: !include integrations/homeassistant.yaml
 http: !include integrations/http.yaml
 input_boolean: !include integrations/input_boolean.yaml
-input_datetime: !include integrations/input_datetime.yaml
 input_number: !include integrations/input_number.yaml
 input_select: !include integrations/input_select.yaml
 light: !include integrations/light.yaml
