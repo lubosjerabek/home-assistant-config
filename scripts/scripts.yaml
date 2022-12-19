@@ -58,17 +58,13 @@ bedtime:
 
 kids_bedtime:
   sequence:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.white_noises_player_kids_room
-        option: 'Womb Sounds'
     - service: script.sunset_kids_room
-    - service: media_player.volume_set
-      data:
-        volume_level: 0.05
-        entity_id: media_player.kids_room_speaker
     - service: input_boolean.turn_on
       entity_id: input_boolean.kids_night_light
+    - service: select.select_option
+      entity_id: select.front_door_chime_volume
+      data:
+        option: "1"
 
 baby_bedtime_bedroom:
   sequence:
