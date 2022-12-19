@@ -41,10 +41,30 @@
     service: switch.turn_off
     entity_id: switch.hallway_light
 
-- alias: Light - Motion in staircase
+- alias: Light - Motion Downstairs
   trigger:
     platform: state
-    entity_id: group.staircase_motion
+    entity_id: binary_sensor.downstairs_motion_sensor
+    from: 'off'
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+  action:
+    - service_template: >
+        {% if is_state("input_boolean.kids_night_light", "off") %}script.home_light
+        {% elif is_state("input_boolean.kids_night_light", "on") %}script.night_light
+        {% endif %}
+      data:
+        entity_id:
+          - light.downstairs_hall_light
+          - light.upstairs_hall_light
+
+- alias: Light - Motion Upstairs
+  trigger:
+    platform: state
+    entity_id: binary_sensor.upstairs_motion_sensor
     from: 'off'
     to: 'on'
   condition:
@@ -59,7 +79,6 @@
       data:
         entity_id:
           - light.upstairs_hall_light
-          - light.downstairs_hall_light
 
 - alias: Light - No motion in staircase
   trigger:
