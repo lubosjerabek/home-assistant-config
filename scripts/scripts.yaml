@@ -76,6 +76,8 @@ kids_bedtime:
         - light.dining_room_light
         - light.living_room_light
         - light.living_room_lamp
+    - service: scheduler.run_action
+      entity_id: switch.schedule_kids_room_heating
     - service: select.select_option
       entity_id: select.front_door_chime_volume
       data:
