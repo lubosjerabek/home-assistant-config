@@ -22,6 +22,10 @@ back_home:
         entity_id:
           - alarm_control_panel.doorbell
           - alarm_control_panel.homebase
+    - service: select.select_option
+      entity_id: select.front_door_chime_volume
+      data:
+        option: "20"
 
 morning:
   sequence:
@@ -36,6 +40,10 @@ morning:
     - service: script.home_light
       data:
         entity_id: light.dining_room_light
+    - service: select.select_option
+      entity_id: select.front_door_chime_volume
+      data:
+        option: "20"
 
 bedtime:
   sequence:
@@ -61,6 +69,13 @@ kids_bedtime:
     - service: script.sunset_kids_room
     - service: input_boolean.turn_on
       entity_id: input_boolean.kids_night_light
+    - service: light.turn_on
+      entity_id: light.tv_lamp
+    - service: light.turn_off
+      entity_id:
+        - light.dining_room_light
+        - light.living_room_light
+        - light.living_room_lamp
     - service: select.select_option
       entity_id: select.front_door_chime_volume
       data:
