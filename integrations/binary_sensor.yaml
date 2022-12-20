@@ -23,6 +23,6 @@
     dark_outside:
       value_template: >
         {{
-            is_state('sun.sun', 'below_horizon')
-            or states.sensor.openweathermap_cloud_coverage.state | int > 95
+            state_attr("sun.sun", "elevation") < 0
+            or states(sensor.openweathermap_cloud_coverage) | int > 95
         }}
