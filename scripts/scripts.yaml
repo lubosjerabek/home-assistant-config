@@ -39,7 +39,9 @@ morning:
       entity_id: switch.kitchen_light
     - service: script.home_light
       data:
-        entity_id: light.dining_room_light
+        entity_id:
+          - light.tv_lamp
+          - light.dining_room_light
     - service: select.select_option
       entity_id: select.front_door_chime_volume
       data:

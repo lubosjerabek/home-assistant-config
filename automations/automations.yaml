@@ -170,6 +170,25 @@
       entity_id:
         - media_player.downstairs_speakers
 
+- alias: Trigger morning when someone walks down the stairs
+  trigger:
+    platform: state
+    entity_id: binary_sensor.downstairs_motion_sensor
+    from: 'off'
+    to: 'on'
+  condition:
+    - and:
+      - condition: time
+        after: "06:00:00"
+        before: "09:00:00"
+      - condition: state
+        entity_id: media_player.downstairs_speakers
+        state: 'off'
+  action:
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.downstairs_speakers
+
 - alias: Office Occupied
   trigger:
     - platform: state
