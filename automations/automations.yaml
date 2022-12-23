@@ -100,14 +100,16 @@
   action:
     - service: script.doorbell
 
-- alias: Cube - Start work
+- alias: Turn off downstairs when someone leaves and office is active
   initial_state: true
   trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube
-      action_type: tap_twice
+    platform: state
+    entity_id: person.jana, person.lubos
+    to: 'not_home'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.office_occupation
+      state: 'on'
   action:
     - service: script.start_work
 
