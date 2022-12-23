@@ -185,9 +185,7 @@
         entity_id: media_player.downstairs_speakers
         state: 'off'
   action:
-    - service: media_player.turn_off
-      entity_id:
-        - media_player.downstairs_speakers
+    - service: script.morning
 
 - alias: Office Occupied
   trigger:
