@@ -1,22 +1,3 @@
-# - alias: Light - Gateway light on
-#   trigger:
-#     platform: numeric_state
-#     entity_id: sensor.xiaomi_gateway_illuminance
-#     below: 450
-#   action:
-#     - service: script.home_light
-#       data:
-#         entity_id: light.xiaomi_gateway_light
-
-# - alias: Light - Gateway light off
-#   trigger:
-#     platform: numeric_state
-#     entity_id: sensor.xiaomi_gateway_illuminance
-#     above: 600
-#   action:
-#     service: light.turn_off
-#     entity_id: light.xiaomi_gateway_light
-
 - alias: Light - Motion in hallway
   trigger:
     platform: state
@@ -36,7 +17,7 @@
     platform: state
     entity_id: group.hallway_motion
     to: 'off'
-    for: '00:01:00'
+    for: '00:00:30'
   action:
     service: switch.turn_off
     entity_id: switch.hallway_light
@@ -48,9 +29,9 @@
     from: 'off'
     to: 'on'
   condition:
-    - condition: state
-      entity_id: binary_sensor.dark_outside
-      state: 'on'
+    - condition: template
+      value_template: >
+        {{ int(states('sensor.illumination_upstairs')) <= 10 }}
   action:
     - service_template: >
         {% if is_state("input_boolean.kids_night_light", "off") %}script.home_light
@@ -67,10 +48,9 @@
     entity_id: binary_sensor.upstairs_motion_sensor
     from: 'off'
     to: 'on'
-  condition:
-    - condition: state
-      entity_id: binary_sensor.dark_outside
-      state: 'on'
+    - condition: template
+      value_template: >
+        {{ int(states('sensor.illumination_upstairs')) <= 10 }}
   action:
     - service_template: >
         {% if is_state("input_boolean.kids_night_light", "off") %}script.home_light
@@ -85,7 +65,7 @@
     platform: state
     entity_id: group.staircase_motion
     to: 'off'
-    for: '00:01:00'
+    for: '00:00:30'
   action:
     - service: light.turn_off
       data:
@@ -102,7 +82,7 @@
   condition:
     - condition: template
       value_template: >
-        {{ int(states('sensor.toilet_illumination')) <= 10 or states('binary_sensor.dark_outside') == 'on' }}
+        {{ int(states('sensor.toilet_illumination')) <= 10 }}
   action:
     service_template: >
         {% if is_state("input_boolean.night_mode", "on") %} script.night_light
@@ -130,7 +110,7 @@
   condition:
     - condition: template
       value_template: >
-        {{ int(states('sensor.bathroom_illumination')) <= 10 or states('binary_sensor.dark_outside') == 'on' }}
+        {{ int(states('sensor.bathroom_illumination')) <= 10 }}
   action:
     service_template: >
         {% if is_state("input_boolean.night_mode", "on") %} script.night_light

@@ -26,3 +26,12 @@
             state_attr("sun.sun", "elevation") < 0
             or states('sensor.openweathermap_cloud_coverage') | int > 95
         }}
+    dark_upstairs:
+      value_template: >
+        {{
+            int(min(
+              states('sensor.illumination_upstairs'),
+              states('sensor.bathroom_illumination'),
+              states('sensor.toilet_illumination'),            
+            )) <= 10
+        }}
