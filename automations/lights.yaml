@@ -48,6 +48,7 @@
     entity_id: binary_sensor.upstairs_motion_sensor
     from: 'off'
     to: 'on'
+  condition:
     - condition: template
       value_template: >
         {{ int(states('sensor.illumination_upstairs')) <= 10 }}
