@@ -31,7 +31,7 @@
   condition:
     - condition: template
       value_template: >
-        {{ states('binary_sensor.dark_outside') or int(states('sensor.illumination_upstairs')) <= 10 }}
+        {{ is_state('binary_sensor.dark_outside', True) or int(states('sensor.illumination_upstairs')) <= 10 }}
   action:
     - service_template: >
         {% if is_state("input_boolean.kids_night_light", "off") %}script.home_light
@@ -51,7 +51,7 @@
   condition:
     - condition: template
       value_template: >
-        {{ states('binary_sensor.dark_outside') or int(states('sensor.illumination_upstairs')) <= 10 }}
+        {{ is_state('binary_sensor.dark_outside', True) or int(states('sensor.illumination_upstairs')) <= 10 }}
   action:
     - service_template: >
         {% if is_state("input_boolean.kids_night_light", "off") %}script.home_light
@@ -83,7 +83,7 @@
   condition:
     - condition: template
       value_template: >
-        {{ states('binary_sensor.dark_outside') or int(states('sensor.toilet_illumination')) <= 10 }}
+        {{ is_state('binary_sensor.dark_outside', True) or int(states('sensor.toilet_illumination')) <= 10 }}
   action:
     service_template: >
         {% if is_state("input_boolean.night_mode", "on") %} script.night_light
@@ -111,7 +111,7 @@
   condition:
     - condition: template
       value_template: >
-        {{ states('binary_sensor.dark_outside') or int(states('sensor.bathroom_illumination')) <= 10 }}
+        {{ is_state('binary_sensor.dark_outside', True) or int(states('sensor.bathroom_illumination')) <= 10 }}
   action:
     service_template: >
         {% if is_state("input_boolean.night_mode", "on") %} script.night_light
