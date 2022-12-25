@@ -159,10 +159,10 @@
   action:
     - service: script.kids_bedtime
 
-- alias: Stop music when xbox starts playing
+- alias: Stop music when TV goes on
   trigger:
     - platform: state
-      entity_id: media_player.xboxone
+      entity_id: media_player.philips_tv
       from: 'on'
       to: 'playing'
   action:
