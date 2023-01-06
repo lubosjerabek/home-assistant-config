@@ -105,6 +105,7 @@
   trigger:
     platform: state
     entity_id: person.jana, person.lubos
+    from: 'home'
     to: 'not_home'
   condition:
     - condition: state
