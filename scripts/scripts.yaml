@@ -40,7 +40,9 @@ morning:
     - service: light.turn_on
       entity_id: light.tv_lamp
     - service: script.home_light
-      entity_id: light.dining_room_light
+      data:
+        entity_id:
+          - light.dining_room_light
     - service: select.select_option
       entity_id: select.front_door_chime_volume
       data:
