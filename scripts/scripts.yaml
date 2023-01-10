@@ -38,7 +38,9 @@ morning:
     - service: switch.turn_on
       entity_id: switch.kitchen_light
     - service: script.home_light
-      entity_id: light.dining_room_light
+      data:
+        entity_id:
+          - light.dining_room_light
     - service: media_player.volume_set
       data:
         volume_level: 0.1
