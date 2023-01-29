@@ -63,7 +63,7 @@ bedtime:
   sequence:
     - service: scheduler.run_action
       data:
-        entity_id: switch.schedule_living_room_heating
+        entity_id: switch.schedule_living_room_heating_workday
         time: 00:00:00
     - service: input_boolean.turn_on
       entity_id: input_boolean.night_mode
@@ -91,7 +91,7 @@ kids_bedtime:
         - light.living_room_light
         - light.living_room_lamp
     - service: scheduler.run_action
-      entity_id: switch.schedule_kids_room_heating
+      entity_id: switch.schedule_kids_room_heating_workday
     - service: select.select_option
       entity_id: select.front_door_chime_volume
       data:

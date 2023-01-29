@@ -34,8 +34,10 @@ heating_away:
           - climate.kids_room
     - service: switch.turn_off
       entity_id:
-          - switch.schedule_living_room_heating
-          - switch.schedule_kids_room_heating
+          - switch.schedule_living_room_heating_non_workday
+          - switch.schedule_living_room_heating_workday
+          - switch.schedule_kids_room_heating_non_workday
+          - switch.schedule_kids_room_heating_workday
           - switch.schedule_bedroom_heating
           - switch.schedule_kitchen_heating
           - switch.schedule_loft_heating
@@ -56,22 +58,28 @@ heating_close:
   sequence:
     - service: switch.turn_on
       entity_id:
-          - switch.schedule_living_room_heating
-          - switch.schedule_kids_room_heating
+          - switch.schedule_living_room_heating_non_workday
+          - switch.schedule_living_room_heating_workday
+          - switch.schedule_kids_room_heating_non_workday
+          - switch.schedule_kids_room_heating_workday
           - switch.schedule_bedroom_heating
 
 heating_back:
   sequence:
     - service: switch.turn_on
       entity_id:
-          - switch.schedule_living_room_heating
-          - switch.schedule_kids_room_heating
+          - switch.schedule_living_room_heating_non_workday
+          - switch.schedule_living_room_heating_workday
+          - switch.schedule_kids_room_heating_non_workday
+          - switch.schedule_kids_room_heating_workday
           - switch.schedule_bedroom_heating
           - switch.schedule_kitchen_heating
     - service: scheduler.run_action
       entity_id:
-          - switch.schedule_living_room_heating
-          - switch.schedule_kids_room_heating
+          - switch.schedule_living_room_heating_non_workday
+          - switch.schedule_living_room_heating_workday
+          - switch.schedule_kids_room_heating_non_workday
+          - switch.schedule_kids_room_heating_workday
           - switch.schedule_bedroom_heating
           - switch.schedule_kitchen_heating
     - service: climate.set_preset_mode
