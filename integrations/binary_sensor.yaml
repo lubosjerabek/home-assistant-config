@@ -1,15 +1,13 @@
 - platform: workday
   country: GB
-  name: workday_today
-# - platform: workday
-#   country: GB
-#   name: workday_tomorrow
-#   days_offset: 1
-#   add_holidays:
-#     - "2021-10-12"
-#     - "2021-10-13"
-#     - "2021-10-14"
-#     - "2021-10-15"
+  name: workday
+  workdays: [mon, fri, sat]
+  excludes: [tue, wed, thu, sun]
+  # add_holidays:
+  #   - "2021-10-12"
+  #   - "2021-10-13"
+  #   - "2021-10-14"
+  #   - "2021-10-15"
 
 - platform: template
   sensors:
