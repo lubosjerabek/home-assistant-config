@@ -1,6 +1,6 @@
 - platform: workday
   country: GB
-  name: workday
+  # name: workday
   workdays: [mon, fri, sat]
   excludes: [tue, wed, thu, sun]
   # add_holidays:
