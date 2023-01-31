@@ -40,8 +40,8 @@ home_light:
     - service: light.turn_on
       data:
         entity_id: "{{ entity_id }}"
-        color_temp: 255
-        brightness: 205
+        color_temp: 250
+        brightness: 255
 
 bright_light:
   sequence:
