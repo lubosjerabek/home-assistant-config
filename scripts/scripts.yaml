@@ -22,10 +22,10 @@ back_home:
         entity_id:
           - alarm_control_panel.doorbell
           - alarm_control_panel.homebase
-    - service: select.select_option
-      entity_id: select.front_door_chime_volume
+    - service: number.set_value
+      entity_id: number.front_door_homebase_chime_ringtone_volume
       data:
-        option: "20"
+        value: 20
 
 morning:
   sequence:
@@ -54,10 +54,10 @@ morning:
       entity_id: media_player.kitchen_display
     - service: light.turn_on
       entity_id: light.tv_lamp
-    - service: select.select_option
-      entity_id: select.front_door_chime_volume
+    - service: number.set_value
+      entity_id: number.front_door_homebase_chime_ringtone_volume
       data:
-        option: "20"
+        value: 20
 
 bedtime:
   sequence:
@@ -92,10 +92,10 @@ kids_bedtime:
         - light.living_room_lamp
     - service: scheduler.run_action
       entity_id: switch.schedule_kids_room_heating_workday
-    - service: select.select_option
-      entity_id: select.front_door_chime_volume
+    - service: number.set_value
+      entity_id: number.front_door_homebase_chime_ringtone_volume
       data:
-        option: "1"
+        value: 1
 
 baby_bedtime_bedroom:
   sequence:
