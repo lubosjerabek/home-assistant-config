@@ -26,6 +26,11 @@ back_home:
       entity_id: number.front_door_homebase_chime_ringtone_volume
       data:
         value: 20
+    - service: switch.turn_on
+      entity_id:
+        - switch.tv_socket
+        - switch.soundbar
+        - switch.subwoofer
 
 morning:
   sequence:
@@ -96,6 +101,11 @@ kids_bedtime:
       entity_id: number.front_door_homebase_chime_ringtone_volume
       data:
         value: 1
+    - service: switch.turn_on
+      entity_id:
+        - switch.tv_socket
+        - switch.soundbar
+        - switch.subwoofer
 
 baby_bedtime_bedroom:
   sequence:
