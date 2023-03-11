@@ -57,12 +57,17 @@ morning:
       data:
         volume_level: 0.2
       entity_id: media_player.kitchen_display
-    - service: light.turn_on
-      entity_id: light.tv_lamp
     - service: number.set_value
       entity_id: number.front_door_homebase_chime_ringtone_volume
       data:
         value: 20
+    - condition: state
+      entity_id: binary_sensor.dark_outside
+      state: "on"
+    - service: light.turn_on
+      entity_id:
+      - light.tv_lamp
+      - light.living_room_lamp
 
 bedtime:
   sequence:
