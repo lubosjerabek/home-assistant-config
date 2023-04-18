@@ -125,6 +125,18 @@
   action:
     - service: script.finish_work
 
+- alias: Bedroom Button
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.bedroom_button
+  action:
+    - service: script.bedside_actions
+      data_template:
+        action: >
+          {{ state_attr('binary_sensor.bedroom_button', 'last_action') }}
+
 - alias: Bedside - Lubos Button
   trigger:
     platform: event
