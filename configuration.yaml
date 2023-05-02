@@ -2,7 +2,6 @@
 default_config:
 
 binary_sensor: !include integrations/binary_sensor.yaml
-# camera: !include integrations/camera.yaml
 garbage_collection: !include integrations/garbage_collection.yaml
 homeassistant: !include integrations/homeassistant.yaml
 http: !include integrations/http.yaml
@@ -10,11 +9,9 @@ input_boolean: !include integrations/input_boolean.yaml
 input_number: !include integrations/input_number.yaml
 input_select: !include integrations/input_select.yaml
 light: !include integrations/light.yaml
-media_player: !include integrations/media_player.yaml
 sensor: !include integrations/sensor.yaml
 sonoff: !include integrations/sonoff.yaml
 tts: !include integrations/tts.yaml
-# camera: !include integrations/xiaomi_cloud_map_extractor.yaml
 zone: !include integrations/zone.yaml
 
 group: !include groups.yaml
