@@ -56,13 +56,18 @@ heating_away:
 
 heating_close:
   sequence:
-    - service: switch.turn_on
-      entity_id:
-          - switch.schedule_living_room_heating_non_workday
-          - switch.schedule_living_room_heating_workday
-          - switch.schedule_kids_room_heating_non_workday
-          - switch.schedule_kids_room_heating_workday
-          - switch.schedule_bedroom_heating
+    - if:
+        - condition: state
+          entity_id: input_boolean.heating
+          state: "on"
+      then:
+        - service: switch.turn_on
+          entity_id:
+              - switch.schedule_living_room_heating_non_workday
+              - switch.schedule_living_room_heating_workday
+              - switch.schedule_kids_room_heating_non_workday
+              - switch.schedule_kids_room_heating_workday
+              - switch.schedule_bedroom_heating
 
 heating_back:
   sequence:
