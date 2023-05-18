@@ -71,10 +71,15 @@ morning:
 
 bedtime:
   sequence:
-    - service: scheduler.run_action
-      data:
-        entity_id: switch.schedule_living_room_heating_workday
-        time: 00:00:00
+    - if:
+        - condition: state
+          entity_id: input_boolean.heating
+          state: "on"
+      then:
+        - service: scheduler.run_action
+          data:
+            entity_id: switch.schedule_living_room_heating_workday
+            time: 00:00:00
     - service: input_boolean.turn_on
       entity_id: input_boolean.night_mode
     - service: script.sunset_bedroom
@@ -100,8 +105,13 @@ kids_bedtime:
         - light.dining_room_light
         - light.living_room_light
         - light.living_room_lamp
-    - service: scheduler.run_action
-      entity_id: switch.schedule_kids_room_heating_workday
+    - if:
+        - condition: state
+          entity_id: input_boolean.heating
+          state: "on"
+      then:
+        - service: scheduler.run_action
+          entity_id: switch.schedule_kids_room_heating_workday
     - service: number.set_value
       entity_id: number.front_door_homebase_chime_ringtone_volume
       data:

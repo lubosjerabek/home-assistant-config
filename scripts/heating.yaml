@@ -66,33 +66,38 @@ heating_close:
 
 heating_back:
   sequence:
-    - service: switch.turn_on
-      entity_id:
-          - switch.schedule_living_room_heating_non_workday
-          - switch.schedule_living_room_heating_workday
-          - switch.schedule_kids_room_heating_non_workday
-          - switch.schedule_kids_room_heating_workday
-          - switch.schedule_bedroom_heating
-          - switch.schedule_kitchen_heating
-    - service: scheduler.run_action
-      entity_id:
-          - switch.schedule_living_room_heating_non_workday
-          - switch.schedule_living_room_heating_workday
-          - switch.schedule_kids_room_heating_non_workday
-          - switch.schedule_kids_room_heating_workday
-          - switch.schedule_bedroom_heating
-          - switch.schedule_kitchen_heating
-    - service: climate.set_preset_mode
-      data:
-        entity_id: climate.living_room
-        preset_mode: home
     - if:
         - condition: state
-          entity_id: input_boolean.guest_mode
+          entity_id: input_boolean.heating
           state: "on"
       then:
         - service: switch.turn_on
-          entity_id: switch.schedule_loft_heating
+          entity_id:
+              - switch.schedule_living_room_heating_non_workday
+              - switch.schedule_living_room_heating_workday
+              - switch.schedule_kids_room_heating_non_workday
+              - switch.schedule_kids_room_heating_workday
+              - switch.schedule_bedroom_heating
+              - switch.schedule_kitchen_heating
+        - service: scheduler.run_action
+          entity_id:
+              - switch.schedule_living_room_heating_non_workday
+              - switch.schedule_living_room_heating_workday
+              - switch.schedule_kids_room_heating_non_workday
+              - switch.schedule_kids_room_heating_workday
+              - switch.schedule_bedroom_heating
+              - switch.schedule_kitchen_heating
+        - service: climate.set_preset_mode
+          data:
+            entity_id: climate.living_room
+            preset_mode: home
+        - if:
+            - condition: state
+              entity_id: input_boolean.guest_mode
+              state: "on"
+          then:
+            - service: switch.turn_on
+              entity_id: switch.schedule_loft_heating
 
 boost_heating:
   mode: parallel

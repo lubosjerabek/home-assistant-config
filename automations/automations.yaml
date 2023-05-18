@@ -208,8 +208,13 @@
   action:
     - service: media_player.turn_on
       entity_id: media_player.frontier_silicon_speaker
-    - service: switch.turn_on
-      entity_id: switch.schedule_office_heating
+    - if:
+        - condition: state
+          entity_id: input_boolean.heating
+          state: "on"
+      then:
+        - service: switch.turn_on
+          entity_id: switch.schedule_office_heating
 
 - alias: Office Unoccupied
   trigger:
