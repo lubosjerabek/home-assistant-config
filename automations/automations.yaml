@@ -13,6 +13,7 @@
       entity_id: group.everyone
       from: 'home'
       to: 'not_home'
+      for: '00:05:00'
   action:
     - service: script.leave_home
 
