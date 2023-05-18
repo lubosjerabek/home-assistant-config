@@ -224,6 +224,7 @@
   trigger:
     - platform: webhook
       webhook_id: automations
+      local_only: true
   action:
     - service: automation.reload
 
@@ -231,6 +232,7 @@
   trigger:
     - platform: webhook
       webhook_id: integrations
+      local_only: true
   action:
     - service: homeassistant.restart
 
@@ -238,5 +240,6 @@
   trigger:
     - platform: webhook
       webhook_id: scripts
+      local_only: true
   action:
     - service: script.reload
