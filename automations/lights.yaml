@@ -1,22 +1,3 @@
-- alias: Light - Gateway light on
-  trigger:
-    platform: numeric_state
-    entity_id: sensor.xiaomi_gateway_illuminance
-    below: 450
-  action:
-    - service: script.home_light
-      data:
-        entity_id: light.xiaomi_gateway_light
-
-- alias: Light - Gateway light off
-  trigger:
-    platform: numeric_state
-    entity_id: sensor.xiaomi_gateway_illuminance
-    above: 600
-  action:
-    service: light.turn_off
-    entity_id: light.xiaomi_gateway_light
-
 - alias: Light - Motion in hallway
   trigger:
     platform: state
@@ -25,8 +6,8 @@
     to: 'on'
   condition:
     - condition: state
-      entity_id: sun.sun
-      state: 'below_horizon'
+      entity_id: binary_sensor.dark_outside
+      state: 'on'
   action:
     service: switch.turn_on
     entity_id: switch.hallway_light
@@ -36,10 +17,62 @@
     platform: state
     entity_id: group.hallway_motion
     to: 'off'
-    for: '00:01:00'
+    for: '00:00:30'
   action:
     service: switch.turn_off
     entity_id: switch.hallway_light
+
+- alias: Light - Motion Downstairs
+  trigger:
+    platform: state
+    entity_id: binary_sensor.downstairs_motion_sensor
+    from: 'off'
+    to: 'on'
+  condition:
+    - condition: template
+      value_template: >
+        {{ is_state('binary_sensor.dark_outside', True) or int(states('sensor.illumination_downstairs')) <= 10 }}
+  action:
+    - service_template: >
+        {% if is_state("input_boolean.kids_night_light", "off") %}script.home_light
+        {% elif is_state("input_boolean.kids_night_light", "on") %}script.night_light
+        {% endif %}
+      data:
+        entity_id:
+          - light.downstairs_hall_light
+          - light.upstairs_hall_light
+
+- alias: Light - Motion Upstairs
+  trigger:
+    platform: state
+    entity_id: binary_sensor.upstairs_motion_sensor
+    from: 'off'
+    to: 'on'
+  condition:
+    - condition: template
+      value_template: >
+        {{ is_state('binary_sensor.dark_outside', True) or int(states('sensor.illumination_upstairs')) <= 10 }}
+  action:
+    - service_template: >
+        {% if is_state("input_boolean.kids_night_light", "off") %}script.home_light
+        {% elif is_state("input_boolean.kids_night_light", "on") %}script.night_light
+        {% endif %}
+      data:
+        entity_id:
+          - light.upstairs_hall_light
+
+- alias: Light - No motion in staircase
+  trigger:
+    platform: state
+    entity_id: group.staircase_motion
+    to: 'off'
+    for: '00:00:30'
+  action:
+    - service: light.turn_off
+      data:
+        entity_id:
+          - light.upstairs_hall_light
+          - light.downstairs_hall_light
 
 - alias: Light - Motion in toilet
   trigger:
@@ -50,7 +83,7 @@
   condition:
     - condition: template
       value_template: >
-        {{ int(states('sensor.toilet_illumination')) <= 10 or states('sun.sun') == 'below_horizon' }}
+        {{ is_state('binary_sensor.dark_outside', True) or int(states('sensor.toilet_illumination')) <= 10 }}
   action:
     service_template: >
         {% if is_state("input_boolean.night_mode", "on") %} script.night_light
@@ -78,7 +111,7 @@
   condition:
     - condition: template
       value_template: >
-        {{ int(states('sensor.bathroom_illumination')) <= 10 or states('sun.sun') == 'below_horizon' }}
+        {{ is_state('binary_sensor.dark_outside', True) or int(states('sensor.bathroom_illumination')) <= 10 }}
   action:
     service_template: >
         {% if is_state("input_boolean.night_mode", "on") %} script.night_light
@@ -105,17 +138,18 @@
     to: 'home'
   condition:
     - condition: state
-      entity_id: sun.sun
-      state: 'below_horizon'
+      entity_id: binary_sensor.dark_outside
+      state: 'on'
   action:
     - service: switch.turn_on
       entity_id: switch.kitchen_light
+    - service: light.turn_on
+      entity_id: light.tv_lamp
     - service: script.home_light
       data:
         entity_id:
           - light.dining_room_light
           - light.living_room_lamp
-          - light.upstairs_hall_light
 
 - alias: Light - Toggle Office using Cube
   trigger:
@@ -142,6 +176,17 @@
         {% else %}script.kids_room_light_off
         {% endif %}
       entity_id: light.kid_s_room_light
+
+- alias: Light - Toggle Loft Lights
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.loft_button
+      click_type: single
+  action:
+    - service: light.toggle
+      entity_id: light.loft_light
 
 - alias: Light - Mirror Kitchen Light Status
   trigger:

@@ -1,3 +1,0 @@
-- platform: frontier_silicon
-  host: !secret fs_speaker_ip
-  name: Frontier Silicon Speaker

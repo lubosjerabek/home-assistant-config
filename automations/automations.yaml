@@ -13,6 +13,7 @@
       entity_id: group.everyone
       from: 'home'
       to: 'not_home'
+      for: '00:05:00'
   action:
     - service: script.leave_home
 
@@ -100,14 +101,17 @@
   action:
     - service: script.doorbell
 
-- alias: Cube - Start work
+- alias: Turn off downstairs when someone leaves and office is active
   initial_state: true
   trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube
-      action_type: tap_twice
+    platform: state
+    entity_id: person.jana, person.lubos
+    from: 'home'
+    to: 'not_home'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.office_occupation
+      state: 'on'
   action:
     - service: script.start_work
 
@@ -121,6 +125,18 @@
       action_type: shake_air
   action:
     - service: script.finish_work
+
+- alias: Bedroom Button
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.bedroom_button
+  action:
+    - service: script.bedside_actions
+      data_template:
+        action: >
+          {{ state_attr('binary_sensor.bedroom_button', 'last_action') }}
 
 - alias: Bedside - Lubos Button
   trigger:
@@ -157,21 +173,64 @@
   action:
     - service: script.kids_bedtime
 
-- alias: Stop music when xbox starts playing
+- alias: Stop music when TV goes on
   trigger:
     - platform: state
-      entity_id: media_player.xboxone
-      from: 'on'
-      to: 'playing'
+      entity_id: media_player.philips_tv
+      from: 'off'
+      to: 'on'
   action:
     - service: media_player.turn_off
       entity_id:
         - media_player.downstairs_speakers
 
+- alias: Trigger morning when someone walks down the stairs
+  trigger:
+    platform: state
+    entity_id: binary_sensor.downstairs_motion_sensor
+    from: 'off'
+    to: 'on'
+  condition:
+    - and:
+      - condition: time
+        after: "06:00:00"
+        before: "09:00:00"
+      - condition: state
+        entity_id: media_player.downstairs_speakers
+        state: 'off'
+  action:
+    - service: script.morning
+
+- alias: Office Occupied
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.office_occupation
+      to: 'on'
+  action:
+    - service: media_player.turn_on
+      entity_id: media_player.frontier_silicon_speaker
+    - if:
+        - condition: state
+          entity_id: input_boolean.heating
+          state: "on"
+      then:
+        - service: switch.turn_on
+          entity_id: switch.schedule_office_heating
+
+- alias: Office Unoccupied
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.office_occupation
+      to: 'off'
+      for: '00:05:00'
+  action:
+    - service: script.office_off
+
 - alias: Reload automations
   trigger:
     - platform: webhook
       webhook_id: automations
+      local_only: true
   action:
     - service: automation.reload
 
@@ -179,6 +238,7 @@
   trigger:
     - platform: webhook
       webhook_id: integrations
+      local_only: true
   action:
     - service: homeassistant.restart
 
@@ -186,5 +246,6 @@
   trigger:
     - platform: webhook
       webhook_id: scripts
+      local_only: true
   action:
     - service: script.reload

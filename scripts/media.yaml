@@ -5,7 +5,7 @@ play_radio:
         entity_id: '{{ media_player }}'
         media_content_type: music
         media_content_id: >
-          {% if is_state(input_select, "Český rozhlas Radiožurnál") %}https://rozhlas4.stream/radiozurnal.mp3
+          {% if is_state(input_select, "Český rozhlas Radiožurnál") %}https://rozhlas.stream/radiozurnal_mp3_128.mp3
           {% elif is_state(input_select, "Rádio Krokodýl") %}http://icecast4.play.cz/krokodyl128.mp3
           {% else %}none
           {% endif %}

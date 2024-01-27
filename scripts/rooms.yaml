@@ -15,11 +15,11 @@ downstairs_off:
         - light.living_room_light
         - light.dining_room_light
         - light.kitchen_lightstrip
+        - light.tv_lamp
     - service: switch.turn_off
       entity_id:
         - switch.kitchen_light
         - switch.hallway_light
-        - switch.big_fan
         - switch.christmas_tree
     - service: script.turn_xbox_off
     - service: script.turn_tv_off
@@ -63,8 +63,12 @@ office_off:
       entity_id:
         - media_player.frontier_silicon_speaker
         - media_player.office_speaker
+    - service: climate.turn_off
+      entity_id: climate.office
     - service: switch.turn_off
-      entity_id: switch.office_fan
+      entity_id:
+        - switch.schedule_office_heating
+        - switch.office_fan
 
 loft_off:
   sequence:
