@@ -144,3 +144,40 @@ boost_loft_heating:
     - service: script.boost_heating
       data:
         zone: climate.loft
+
+malkovice_heating_away:
+  sequence:
+    - service: switch.turn_off
+      entity_id:
+          - switch.schedule_obyvak_dole_schedule
+          - switch.schedule_kuchyn_dole_schedule
+          - switch.schedule_loznice_schedule
+          - switch.schedule_obyvak_patro_schedule
+          - switch.schedule_kuchyn_patro_schedule
+          - switch.schedule_detsky_pokoj_schedule
+    - service: climate.set_temperature
+      data_template:
+        entity_id:
+          - climate.obyvak_dole
+          - climate.kuchyn_dole
+          - climate.loznice
+          - climate.obyvak_patro
+          - climate.kuchyn_patro
+          - climate.detsky_pokoj
+        temperature: "{{ states('input_number.default_away_temperature') }}"
+
+malkovice_heating_on:
+  sequence:
+    - if:
+        - condition: state
+          entity_id: input_boolean.malkovice_heating
+          state: "on"
+      then:
+        - service: switch.turn_on
+          entity_id:
+            - switch.schedule_obyvak_dole_schedule
+            - switch.schedule_kuchyn_dole_schedule
+            - switch.schedule_loznice_schedule
+            - switch.schedule_obyvak_patro_schedule
+            - switch.schedule_kuchyn_patro_schedule
+            - switch.schedule_detsky_pokoj_schedule
