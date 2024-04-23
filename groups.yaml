@@ -15,3 +15,8 @@ hallway_motion:
   entities:
     - binary_sensor.entrance_motion
     - binary_sensor.hallway_motion
+
+staircase_motion:
+  entities:
+    - binary_sensor.downstairs_motion_sensor
+    - binary_sensor.upstairs_motion_sensor

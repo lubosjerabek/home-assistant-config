@@ -23,45 +23,6 @@ increase_temperature:
         entity_id: "{{ entity_id }}"
         temperature: "{{ temperature }}"
 
-heating_early_morning:
-  sequence:
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.living_room
-        temperature: "{{ states('input_number.default_living_room_temperature') }}"
-    - service: script.boost_bedroom_heating
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.preheating
-
-heating_morning:
-  sequence:
-    - service: script.refresh_morning_timer
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.living_room
-        temperature: "{{ states('input_number.default_living_room_temperature') }}"
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.kitchen
-        temperature: "{{ states('input_number.default_kitchen_temperature') }}"
-    - service: climate.turn_off
-      entity_id:
-          - climate.bedroom
-          - climate.loft
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.preheating
-
-heating_work:
-  sequence:
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.office
-        temperature: "{{ states('input_number.default_office_temperature') }}"
-    - service: climate.turn_off
-      entity_id:
-          - climate.bedroom
-          - climate.loft
-
 heating_away:
   sequence:
     - service: climate.turn_off
@@ -70,9 +31,17 @@ heating_away:
           - climate.bedroom
           - climate.office
           - climate.loft
-          - climate.kid_s_room
+          - climate.kids_room
     - service: switch.turn_off
-      entity_id: switch.schedule_kids_room_heating
+      entity_id:
+          - switch.schedule_living_room_heating_non_workday
+          - switch.schedule_living_room_heating_workday
+          - switch.schedule_kids_room_heating_non_workday
+          - switch.schedule_kids_room_heating_workday
+          - switch.schedule_bedroom_heating
+          - switch.schedule_kitchen_heating
+          - switch.schedule_loft_heating
+          - switch.schedule_office_heating
     - condition: state
       entity_id: input_boolean.heating
       state: "on"
@@ -87,86 +56,53 @@ heating_away:
 
 heating_close:
   sequence:
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.living_room
-        temperature: "{{ states('input_number.default_living_room_temperature') }}"
+    - if:
+        - condition: state
+          entity_id: input_boolean.heating
+          state: "on"
+      then:
+        - service: switch.turn_on
+          entity_id:
+              - switch.schedule_living_room_heating_non_workday
+              - switch.schedule_living_room_heating_workday
+              - switch.schedule_kids_room_heating_non_workday
+              - switch.schedule_kids_room_heating_workday
+              - switch.schedule_bedroom_heating
 
 heating_back:
   sequence:
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.living_room
-        temperature: "{{ states('input_number.default_living_room_temperature') }}"
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.kitchen
-        temperature: "{{ states('input_number.default_kitchen_temperature') }}"
-
-heating_bedrooms:
-  sequence:
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.bedroom
-        temperature: "{{ states('input_number.default_bedroom_temperature') }}"
-    - condition: state
-      entity_id: input_boolean.guest_mode
-      state: "on"
-    - service: script.increase_temperature
-      data:
-        entity_id: climate.loft
-        temperature: "{{ states('input_number.default_loft_temperature') }}"
-
-heating_night:
-  sequence:
-    - service: script.refresh_heating_off_timer
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.living_room
-        temperature: "{{ states('input_number.default_away_temperature') }}"
-    - service: script.set_thermostat
-      data:
-        entity_id: climate.bedroom
-        temperature: "{{ states('input_number.default_bedroom_temperature') }}"
-    - service: climate.turn_off
-      entity_id:
-          - climate.kitchen
-          - climate.office
-    - condition: state
-      entity_id: input_boolean.heating
-      state: "off"
-    - service: climate.turn_off
-      entity_id:
-          - climate.living_room
-          - climate.bedroom
-
-refresh_early_morning_timer:
-  sequence:
-    - service: input_datetime.set_datetime
-      target:
-        entity_id: input_datetime.heating_on
-      data:
-        time: >
-          {% set temp = states('sensor.living_room_temperature') %}  
-          {% set target = states('input_number.default_living_room_temperature') %}
-          {% set speed = 30 %}
-          {{ (((state_attr('input_datetime.morning' , 'timestamp')) - ((float(target) - float(temp)) * speed * 60))|timestamp_custom('%H:%M', false)) }}
-
-refresh_morning_timer:
-  sequence:
-    - service: input_datetime.set_datetime
-      target:
-        entity_id: input_datetime.morning
-      data:
-        time: "{{ '08:30' if is_state('binary_sensor.workday_tomorrow', 'on') else '08:30' }}"
-
-refresh_heating_off_timer:
-  sequence:
-    - service: input_datetime.set_datetime
-      target:
-        entity_id: input_datetime.heating_off
-      data:
-        time: "22:00"
+    - if:
+        - condition: state
+          entity_id: input_boolean.heating
+          state: "on"
+      then:
+        - service: switch.turn_on
+          entity_id:
+              - switch.schedule_living_room_heating_non_workday
+              - switch.schedule_living_room_heating_workday
+              - switch.schedule_kids_room_heating_non_workday
+              - switch.schedule_kids_room_heating_workday
+              - switch.schedule_bedroom_heating
+              - switch.schedule_kitchen_heating
+        - service: scheduler.run_action
+          entity_id:
+              - switch.schedule_living_room_heating_non_workday
+              - switch.schedule_living_room_heating_workday
+              - switch.schedule_kids_room_heating_non_workday
+              - switch.schedule_kids_room_heating_workday
+              - switch.schedule_bedroom_heating
+              - switch.schedule_kitchen_heating
+        - service: climate.set_preset_mode
+          data:
+            entity_id: climate.living_room
+            preset_mode: home
+        - if:
+            - condition: state
+              entity_id: input_boolean.guest_mode
+              state: "on"
+          then:
+            - service: switch.turn_on
+              entity_id: switch.schedule_loft_heating
 
 boost_heating:
   mode: parallel
@@ -195,7 +131,7 @@ boost_kids_room_heating:
   sequence:
     - service: script.boost_heating
       data:
-        zone: climate.kid_s_room
+        zone: climate.kids_room
 
 boost_office_heating:
   sequence:

@@ -16,59 +16,105 @@ leave_home:
 
 back_home:
   sequence:
-    - service: automation.turn_on
-      entity_id:
-        - automation.heating_on_every_morning
     - service: script.vacuum_litter
     - service: alarm_control_panel.alarm_arm_home
       data:
         entity_id:
           - alarm_control_panel.doorbell
           - alarm_control_panel.homebase
+    - service: number.set_value
+      entity_id: number.front_door_homebase_chime_ringtone_volume
+      data:
+        value: 20
+    - service: switch.turn_on
+      entity_id:
+        - switch.tv_socket
+        - switch.soundbar
+        - switch.subwoofer
 
 morning:
   sequence:
     - service: input_boolean.turn_off
       entity_id: input_boolean.night_mode
+    - service: script.home_light
+      data:
+        entity_id:
+          - light.dining_room_light
     - service: input_select.select_option
       data:
         entity_id: input_select.play_radio_downstairs
         option: 'Český rozhlas Radiožurnál'
     - service: switch.turn_on
-      entity_id: switch.kitchen_light
-    - service: script.home_light
+      entity_id: 
+        - switch.kitchen_light
+        - switch.tv_socket
+        - switch.soundbar
+        - switch.subwoofer
+    - service: number.set_value
+      entity_id: number.front_door_homebase_chime_ringtone_volume
       data:
-        entity_id: light.dining_room_light
+        value: 20
+    - condition: state
+      entity_id: binary_sensor.dark_outside
+      state: "on"
+    - service: light.turn_on
+      entity_id:
+      - light.tv_lamp
+      - light.living_room_lamp
 
 bedtime:
   sequence:
-    - service: script.heating_night
+    - if:
+        - condition: state
+          entity_id: input_boolean.heating
+          state: "on"
+      then:
+        - service: scheduler.run_action
+          data:
+            entity_id: switch.schedule_living_room_heating_workday
+            time: 00:00:00
+    - service: script.downstairs_off
     - service: input_boolean.turn_on
       entity_id: input_boolean.night_mode
     - service: script.sunset_bedroom
     - service: script.hallway_off
     - service: script.office_off
-    - service: script.downstairs_off
-    - condition: state
-      entity_id: input_boolean.guest_mode
-      state: "on"
-    - service: script.night_light
-      data:
-        entity_id: light.upstairs_hall_light
+    - service: switch.turn_off
+      entity_id:
+        - switch.kid_s_room_night_light
+        - switch.tv_socket
+        - switch.soundbar
+        - switch.subwoofer
 
 kids_bedtime:
   sequence:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.white_noises_player_kids_room
-        option: 'Womb Sounds'
     - service: script.sunset_kids_room
-    - service: media_player.volume_set
-      data:
-        volume_level: 0.05
-        entity_id: media_player.kids_room_speaker
     - service: input_boolean.turn_on
       entity_id: input_boolean.kids_night_light
+    - service: light.turn_on
+      entity_id: light.tv_lamp
+    - service: light.turn_off
+      entity_id:
+        - light.dining_room_light
+        - light.living_room_light
+        - light.living_room_lamp
+    - if:
+        - condition: state
+          entity_id: input_boolean.heating
+          state: "on"
+      then:
+        - service: scheduler.run_action
+          entity_id: switch.schedule_kids_room_heating_workday
+    - service: number.set_value
+      entity_id: number.front_door_homebase_chime_ringtone_volume
+      data:
+        value: 1
+    - service: switch.turn_on
+      entity_id:
+        - switch.kid_s_room_night_light
+        - switch.tv_socket
+        - switch.soundbar
+        - switch.subwoofer
 
 baby_bedtime_bedroom:
   sequence:
@@ -98,7 +144,6 @@ bedside_actions:
 
 start_work:
   sequence:
-    - service: script.heating_work
     - service: vacuum.set_fan_speed
       data:
         entity_id: vacuum.downstairs_vacuum
