@@ -164,7 +164,7 @@ malkovice_heating_away:
           - climate.obyvak_patro
           - climate.kuchyn_patro
           - climate.detsky_pokoj
-        temperature: "{{ states('input_number.default_away_temperature') }}"
+        temperature: "{{ states('input_number.default_malkovice_away_temperature') }}"
 
 malkovice_heating_on:
   sequence:
