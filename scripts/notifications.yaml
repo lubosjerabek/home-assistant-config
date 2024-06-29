@@ -43,6 +43,3 @@ notify_washer_state:
         {%- elif washer_state == "off" -%}
           Washing machine cycle completed.
         {%- endif %}
-        {% if washer_state == "washing" -%}
-          Completion time estimated at {{ states('sensor.washer_eta') }}.
-        {%- endif -%}
