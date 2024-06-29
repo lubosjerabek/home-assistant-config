@@ -14,22 +14,6 @@ notify_presence:
           {{-name }} left {{fromstate}} and arrived at {{tostate}}
         {% endif %}
 
-notify_garbage:
-  sequence:
-    service: notify.notify
-    data_template:
-      title: Garbage Collection
-      message: >
-        {% set ns = namespace ( bins = "" ) %}
-        {%- for entity_id in states.group.garbage_sensors.attributes.entity_id %}
-          {%- set name = states[entity_id.split(".")[0]][ entity_id.split(".")[1]].name %}
-          {%- set state = states[entity_id.split(".")[0]][ entity_id.split(".")[1]].state %}
-            {%- if state == "tomorrow" %}
-              {%- set ns.bins = ns.bins ~ " and " ~ name %}
-            {%- endif %}
-        {%- endfor %}
-        Take {{ ns.bins[5:].lower() }} out
-
 notify_washer_state:
   sequence:
     service: notify.notify
