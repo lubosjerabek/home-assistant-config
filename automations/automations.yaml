@@ -92,15 +92,6 @@
         media_player: media_player.bedroom_speaker
         input_select: input_select.white_noises_player_bedroom
 
-- alias: Doorbell
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.click
-    event_data:
-      entity_id: binary_sensor.doorbell
-  action:
-    - service: script.doorbell
-
 - alias: Turn off downstairs when someone leaves and office is active
   initial_state: true
   trigger:
