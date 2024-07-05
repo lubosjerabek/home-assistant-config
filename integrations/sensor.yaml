@@ -81,10 +81,10 @@
       friendly_name: "Pollen Level Tree Tomorrow"
       icon_template: mdi:tree
 
-  - platform: history_stats
-    name: Malkovice Daily Call For Heat
-    entity_id: sensor.malkovice_call_for_heat
-    state: "on"
-    type: time
-    start: "{{ today_at() }}"
-    end: "{{ now() }}"
+- platform: history_stats
+  name: Malkovice Daily Call For Heat
+  entity_id: sensor.malkovice_call_for_heat
+  state: "on"
+  type: time
+  start: "{{ today_at() }}"
+  end: "{{ now() }}"
