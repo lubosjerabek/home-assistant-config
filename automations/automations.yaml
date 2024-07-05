@@ -17,6 +17,29 @@
   action:
     - service: script.leave_home
 
+- alias: Malkovice - Back home
+  trigger:
+    - platform: zone
+      entity_id: person.jana, person.lubos
+      zone: zone.malkovice
+      event: enter
+  action:
+    - service: switch.turn_on
+      entity_id: switch.router_dole_socket_1
+
+- alias: Malkovice - Leave home
+  trigger:
+    - platform: state
+      entity_id: zone.malkovice
+      to: '0'
+  action:
+    - service: switch.turn_off
+      entity_id:
+        - switch.router_dole_socket_1
+        - switch.router_host_socket_1
+        - switch.lampicka_loznice_socket_1
+        - switch.lampicky_obyvak_socket_1
+
 - alias: Play radio downstairs
   trigger:
     - platform: state
