@@ -8,7 +8,7 @@ default_away_temperature:
 
 default_malkovice_away_temperature:
   name: Away Temperature
-  initial: 10
+  initial: 8
   min: 5
   max: 22
   step: 0.5
