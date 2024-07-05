@@ -80,3 +80,11 @@
       value_template: '{{ states.sensor.tado_weather.attributes["outdoorQuality"]["pollens"]["types"][2]["forecast"][1]["level"]  | capitalize }}'
       friendly_name: "Pollen Level Tree Tomorrow"
       icon_template: mdi:tree
+
+  - platform: history_stats
+    name: Malkovice Daily Call For Heat
+    entity_id: sensor.malkovice_call_for_heat
+    state: "on"
+    type: time
+    start: "{{ today_at() }}"
+    end: "{{ now() }}"
