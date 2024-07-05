@@ -14,6 +14,9 @@
 
 - platform: template
   sensors:
+    malkovice_call_for_heat:
+      value_template: '{{ states('switch.ep2_rtl_vdevo_socket_1') }}'
+      friendly_name: "Call for heat"
     sunset_time:
       value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
       friendly_name: "Next setting"
