@@ -44,6 +44,8 @@ kids_room_off:
       entity_id: media_player.kids_room_speaker
     - service: fan.turn_off
       entity_id: fan.kids_room_purifier
+    - service: switch.turn_off
+      entity_id: switch.kid_s_room_night_light
 
 bedroom_off:
   sequence:
