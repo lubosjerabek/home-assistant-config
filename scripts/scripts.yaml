@@ -82,7 +82,6 @@ bedtime:
     - service: script.office_off
     - service: switch.turn_off
       entity_id:
-        - switch.kid_s_room_night_light
         - switch.tv_socket
         - switch.soundbar
         - switch.subwoofer
