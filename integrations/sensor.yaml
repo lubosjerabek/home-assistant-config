@@ -21,12 +21,10 @@
       value_template: '{{ state_attr("climate.detsky_pokoj", "current_temperature") }}'
       friendly_name: "Detsky Pokoj Temperature"
       unit_of_measurement: "°C"
-      state_class: "measurement"
     malkovice_loznice_temperature:
       value_template: '{{ state_attr("climate.loznice", "current_temperature") }}'
       friendly_name: "Loznice Temperature"
       unit_of_measurement: "°C"
-      state_class: "measurement"
     sunset_time:
       value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
       friendly_name: "Next setting"
