@@ -15,7 +15,7 @@
 - platform: template
   sensors:
     malkovice_call_for_heat:
-      value_template: '{{ states("climate.ep2_rtl_vdevo_socket_1") }}'
+      value_template: '{{ states("switch.ep2_rtl_vdevo_socket_1") }}'
       friendly_name: "Call for heat"
     malkovice_detsky_pokoj_temperature:
       value_template: '{{ state_attr("climate.detsky_pokoj", "current_temperature") }}'
