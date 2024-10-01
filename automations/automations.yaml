@@ -25,7 +25,9 @@
       event: enter
   action:
     - service: switch.turn_on
-      entity_id: switch.router_dole_socket_1
+      entity_id:
+        - switch.router_dole_socket_1
+        - switch.detsky_pokoj_socket_socket_1
 
 - alias: Malkovice - Leave home
   trigger:
@@ -37,7 +39,8 @@
       entity_id:
         - switch.router_dole_socket_1
         - switch.router_host_socket_1
-        - switch.lampicka_loznice_socket_1
+        - switch.lampicka_lubos_socket_1
+        - switch.lampicka_janca_socket_1
         - switch.lampicky_obyvak_socket_1
 
 - alias: Play radio downstairs
