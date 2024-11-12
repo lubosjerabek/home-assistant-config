@@ -155,7 +155,7 @@ malkovice_heating_away:
           - switch.schedule_obyvak_patro_schedule
           - switch.schedule_kuchyn_patro_schedule
           - switch.schedule_detsky_pokoj_schedule
-    - service: climate.set_temperature
+    - service: climate.set_preset_mode
       data_template:
         entity_id:
           - climate.obyvak_dole
@@ -164,6 +164,10 @@ malkovice_heating_away:
           - climate.obyvak_patro
           - climate.kuchyn_patro
           - climate.detsky_pokoj
+        preset_mode: "off"
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.hlavni_termostat
         temperature: "{{ states('input_number.default_malkovice_away_temperature') }}"
 
 malkovice_heating_on:
@@ -181,3 +185,7 @@ malkovice_heating_on:
             - switch.schedule_obyvak_patro_schedule
             - switch.schedule_kuchyn_patro_schedule
             - switch.schedule_detsky_pokoj_schedule
+        - service: climate.set_temperature
+          data_template:
+            entity_id: climate.hlavni_termostat
+            temperature: "{{ states('input_number.default_malkovice_home_temperature') }}"
