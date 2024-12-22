@@ -8,7 +8,6 @@ default_away_temperature:
 
 default_malkovice_away_temperature:
   name: Malkovice Away Temperature
-  initial: 14
   min: 5
   max: 30
   step: 0.5
@@ -16,7 +15,6 @@ default_malkovice_away_temperature:
 
 default_malkovice_home_temperature:
   name: Malkovice Home Temperature
-  initial: 25
   min: 5
   max: 30
   step: 0.5
