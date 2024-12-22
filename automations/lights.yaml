@@ -177,6 +177,16 @@
     - service: light.toggle
       entity_id: light.loft_light
 
+- alias: Light - Simulate Loft Sunset
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.loft_button
+      click_type: double
+  action:
+    - service: script.sunset_loft
+
 - alias: Light - Mirror Kitchen Light Status
   trigger:
     platform: state
