@@ -36,7 +36,7 @@ night_light:
       data:
         entity_id: "{{ entity_id }}"
         color_temp: 333
-        brightness: 1
+        brightness_pct: 1
 
 home_light:
   sequence:
@@ -44,7 +44,7 @@ home_light:
       data:
         entity_id: "{{ entity_id }}"
         color_temp: 250
-        brightness: 255
+        brightness_pct: 100
 
 bright_light:
   sequence:
@@ -52,7 +52,7 @@ bright_light:
       data:
         entity_id: "{{ entity_id }}"
         color_temp: 175
-        brightness: 255
+        brightness_pct: 100
 
 kids_room_light_off:
   sequence:
