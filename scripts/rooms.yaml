@@ -67,7 +67,7 @@ office_off:
         - media_player.frontier_silicon_speaker
         - media_player.office_speaker
     - service: climate.turn_off
-      entity_id: climate.office
+      entity_id: climate.tado_office
     - service: switch.turn_off
       entity_id:
         - switch.schedule_office_heating

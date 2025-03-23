@@ -156,7 +156,7 @@ start_work:
 finish_work:
   sequence:
     - service: climate.turn_off
-      entity_id: climate.office
+      entity_id: climate.tado_office
     - delay: '00:00:30'
     - service: script.office_off
 
