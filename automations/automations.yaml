@@ -17,6 +17,32 @@
   action:
     - service: script.leave_home
 
+- alias: Malkovice - Back home
+  trigger:
+    - platform: zone
+      entity_id: person.jana, person.lubos
+      zone: zone.malkovice
+      event: enter
+  action:
+    - service: switch.turn_on
+      entity_id:
+        - switch.router_dole_socket_1
+        - switch.detsky_pokoj_socket_socket_1
+
+- alias: Malkovice - Leave home
+  trigger:
+    - platform: state
+      entity_id: zone.malkovice
+      to: '0'
+  action:
+    - service: switch.turn_off
+      entity_id:
+        - switch.router_dole_socket_1
+        - switch.router_host_socket_1
+        - switch.lampicka_lubos_socket_1
+        - switch.lampicka_janca_socket_1
+        - switch.lampicky_obyvak_socket_1
+
 - alias: Play radio downstairs
   trigger:
     - platform: state
@@ -92,15 +118,6 @@
         media_player: media_player.bedroom_speaker
         input_select: input_select.white_noises_player_bedroom
 
-- alias: Doorbell
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.click
-    event_data:
-      entity_id: binary_sensor.doorbell
-  action:
-    - service: script.doorbell
-
 - alias: Turn off downstairs when someone leaves and office is active
   initial_state: true
   trigger:
@@ -114,17 +131,6 @@
       state: 'on'
   action:
     - service: script.start_work
-
-- alias: Cube - Finish work
-  initial_state: true
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube
-      action_type: shake_air
-  action:
-    - service: script.finish_work
 
 - alias: Bedroom Button
   trigger:

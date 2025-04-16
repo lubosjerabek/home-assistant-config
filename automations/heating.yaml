@@ -24,6 +24,32 @@
   action:
     - service: script.heating_close
 
+- alias: Malkovice Heating - Everyone Leaves
+  trigger:
+    - platform: state
+      entity_id: zone.malkovice
+      to: '0'
+  action:
+    - service: script.malkovice_heating_away
+
+- alias: Heating - Someone Arrives Home
+  trigger:
+    - platform: zone
+      entity_id: person.jana, person.lubos
+      zone: zone.malkovice
+      event: enter
+  action:
+    - service: script.malkovice_heating_on
+
+- alias: Malkovice Heating - Close to home
+  trigger:
+    - platform: zone
+      entity_id: person.jana, person.lubos
+      zone: zone.extended_malkovice
+      event: enter
+  action:
+    - service: script.malkovice_heating_on
+
 - alias: Heating - Restart Tado bridge when service goes down
   trigger:
     platform: state

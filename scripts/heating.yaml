@@ -27,11 +27,11 @@ heating_away:
   sequence:
     - service: climate.turn_off
       entity_id:
-          - climate.kitchen
-          - climate.bedroom
-          - climate.office
-          - climate.loft
-          - climate.kids_room
+          - climate.tado_kitchen
+          - climate.tado_bedroom
+          - climate.tado_office
+          - climate.tado_loft
+          - climate.tado_kids_room
     - service: switch.turn_off
       entity_id:
           - switch.schedule_living_room_heating_non_workday
@@ -47,11 +47,11 @@ heating_away:
       state: "on"
     - service: climate.set_preset_mode
       data:
-        entity_id: climate.living_room
+        entity_id: climate.tado_living_room
         preset_mode: away
     - service: climate.set_temperature
       data_template:
-        entity_id: climate.living_room
+        entity_id: climate.tado_living_room
         temperature: "{{ states('input_number.default_away_temperature') }}"
 
 heating_close:
@@ -144,3 +144,48 @@ boost_loft_heating:
     - service: script.boost_heating
       data:
         zone: climate.loft
+
+malkovice_heating_away:
+  sequence:
+    - service: switch.turn_off
+      entity_id:
+          - switch.schedule_obyvak_dole_schedule
+          - switch.schedule_kuchyn_dole_schedule
+          - switch.schedule_loznice_schedule
+          - switch.schedule_obyvak_patro_schedule
+          - switch.schedule_kuchyn_patro_schedule
+          - switch.schedule_detsky_pokoj_schedule
+    - service: climate.set_preset_mode
+      data_template:
+        entity_id:
+          - climate.obyvak_dole
+          - climate.kuchyn_dole
+          - climate.loznice
+          - climate.obyvak_patro
+          - climate.kuchyn_patro
+          - climate.detsky_pokoj
+        preset_mode: "off"
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.hlavni_termostat
+        temperature: "{{ states('input_number.default_malkovice_away_temperature') }}"
+
+malkovice_heating_on:
+  sequence:
+    - if:
+        - condition: state
+          entity_id: input_boolean.malkovice_heating
+          state: "on"
+      then:
+        - service: switch.turn_on
+          entity_id:
+            - switch.schedule_obyvak_dole_schedule
+            - switch.schedule_kuchyn_dole_schedule
+            - switch.schedule_loznice_schedule
+            - switch.schedule_obyvak_patro_schedule
+            - switch.schedule_kuchyn_patro_schedule
+            - switch.schedule_detsky_pokoj_schedule
+        - service: climate.set_temperature
+          data_template:
+            entity_id: climate.hlavni_termostat
+            temperature: "{{ states('input_number.default_malkovice_home_temperature') }}"

@@ -151,17 +151,6 @@
           - light.dining_room_light
           - light.living_room_lamp
 
-- alias: Light - Toggle Office using Cube
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube
-      action_type: flip90
-  action:
-    - service: light.toggle
-      entity_id: light.office_light
-
 - alias: Light - Toggle Kid's Room Lights
   trigger:
     platform: event
@@ -187,6 +176,16 @@
   action:
     - service: light.toggle
       entity_id: light.loft_light
+
+- alias: Light - Simulate Loft Sunset
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.loft_button
+      click_type: double
+  action:
+    - service: script.sunset_loft
 
 - alias: Light - Mirror Kitchen Light Status
   trigger:

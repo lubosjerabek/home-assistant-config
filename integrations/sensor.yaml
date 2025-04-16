@@ -14,6 +14,17 @@
 
 - platform: template
   sensors:
+    malkovice_call_for_heat:
+      value_template: '{{ states("switch.ep2_rtl_vdevo_socket_1") }}'
+      friendly_name: "Call for heat"
+    malkovice_detsky_pokoj_temperature:
+      value_template: '{{ state_attr("climate.detsky_pokoj", "current_temperature") }}'
+      friendly_name: "Detsky Pokoj Temperature"
+      unit_of_measurement: "°C"
+    malkovice_loznice_temperature:
+      value_template: '{{ state_attr("climate.loznice", "current_temperature") }}'
+      friendly_name: "Loznice Temperature"
+      unit_of_measurement: "°C"
     sunset_time:
       value_template: '{% set timestamp = as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom("%I:%M") %} {{ timestamp.lstrip("0") }}'
       friendly_name: "Next setting"
@@ -77,3 +88,11 @@
       value_template: '{{ states.sensor.tado_weather.attributes["outdoorQuality"]["pollens"]["types"][2]["forecast"][1]["level"]  | capitalize }}'
       friendly_name: "Pollen Level Tree Tomorrow"
       icon_template: mdi:tree
+
+- platform: history_stats
+  name: Malkovice Daily Call For Heat
+  entity_id: sensor.malkovice_call_for_heat
+  state: "on"
+  type: time
+  start: "{{ today_at() }}"
+  end: "{{ now() }}"

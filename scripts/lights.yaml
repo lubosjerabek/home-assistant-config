@@ -18,6 +18,9 @@ sunset_kids_room:
 
 sunset_loft:
   sequence:
+    - service: light.turn_on
+      entity_id: light.loft_light
+    - delay: '00:05:00'
     - service: light.turn_off
       entity_id:
         - light.loft_light_1
@@ -25,7 +28,7 @@ sunset_loft:
     - service: light.turn_off
       data:
         entity_id: light.loft_light_3
-        transition: 900
+        transition: 600
 
 night_light:
   sequence:
@@ -33,7 +36,7 @@ night_light:
       data:
         entity_id: "{{ entity_id }}"
         color_temp: 333
-        brightness: 1
+        brightness_pct: 1
 
 home_light:
   sequence:
@@ -41,7 +44,7 @@ home_light:
       data:
         entity_id: "{{ entity_id }}"
         color_temp: 250
-        brightness: 255
+        brightness_pct: 100
 
 bright_light:
   sequence:
@@ -49,7 +52,7 @@ bright_light:
       data:
         entity_id: "{{ entity_id }}"
         color_temp: 175
-        brightness: 255
+        brightness_pct: 100
 
 kids_room_light_off:
   sequence:

@@ -16,7 +16,6 @@ leave_home:
 
 back_home:
   sequence:
-    - service: script.vacuum_litter
     - service: alarm_control_panel.alarm_arm_home
       data:
         entity_id:
@@ -50,6 +49,8 @@ morning:
         - switch.tv_socket
         - switch.soundbar
         - switch.subwoofer
+    - service: switch.turn_off
+      entity_id: switch.kid_s_room_night_light
     - service: number.set_value
       entity_id: number.front_door_homebase_chime_ringtone_volume
       data:
@@ -81,7 +82,6 @@ bedtime:
     - service: script.office_off
     - service: switch.turn_off
       entity_id:
-        - switch.kid_s_room_night_light
         - switch.tv_socket
         - switch.soundbar
         - switch.subwoofer
@@ -156,7 +156,7 @@ start_work:
 finish_work:
   sequence:
     - service: climate.turn_off
-      entity_id: climate.office
+      entity_id: climate.tado_office
     - delay: '00:00:30'
     - service: script.office_off
 
@@ -173,44 +173,6 @@ vacuum_kitchen:
         entity_id: vacuum.downstairs_vacuum
         command: app_zoned_clean
         params: [[26730,27840,28880,31090,1]]
-
-vacuum_downstairs_litter:
-  sequence:
-    - service: vacuum.send_command
-      data:
-        entity_id: vacuum.downstairs_vacuum
-        command: app_zoned_clean
-        params: [[22950,28730,23950,30830,1]]
-
-vacuum_upstairs_litter:
-  sequence:
-    - service: vacuum.send_command
-      data:
-        entity_id: vacuum.upstairs_vacuum
-        command: app_zoned_clean
-        params: [[28252,23438,29852,24288,1]]
-
-vacuum_litter:
-  sequence:
-    - service: script.vacuum_upstairs_litter
-    - service: script.vacuum_downstairs_litter
-
-doorbell:
-  sequence:
-    - service: xiaomi_aqara.play_ringtone
-      data:
-        gw_mac: !secret xiaomi_gateway_mac
-        ringtone_id: 10
-        ringtone_vol: 60
-    - service: logbook.log
-      data:
-        name: Doorbell
-        message: Someone is at the door
-        entity_id: binary_sensor.doorbell
-    - service: notify.notify
-      data:
-        title: Doorbell
-        message: Someone is at the door
 
 restart_tado:
   sequence:

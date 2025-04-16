@@ -2,6 +2,10 @@ heating:
   name: Heating
   icon: mdi:fire
 
+malkovice_heating:
+  name: Heating
+  icon: mdi:fire
+
 night_mode:
   name: Night mode
   icon: mdi:weather-night

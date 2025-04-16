@@ -4,13 +4,6 @@ everyone:
     - person.lubos
     - person.jana
 
-garbage_sensors:
-  name: Garbage Collection Sensors
-  entities:
-    - sensor.general_rubbish
-    - sensor.recycling_waste
-    - sensor.garden_waste
-
 hallway_motion:
   entities:
     - binary_sensor.entrance_motion
